@@ -555,7 +555,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/06/13/WKWebViewDownloadApp/" class="post-title-link" itemprop="url">iOS WKWebView拦截企业包和AppStore包</a>
+                <a href="/2019/06/13/WKWebViewDownloadApp/" class="post-title-link" itemprop="url">WKWebView拦截企业包和AppStore包</a>
               
             
           </h1>
@@ -597,7 +597,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-25 11:37:47" itemprop="dateModified" datetime="2019-06-25T11:37:47+08:00">2019-06-25</time>
+                <time title="修改时间：2019-06-25 12:01:10" itemprop="dateModified" datetime="2019-06-25T12:01:10+08:00">2019-06-25</time>
               
             
           </span>
@@ -663,25 +663,16 @@
 
       
         
+          <h2 id="H5代码"><a href="#H5代码" class="headerlink" title="H5代码"></a>H5代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;123&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type=&quot;button&quot; value=&quot;iOS下载&quot; onclick=&quot;download()&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function download() &#123;</span><br><span class="line">        window.location.href=&quot;itms-services://?action=download-manifest&amp;url=https://xx.com/xx.plist&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
           
-            <h2 id="H5代码"><a href="#H5代码" class="headerlink" title="H5代码"></a>H5代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;123&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type=&quot;button&quot; value=&quot;iOS下载&quot; onclick=&quot;download()&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function download() &#123;</span><br><span class="line">        window.location.href=&quot;itms-services://?action=download-manifest&amp;url=https://xx.com/xx.plist&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="WKWebView代码"><a href="#WKWebView代码" class="headerlink" title="WKWebView代码"></a>WKWebView代码</h2><ol>
-<li><p>初始化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let frame = CGRect(x: 0, y: 0, width: UIScreen.w, height: UIScreen.h)</span><br><span class="line">let webView = WKWebView(frame: frame)</span><br><span class="line">webView.navigationDelegate = self</span><br><span class="line">webView.uiDelegate = self</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>加载上述H5链接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">guard let url = URL(string: urlString) else &#123;return&#125;</span><br><span class="line">let request = URLRequest(url: url)</span><br><span class="line">webView.load(request)</span><br><span class="line">view.addSubview(webView)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用代理拦截</p>
-<ul>
-<li>首先遵守协议<code>WKNavigationDelegate</code>,<code>WKUIDelegate</code></li>
-<li>点击H5上面的<code>iOS下载</code>按钮时,会把按钮下载链接传到下面的代理方法,进行拦截处理就好了<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -&gt; Void) &#123;</span><br><span class="line">    guard let url = navigationAction.request.url else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    guard let scheme = url.scheme else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    if scheme == &quot;itms-services&quot; &#123; // 需要跳转到企业包</span><br><span class="line">        decisionHandler(.cancel)</span><br><span class="line">        UIApplication.shared.openURL(url)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    guard let host = url.host else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    if host == &quot;itunes.apple.com&quot; &#123; // 需要跳转到AppStore</span><br><span class="line">        decisionHandler(.cancel)</span><br><span class="line"></span><br><span class="line">        UIApplication.shared.openURL(url)</span><br><span class="line">        if webView.canGoBack &#123;</span><br><span class="line">            webView.goBack()</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            _ =  navigationController?.popViewController(animated: true)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/06/13/WKWebViewDownloadApp/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -861,6 +852,201 @@
         
       
     </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/RunCycriptOniOS11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content>
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/25/RunCycriptOniOS11/" class="post-title-link" itemprop="url">在iOS11上面运行cycript</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-25 11:57:29" itemprop="dateCreated datePublished" datetime="2019-04-25T11:57:29+08:00">2019-04-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-25 12:03:05" itemprop="dateModified" datetime="2019-06-25T12:03:05+08:00">2019-06-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/04/25/RunCycriptOniOS11/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/25/RunCycriptOniOS11/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>iOS11使用cycript</p>
+<ul>
+<li>添加软件源 <code>apt.saurik.com/cydia</code>  </li>
+<li>通过Cydia安装cycript  </li>
+<li>安装后从<code>/usr/bin</code>中复制cycript到本地,</li>
+<li>通过ldid命令导出文件以前的签名权限<code>ldid -e cycript &gt; cycript.entitlements</code>  </li>
+<li>打开cycript.entitlements添加<code>platform-application</code> 设置为<code>YES</code>.  </li>
+<li>过ldid命令重签名 <code>ldid -Scycript.entitlements cycript</code>  </li>
+<li>将已经签好权限的cycript放到iPhone上/usr/bin覆盖原来的cycript   </li>
+</ul>
+
+          
+        
+      
+    </div>
 
     
 
@@ -1135,7 +1321,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1158,7 +1344,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1193,7 +1381,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
