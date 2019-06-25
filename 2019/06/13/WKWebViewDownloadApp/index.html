@@ -15,7 +15,7 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -97,14 +97,14 @@
 
 
   <meta name="description" content="H5代码1234567891011121314151617&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;    &amp;lt;title&amp;gt;123&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;i">
-<meta name="keywords" content="iOS,Swift,OC">
+<meta name="keywords" content="Swift,OC,iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WKWebView拦截企业包和AppStore包">
 <meta property="og:url" content="http://yoursite.com/2019/06/13/WKWebViewDownloadApp/index.html">
 <meta property="og:site_name" content="杂货铺">
 <meta property="og:description" content="H5代码1234567891011121314151617&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;    &amp;lt;title&amp;gt;123&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;i">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-25T04:29:13.828Z">
+<meta property="og:updated_time" content="2019-06-25T10:32:01.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WKWebView拦截企业包和AppStore包">
 <meta name="twitter:description" content="H5代码1234567891011121314151617&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;    &amp;lt;title&amp;gt;123&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;i">
@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-25 12:29:13" itemprop="dateModified" datetime="2019-06-25T12:29:13+08:00">2019-06-25</time>
+                <time title="修改时间：2019-06-25 18:32:01" itemprop="dateModified" datetime="2019-06-25T18:32:01+08:00">2019-06-25</time>
               
             
           </span>
@@ -469,21 +469,17 @@
         <h2 id="H5代码"><a href="#H5代码" class="headerlink" title="H5代码"></a>H5代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;123&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type=&quot;button&quot; value=&quot;iOS下载&quot; onclick=&quot;download()&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function download() &#123;</span><br><span class="line">        window.location.href=&quot;itms-services://?action=download-manifest&amp;url=https://xx.com/xx.plist&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<h2 id="WKWebView代码"><a href="#WKWebView代码" class="headerlink" title="WKWebView代码"></a>WKWebView代码</h2><ol>
-<li><p>初始化</p>
+<h2 id="WKWebView代码"><a href="#WKWebView代码" class="headerlink" title="WKWebView代码"></a>WKWebView代码</h2><p>1、初始化</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let frame = CGRect(x: 0, y: 0, width: UIScreen.w, height: UIScreen.h)</span><br><span class="line">let webView = WKWebView(frame: frame)</span><br><span class="line">webView.navigationDelegate = self</span><br><span class="line">webView.uiDelegate = self</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>加载上述H5链接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">guard let url = URL(string: urlString) else &#123;return&#125;</span><br><span class="line">let request = URLRequest(url: url)</span><br><span class="line">webView.load(request)</span><br><span class="line">view.addSubview(webView)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用代理拦截</p>
-<ul>
-<li>首先遵守协议<code>WKNavigationDelegate</code>,<code>WKUIDelegate</code></li>
-<li>点击H5上面的<code>iOS下载</code>按钮时,会把按钮下载链接传到下面的代理方法,进行拦截处理就好了<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -&gt; Void) &#123;</span><br><span class="line">    guard let url = navigationAction.request.url else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    guard let scheme = url.scheme else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    if scheme == &quot;itms-services&quot; &#123; // 需要跳转到企业包</span><br><span class="line">        decisionHandler(.cancel)</span><br><span class="line">        UIApplication.shared.openURL(url)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    guard let host = url.host else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    if host == &quot;itunes.apple.com&quot; &#123; // 需要跳转到AppStore</span><br><span class="line">        decisionHandler(.cancel)</span><br><span class="line"></span><br><span class="line">        UIApplication.shared.openURL(url)</span><br><span class="line">        if webView.canGoBack &#123;</span><br><span class="line">            webView.goBack()</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            _ =  navigationController?.popViewController(animated: true)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
 
+<p>2、加载上述H5链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">guard let url = URL(string: urlString) else &#123;return&#125;</span><br><span class="line">let request = URLRequest(url: url)</span><br><span class="line">webView.load(request)</span><br><span class="line">view.addSubview(webView)</span><br></pre></td></tr></table></figure>
+
+<p>3、使用代理拦截<br>1、首先遵守协议<code>WKNavigationDelegate</code>,<code>WKUIDelegate</code><br>2、点击H5上面的<code>iOS下载</code>按钮时,会把按钮下载链接传到下面的代理方法,进行拦截处理就好了<br>swift代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">webView</span><span class="params">(<span class="number">_</span> webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping <span class="params">(WKNavigationActionPolicy)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> url = navigationAction.request.url <span class="keyword">else</span> &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> scheme = url.scheme <span class="keyword">else</span> &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> scheme == <span class="string">"itms-services"</span> &#123; <span class="comment">// 需要跳转到企业包</span></span><br><span class="line">        decisionHandler(.cancel)</span><br><span class="line">        <span class="type">UIApplication</span>.shared.openURL(url)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> host = url.host <span class="keyword">else</span> &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> host == <span class="string">"itunes.apple.com"</span> &#123; <span class="comment">// 需要跳转到AppStore</span></span><br><span class="line">        decisionHandler(.cancel)</span><br><span class="line"></span><br><span class="line">        <span class="type">UIApplication</span>.shared.openURL(url)</span><br><span class="line">        <span class="keyword">if</span> webView.canGoBack &#123;</span><br><span class="line">            webView.goBack()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="number">_</span> =  navigationController?.popViewController(animated: <span class="literal">true</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>oc代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-(void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler&#123;</span><br><span class="line">    NSURL *url = navigationAction.request.URL;</span><br><span class="line">    if ([url.scheme isEqualToString:@&quot;itms-services&quot;] ) &#123; // 需要跳转到企业包</span><br><span class="line">        decisionHandler(WKNavigationActionPolicyCancel);</span><br><span class="line">        [UIApplication.sharedApplication openURL:url];</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if ([url.host isEqualToString:@&quot;itunes.apple.com&quot;]) &#123;</span><br><span class="line">        decisionHandler(WKNavigationActionPolicyCancel);</span><br><span class="line">        [UIApplication.sharedApplication openURL:url];</span><br><span class="line">        if (webView.canGoBack) &#123;</span><br><span class="line">            [webView goBack];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            [self.navigationController popViewControllerAnimated:YES];</span><br><span class="line">        &#125;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    decisionHandler(WKNavigationActionPolicyAllow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -542,11 +538,11 @@
         
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
-          
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
             <a href="/tags/OC/" rel="tag"># OC</a>
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
           
         </div>
       
@@ -773,7 +769,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
