@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="iOS11使用cycript  添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript   安装后从/usr/bin中复制cycript到本地, 通过ldid命令导出文件以前的签名权限ldid -e cycript &amp;gt; cycript.entitlements   打开cycript.entitlements添加platform-application 设">
+  <meta name="description" content="iOS11使用cycript  添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript">
 <meta name="keywords" content="逆向,iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在iOS11上面运行cycript">
 <meta property="og:url" content="http://yoursite.com/2019/04/25/RunCycriptOniOS11/index.html">
 <meta property="og:site_name" content="杂货铺">
-<meta property="og:description" content="iOS11使用cycript  添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript   安装后从/usr/bin中复制cycript到本地, 通过ldid命令导出文件以前的签名权限ldid -e cycript &amp;gt; cycript.entitlements   打开cycript.entitlements添加platform-application 设">
+<meta property="og:description" content="iOS11使用cycript  添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-25T04:03:05.598Z">
+<meta property="og:updated_time" content="2019-06-25T04:30:15.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在iOS11上面运行cycript">
-<meta name="twitter:description" content="iOS11使用cycript  添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript   安装后从/usr/bin中复制cycript到本地, 通过ldid命令导出文件以前的签名权限ldid -e cycript &amp;gt; cycript.entitlements   打开cycript.entitlements添加platform-application 设">
+<meta name="twitter:description" content="iOS11使用cycript  添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript">
 
 
 
@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-25 12:03:05" itemprop="dateModified" datetime="2019-06-25T12:03:05+08:00">2019-06-25</time>
+                <time title="修改时间：2019-06-25 12:30:15" itemprop="dateModified" datetime="2019-06-25T12:30:15+08:00">2019-06-25</time>
               
             
           </span>
@@ -469,10 +469,10 @@
         <p>iOS11使用cycript</p>
 <ul>
 <li>添加软件源 <code>apt.saurik.com/cydia</code>  </li>
-<li>通过Cydia安装cycript  </li>
+<li>通过Cydia安装cycript  <a id="more"></a></li>
 <li>安装后从<code>/usr/bin</code>中复制cycript到本地,</li>
 <li>通过ldid命令导出文件以前的签名权限<code>ldid -e cycript &gt; cycript.entitlements</code>  </li>
-<li>打开cycript.entitlements添加<code>platform-application</code> 设置为<code>YES</code>.  </li>
+<li>使用Xcode打开cycript.entitlements添加<code>platform-application</code> 设置为<code>YES</code>.  </li>
 <li>过ldid命令重签名 <code>ldid -Scycript.entitlements cycript</code>  </li>
 <li>将已经签好权限的cycript放到iPhone上/usr/bin覆盖原来的cycript   </li>
 </ul>
