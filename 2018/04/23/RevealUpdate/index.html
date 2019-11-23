@@ -96,22 +96,20 @@
 
 
 
-  <meta name="description" content="原来使用Reveal4,现在更新到Reveal21,可以进行如下操作:  Reveal4上的操作">
+  <meta name="description" content="Reveal4 Mac上安装的是Reveal4， iPhone上Cydia里面安装Reveal2Loader 重启SpringBoard：killall -9 SpringBoard iPhone上设置-&amp;gt;Reveal-&amp;gt;Enabled Applications,打开要调试的App  Reveal20以上版本 Mac上安装的是Reveal21  iOS11及其以下版本 iPhone上C">
 <meta name="keywords" content="逆向,iOS,reveal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reveal4更新到Reveal21">
 <meta property="og:url" content="http://yoursite.com/2018/04/23/RevealUpdate/index.html">
 <meta property="og:site_name" content="杂货铺">
-<meta property="og:description" content="原来使用Reveal4,现在更新到Reveal21,可以进行如下操作:  Reveal4上的操作">
+<meta property="og:description" content="Reveal4 Mac上安装的是Reveal4， iPhone上Cydia里面安装Reveal2Loader 重启SpringBoard：killall -9 SpringBoard iPhone上设置-&amp;gt;Reveal-&amp;gt;Enabled Applications,打开要调试的App  Reveal20以上版本 Mac上安装的是Reveal21  iOS11及其以下版本 iPhone上C">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/RevealUpdate-01.png">
-<meta property="og:image" content="http://yoursite.com/images/RevealUpdate-01.png">
 <meta property="og:image" content="http://yoursite.com/images/RevealUpdate-02.png">
 <meta property="og:updated_time" content="2019-06-03T02:08:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reveal4更新到Reveal21">
-<meta name="twitter:description" content="原来使用Reveal4,现在更新到Reveal21,可以进行如下操作:  Reveal4上的操作">
-<meta name="twitter:image" content="http://yoursite.com/images/RevealUpdate-01.png">
+<meta name="twitter:description" content="Reveal4 Mac上安装的是Reveal4， iPhone上Cydia里面安装Reveal2Loader 重启SpringBoard：killall -9 SpringBoard iPhone上设置-&amp;gt;Reveal-&amp;gt;Enabled Applications,打开要调试的App  Reveal20以上版本 Mac上安装的是Reveal21  iOS11及其以下版本 iPhone上C">
+<meta name="twitter:image" content="http://yoursite.com/images/RevealUpdate-02.png">
 
 
 
@@ -470,25 +468,36 @@
       
 
       
-        <blockquote>
-<p>原来使用Reveal4,现在更新到Reveal21,可以进行如下操作:</p>
+        <h3 id="Reveal4"><a href="#Reveal4" class="headerlink" title="Reveal4"></a>Reveal4</h3><ul>
+<li>Mac上安装的是Reveal4，</li>
+<li>iPhone上Cydia里面安装Reveal2Loader</li>
+<li>重启SpringBoard：<code>killall -9 SpringBoard</code></li>
+<li>iPhone上设置-&gt;Reveal-&gt;Enabled Applications,打开要调试的App</li>
+</ul>
+<h3 id="Reveal20以上版本"><a href="#Reveal20以上版本" class="headerlink" title="Reveal20以上版本"></a>Reveal20以上版本</h3><blockquote>
+<p>Mac上安装的是Reveal21</p>
 </blockquote>
-<h2 id="Reveal4上的操作"><a href="#Reveal4上的操作" class="headerlink" title="Reveal4上的操作"></a>Reveal4上的操作</h2><a id="more"></a>
-<ol>
-<li>iPhone上面打开Cydia，搜索<code>Reveal2Loader</code>,然后进行安装,如图:<br><img src="/images/RevealUpdate-01.png" alt></li>
-<li>Mac上面直接安装Reveal4</li>
-<li>iPhone中设置<code>Reveal</code>-&gt;<code>Enabled Applications</code>,打开要调试的App,</li>
-<li>Mac上打开Reveal就可以调试iPhone上对应的App了</li>
-</ol>
-<h2 id="Reveal21上的操作"><a href="#Reveal21上的操作" class="headerlink" title="Reveal21上的操作"></a>Reveal21上的操作</h2><ol>
-<li>iPhone上面打开Cydia，搜索<code>Reveal2Loader</code>,然后进行安装,如图:<br><img src="/images/RevealUpdate-01.png" alt></li>
-<li>Mac上面直接安装Reveal21</li>
-<li>iPhone中设置<code>Reveal</code>-&gt;<code>Enabled Applications</code>,打开要调试的App,</li>
+<h4 id="iOS11及其以下版本"><a href="#iOS11及其以下版本" class="headerlink" title="iOS11及其以下版本"></a>iOS11及其以下版本</h4><ul>
+<li>iPhone上Cydia里面安装Reveal2Loader</li>
+<li>iPhone上设置-&gt;Reveal-&gt;Enabled Applications,打开要调试的App</li>
 <li>Mac上打开Reveal点击要调试的App，会出现如图错误:<br><img src="/images/RevealUpdate-02.png" alt></li>
-<li>解决方案:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Mac上找到Reveal-&gt;Help-&gt;Show Reveal Library in Finder-&gt;iOS Library-&gt;RevealServer.framework</span><br><span class="line">2. 使用RevealServer.framework到iPhone上覆盖原有的/Library/Frameworks/RevealServer.framework文件</span><br><span class="line">3. killall -9 SpringBoard</span><br></pre></td></tr></table></figure>
+<li>解决方法:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、Mac上Reveal-&gt;Help-&gt;Show Reveal Library in Finder-&gt;iOS   Library-&gt;RevealServer.framework</span><br><span class="line">2、到iPhone上覆盖原有的/Library/Frameworks/RevealServer.framework文件</span><br><span class="line">3、重启SpringBoard：`killall -9 SpringBoard`</span><br></pre></td></tr></table></figure>
 
 </li>
-</ol>
+</ul>
+<h4 id="iOS12"><a href="#iOS12" class="headerlink" title="iOS12"></a>iOS12</h4><ul>
+<li><p>iOS12如果按照上述操作会出现同样的问题，所以要按照以下操作</p>
+</li>
+<li><p>iPhone上下载Reveal2Loader_1.0-3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/lemon4ex/Reveal2Loader/releases/download/v1.0.3/Reveal2Loader_1.0-3_iphoneos-arm.deb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>iPhone上安装<code>dpkg -i Reveal2Loader_1.0-3_iphoneos-arm.deb</code></p>
+</li>
+<li><p>重启SpringBoard：<code>killall -9 SpringBoard</code></p>
+</li>
+<li><p>iPhone上设置-&gt;Reveal-&gt;Enabled Applications,打开要调试的App</p>
+</li>
+</ul>
 
       
     </div>
@@ -748,7 +757,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reveal4上的操作"><span class="nav-number">1.</span> <span class="nav-text">Reveal4上的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reveal21上的操作"><span class="nav-number">2.</span> <span class="nav-text">Reveal21上的操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reveal4"><span class="nav-number">1.</span> <span class="nav-text">Reveal4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reveal20以上版本"><span class="nav-number">2.</span> <span class="nav-text">Reveal20以上版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS11及其以下版本"><span class="nav-number">2.1.</span> <span class="nav-text">iOS11及其以下版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS12"><span class="nav-number">2.2.</span> <span class="nav-text">iOS12</span></a></li></ol></li></ol></div>
             
 
           </div>
