@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="如果使用其它越狱工具请清除越狱环境,然后使用Undecimus3.0.0以上版本越狱。   添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript">
-<meta name="keywords" content="逆向,iOS,cycript">
+  <meta name="description" content="简介 环境 macOS端：Theos、Xcode11.3、macOS10.14.6 客户端：iPhone6、iOS11、unc0ver越狱 服务端：Centos8、Python3.8   iOS正向开发中集成支付宝可以参照官方文档 iOS逆向开发参照此文  Theos集成 下载iOS_SDK,解压后把AlipaySDK.framework和AlipaySDK.bundle放入Tweak根目录  在">
+<meta name="keywords" content="逆向,iOS,Python,Django">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在iOS11上面运行cycript">
-<meta property="og:url" content="http://yoursite.com/2019/04/25/RunCycriptOniOS11/index.html">
+<meta property="og:title" content="Theos和Python集成支付宝">
+<meta property="og:url" content="http://yoursite.com/2020/09/21/IntegrateAlipaySDK/index.html">
 <meta property="og:site_name" content="杂货铺">
-<meta property="og:description" content="如果使用其它越狱工具请清除越狱环境,然后使用Undecimus3.0.0以上版本越狱。   添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript">
+<meta property="og:description" content="简介 环境 macOS端：Theos、Xcode11.3、macOS10.14.6 客户端：iPhone6、iOS11、unc0ver越狱 服务端：Centos8、Python3.8   iOS正向开发中集成支付宝可以参照官方文档 iOS逆向开发参照此文  Theos集成 下载iOS_SDK,解压后把AlipaySDK.framework和AlipaySDK.bundle放入Tweak根目录  在">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-09T03:24:28.574Z">
+<meta property="og:updated_time" content="2020-09-21T07:49:53.450Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在iOS11上面运行cycript">
-<meta name="twitter:description" content="如果使用其它越狱工具请清除越狱环境,然后使用Undecimus3.0.0以上版本越狱。   添加软件源 apt.saurik.com/cydia   通过Cydia安装cycript">
+<meta name="twitter:title" content="Theos和Python集成支付宝">
+<meta name="twitter:description" content="简介 环境 macOS端：Theos、Xcode11.3、macOS10.14.6 客户端：iPhone6、iOS11、unc0ver越狱 服务端：Centos8、Python3.8   iOS正向开发中集成支付宝可以参照官方文档 iOS逆向开发参照此文  Theos集成 下载iOS_SDK,解压后把AlipaySDK.framework和AlipaySDK.bundle放入Tweak根目录  在">
 
-<link rel="canonical" href="http://yoursite.com/2019/04/25/RunCycriptOniOS11/">
+<link rel="canonical" href="http://yoursite.com/2020/09/21/IntegrateAlipaySDK/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>在iOS11上面运行cycript | 杂货铺</title>
+  <title>Theos和Python集成支付宝 | 杂货铺</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/RunCycriptOniOS11/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/21/IntegrateAlipaySDK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          在iOS11上面运行cycript
+          Theos和Python集成支付宝
         </h1>
 
         <div class="post-meta">
@@ -183,23 +183,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-04-25 11:57:29" itemprop="dateCreated datePublished" datetime="2019-04-25T11:57:29+08:00">2019-04-25</time>
+              <time title="创建时间：2020-09-21 15:44:17 / 修改时间：15:49:53" itemprop="dateCreated datePublished" datetime="2020-09-21T15:44:17+08:00">2020-09-21</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-09 11:24:28" itemprop="dateModified" datetime="2020-07-09T11:24:28+08:00">2020-07-09</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -212,8 +206,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/04/25/RunCycriptOniOS11/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/25/RunCycriptOniOS11/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/09/21/IntegrateAlipaySDK/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/21/IntegrateAlipaySDK/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -228,17 +222,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>如果使用其它越狱工具请清除越狱环境,然后使用Undecimus3.0.0以上版本越狱。</p>
-</blockquote>
-<ul>
-<li>添加软件源 <code>apt.saurik.com/cydia</code>  </li>
-<li>通过Cydia安装cycript  <a id="more"></a></li>
-<li>安装后从<code>/usr/bin</code>中复制cycript到本地,</li>
-<li>通过ldid命令导出文件以前的签名权限<code>ldid -e cycript &gt; cycript.entitlements</code>  </li>
-<li>使用Xcode打开cycript.entitlements添加<code>platform-application</code> 设置为<code>YES</code>.  </li>
-<li>过ldid命令重签名 <code>ldid -Scycript.entitlements cycript</code>  </li>
-<li>将已经签好权限的cycript放到iPhone上/usr/bin覆盖原来的cycript    </li>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>环境<ul>
+<li>macOS端：Theos、Xcode11.3、macOS10.14.6</li>
+<li>客户端：iPhone6、iOS11、unc0ver越狱</li>
+<li>服务端：Centos8、Python3.8</li>
+</ul>
+</li>
+<li>iOS正向开发中集成支付宝可以参照<a href="https://opendocs.alipay.com/open/204/105295" target="_blank" rel="noopener">官方文档</a></li>
+<li>iOS逆向开发参照此文</li>
+</ul>
+<h2 id="Theos集成"><a href="#Theos集成" class="headerlink" title="Theos集成"></a>Theos集成</h2><ul>
+<li><p><a href="https://opendocs.alipay.com/open/54/104509" target="_blank" rel="noopener">下载iOS_SDK</a>,解压后把<code>AlipaySDK.framework</code>和<code>AlipaySDK.bundle</code>放入Tweak根目录</p>
+</li>
+<li><p>在Makefile中添加支付宝依赖和framework</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TweakName_FRAMEWORKS += WebKit SystemConfiguration CoreTelephony QuartzCore CoreText CoreGraphics CoreMotion CFNetwork</span><br><span class="line">TweakName_LDFLAGS += -lz -lc++ AlipaySDK.framework/AlipaySDK</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用支付宝功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AlipaySDK.framework/Headers/AlipaySDK.h&quot;</span><br><span class="line"></span><br><span class="line">[[%c(AlipaySDK) defaultService] payOrder:orderString fromScheme:@&quot;app://&quot; callback:^(NSDictionary *resultDic) &#123;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Python集成"><a href="#Python集成" class="headerlink" title="Python集成"></a>Python集成</h2><h3 id="macOS端"><a href="#macOS端" class="headerlink" title="macOS端"></a>macOS端</h3><ul>
+<li>macOS下载<a href="https://opendocs.alipay.com/open/291/introduce" target="_blank" rel="noopener">支付宝开放平台开发助手</a>，进行安装，安装完成，打开软件设置如下<ul>
+<li>密钥长度：RSA2</li>
+<li>密钥格式：PKCS1(非JAVA适用)</li>
+</ul>
+</li>
+<li>选择后，点击生成密钥，就会生成<code>应用私钥</code>和<code>应用公钥</code>.</li>
+</ul>
+<h3 id="支付宝开发者网站"><a href="#支付宝开发者网站" class="headerlink" title="支付宝开发者网站"></a>支付宝开发者网站</h3><ul>
+<li>添加APP支付能力<ul>
+<li>点击<a href="https://open.alipay.com/platform/developerIndex.htm" target="_blank" rel="noopener">进入开发者网站</a>，找到<code>我的应用</code>-&gt;<code>网页和移动应用</code>，找到你新建的应用。</li>
+<li>点击应用-&gt;概览-&gt;能力列表-&gt;添加能力-&gt;<code>APP支付</code>，审核通过后就可以使用APP支付功能了，</li>
+</ul>
+</li>
+<li>点击应用信息，找到接口加密方式，点击<code>设置/查看</code>，把macOS上生成的<code>应用公钥</code>粘贴到这里后就会生成<code>支付宝公钥</code></li>
+</ul>
+<h3 id="Python项目中"><a href="#Python项目中" class="headerlink" title="Python项目中"></a>Python项目中</h3><ul>
+<li>使用<code>pip3 install alipay-sdk-python</code>安装支付宝服务端</li>
+<li>Python项目中新建<code>alipay_public_key.txt</code>放入<code>支付宝公钥</code>,新建<code>app_private_key.txt</code>放入<code>应用私钥</code>。</li>
+<li>返回订单字符串代码为：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取公私钥字符串</span></span><br><span class="line">abspath = os.path.abspath(os.path.join(os.getcwd(), <span class="string">"order"</span>))</span><br><span class="line">private_path = os.path.join(abspath, <span class="string">'app_private_key.txt'</span>)</span><br><span class="line">public_path = os.path.join(abspath, <span class="string">'alipay_public_key.txt'</span>)</span><br><span class="line">app_private_key = open(private_path).read()</span><br><span class="line">alipay_public_key = open(public_path).read()</span><br><span class="line"><span class="comment"># 设置配置，包括支付宝网关地址、app_id、应用私钥、支付宝公钥等，其他配置值可以查看AlipayClientConfig的定义。</span></span><br><span class="line">alipay_client_config = AlipayClientConfig()</span><br><span class="line">alipay_client_config.app_id = <span class="string">'Your AppId'</span></span><br><span class="line">alipay_client_config.app_private_key = app_private_key</span><br><span class="line">alipay_client_config.alipay_public_key = alipay_public_key</span><br><span class="line"><span class="comment"># 构造唤起支付宝客户端支付时传递的请求串示例：alipay.trade.app.pay</span></span><br><span class="line">model = AlipayTradeAppPayModel()</span><br><span class="line">model.timeout_express = <span class="string">"90m"</span> <span class="comment"># 超时时间</span></span><br><span class="line">model.total_amount = <span class="string">"9.9"</span> <span class="comment"># 金额</span></span><br><span class="line">model.subject = <span class="string">"商品购买"</span> <span class="comment"># 购买时显示的标题</span></span><br><span class="line">model.out_trade_no = time.strftime(<span class="string">'%Y%m%d%H%M%S'</span>) + <span class="string">'_'</span> + udid <span class="comment"># 订单号</span></span><br><span class="line">request = AlipayTradeAppPayRequest(biz_model=model)</span><br><span class="line">request.notify_url = <span class="string">"http://xxx.com/api/order"</span> <span class="comment"># 回调地址</span></span><br><span class="line"><span class="comment"># 得到客户端对象。</span></span><br><span class="line">client = DefaultAlipayClient(alipay_client_config=alipay_client_config, logger=logger)</span><br><span class="line">orderSting = client.sdk_execute(request) <span class="comment"># 返回给客户端使用</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
     </div>
@@ -251,7 +277,8 @@
           <div class="post-tags">
               <a href="/tags/逆向/" rel="tag"># 逆向</a>
               <a href="/tags/iOS/" rel="tag"># iOS</a>
-              <a href="/tags/cycript/" rel="tag"># cycript</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Django/" rel="tag"># Django</a>
           </div>
 
         
@@ -260,13 +287,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/07/02/AppleConfigurator2DownloadIpa/" rel="prev" title="Apple Configurator 2下载ipa包">
-      <i class="fa fa-chevron-left"></i> Apple Configurator 2下载ipa包
+    <a href="/2020/07/27/LaHuoApp/" rel="prev" title="逆向某拉货APP登录过程">
+      <i class="fa fa-chevron-left"></i> 逆向某拉货APP登录过程
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/06/13/WKWebViewDownloadApp/" rel="next" title="WKWebView企业包和AppStore包">
-      WKWebView企业包和AppStore包 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -326,6 +350,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Theos集成"><span class="nav-number">2.</span> <span class="nav-text">Theos集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python集成"><span class="nav-number">3.</span> <span class="nav-text">Python集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS端"><span class="nav-number">3.1.</span> <span class="nav-text">macOS端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支付宝开发者网站"><span class="nav-number">3.2.</span> <span class="nav-text">支付宝开发者网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python项目中"><span class="nav-number">3.3.</span> <span class="nav-text">Python项目中</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
