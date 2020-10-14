@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/PreferenceBundleModern-01.png">
 <meta property="og:image" content="http://yoursite.com/images/PreferenceBundleModern-02.png">
-<meta property="og:updated_time" content="2020-10-14T10:25:47.462Z">
+<meta property="og:updated_time" content="2020-10-14T10:32:03.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建依附于设置的APP(preference_bundle_modern)">
 <meta name="twitter:description" content="前言 目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用 环境：macOS10.14.6、Xcode11.3 适配：iOS11.0-iOS最新">
@@ -189,7 +189,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-14 17:15:05 / 修改时间：18:25:47" itemprop="dateCreated datePublished" datetime="2020-10-14T17:15:05+08:00">2020-10-14</time>
+              <time title="创建时间：2020-10-14 17:15:05 / 修改时间：18:32:03" itemprop="dateCreated datePublished" datetime="2020-10-14T17:15:05+08:00">2020-10-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -342,7 +342,7 @@
 <li><p>整个构建过程到这里就结束了，执行<code>make &amp;&amp; make package &amp;&amp; make install</code>后，重新打开设置App就会看到如上图所示的内容</p>
 </li>
 </ul>
-<h3 id="与tweak相互"><a href="#与tweak相互" class="headerlink" title="与tweak相互"></a>与tweak相互</h3><ul>
+<h3 id="与tweak交互"><a href="#与tweak交互" class="headerlink" title="与tweak交互"></a>与tweak交互</h3><ul>
 <li><p>上面只是做了UI方面的操作，没有实际的功能是没有任何用的。要想发挥作用，必须与tweak进行交互。</p>
 </li>
 <li><p>新建tweak，BundleID填写<code>com.apple.UIKit</code>表示可以拦截任何App,也就是所有App启动都会走Tweak.x中的<code>%ctor {}</code>初始化函数</p>
@@ -488,7 +488,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">2.</span> <span class="nav-text">新建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包"><span class="nav-number">4.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战一：构造SSL-Kill-Switch-2样式的App"><span class="nav-number">6.</span> <span class="nav-text">实战一：构造SSL Kill Switch 2样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图"><span class="nav-number">6.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造过程"><span class="nav-number">6.2.</span> <span class="nav-text">构造过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与tweak相互"><span class="nav-number">6.3.</span> <span class="nav-text">与tweak相互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战二：构造Reveal样式的App"><span class="nav-number">7.</span> <span class="nav-text">实战二：构造Reveal样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图-1"><span class="nav-number">7.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造与交互"><span class="nav-number">7.2.</span> <span class="nav-text">构造与交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">8.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#某个cell的点击操作"><span class="nav-number">8.1.</span> <span class="nav-text">某个cell的点击操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义cell"><span class="nav-number">8.2.</span> <span class="nav-text">自定义cell</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">2.</span> <span class="nav-text">新建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包"><span class="nav-number">4.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战一：构造SSL-Kill-Switch-2样式的App"><span class="nav-number">6.</span> <span class="nav-text">实战一：构造SSL Kill Switch 2样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图"><span class="nav-number">6.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造过程"><span class="nav-number">6.2.</span> <span class="nav-text">构造过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与tweak交互"><span class="nav-number">6.3.</span> <span class="nav-text">与tweak交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战二：构造Reveal样式的App"><span class="nav-number">7.</span> <span class="nav-text">实战二：构造Reveal样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图-1"><span class="nav-number">7.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造与交互"><span class="nav-number">7.2.</span> <span class="nav-text">构造与交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">8.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#某个cell的点击操作"><span class="nav-number">8.1.</span> <span class="nav-text">某个cell的点击操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义cell"><span class="nav-number">8.2.</span> <span class="nav-text">自定义cell</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
