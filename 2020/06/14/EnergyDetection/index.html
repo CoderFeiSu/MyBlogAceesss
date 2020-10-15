@@ -21,19 +21,19 @@
   </script>
 
 <script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验  Energy impact寻找耗电来源 连接真机-&amp;gt;command+R运行项目-&amp;gt;command+7打开-&amp;gt;点击Energy i">
+  <meta name="description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验">
 <meta name="keywords" content="iOS,iOS性能优化,iOS耗电检测">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS性能优化之耗电检测">
 <meta property="og:url" content="http://yoursite.com/2020/06/14/EnergyDetection/index.html">
 <meta property="og:site_name" content="杂货铺">
-<meta property="og:description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验  Energy impact寻找耗电来源 连接真机-&amp;gt;command+R运行项目-&amp;gt;command+7打开-&amp;gt;点击Energy i">
+<meta property="og:description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/EnergyDetection-01.png">
 <meta property="og:updated_time" content="2020-06-14T15:25:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS性能优化之耗电检测">
-<meta name="twitter:description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验  Energy impact寻找耗电来源 连接真机-&amp;gt;command+R运行项目-&amp;gt;command+7打开-&amp;gt;点击Energy i">
+<meta name="twitter:description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验">
 <meta name="twitter:image" content="http://yoursite.com/images/EnergyDetection-01.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/06/14/EnergyDetection/">
@@ -229,6 +229,8 @@
 <li>如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。</li>
 <li>本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验</li>
 </ul>
+<a id="more"></a>
+
 <h2 id="Energy-impact"><a href="#Energy-impact" class="headerlink" title="Energy impact"></a>Energy impact</h2><h3 id="寻找耗电来源"><a href="#寻找耗电来源" class="headerlink" title="寻找耗电来源"></a>寻找耗电来源</h3><ul>
 <li>连接真机-&gt;<code>command+R</code>运行项目-&gt;<code>command+7</code>打开-&gt;点击<code>Energy impact</code>查看电量情况，如图<br><img src="/images/EnergyDetection-01.png" alt></li>
 <li><code>Average Energy Impact</code>表示App的总体平均消耗电量评级。分为三部分，理想的状态时low、high状态。<ul>
