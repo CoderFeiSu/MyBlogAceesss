@@ -17,9 +17,10 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
+<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta name="description" content="杂货铺,各种IT知识的聚合">
 <meta name="keywords" content="iOS,安全,逆向,Python,CentOS,Unix,Shell">
 <meta property="og:type" content="website">
@@ -159,6 +160,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/15/IntegrateAlipaySDK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/15/IntegrateAlipaySDK/" class="post-title-link" itemprop="url">Theos和Python集成支付宝</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-15 18:31:29" itemprop="dateCreated datePublished" datetime="2020-10-15T18:31:29+08:00">2020-10-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>环境<ul>
+<li>macOS端：Theos、Xcode11.3、macOS10.14.6</li>
+<li>客户端：iPhone6、iOS11、unc0ver越狱</li>
+<li>服务端：Centos8、Python3.8</li>
+</ul>
+</li>
+<li>iOS正向开发中集成支付宝可以参照<a href="https://opendocs.alipay.com/open/204/105295" target="_blank" rel="noopener">官方文档</a></li>
+<li>iOS逆向开发参照此文</li>
+</ul>
+<h2 id="Theos集成"><a href="#Theos集成" class="headerlink" title="Theos集成"></a>Theos集成</h2><ul>
+<li><p><a href="https://opendocs.alipay.com/open/54/104509" target="_blank" rel="noopener">下载iOS_SDK</a>,解压后把<code>AlipaySDK.framework</code>和<code>AlipaySDK.bundle</code>放入Tweak根目录</p>
+</li>
+<li><p>在Makefile中添加支付宝依赖和framework</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TweakName_FRAMEWORKS += WebKit SystemConfiguration CoreTelephony QuartzCore CoreText CoreGraphics CoreMotion CFNetwork</span><br><span class="line">TweakName_LDFLAGS += -lz -lc++ AlipaySDK.framework/AlipaySDK</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用支付宝功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AlipaySDK.framework/Headers/AlipaySDK.h&quot;</span><br><span class="line"></span><br><span class="line">[[%c(AlipaySDK) defaultService] payOrder:orderString fromScheme:@&quot;app://&quot; callback:^(NSDictionary *resultDic) &#123;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/15/IntegrateAlipaySDK/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/14/PreferenceBundleModern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,8 +279,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-10-14 22:39:07" itemprop="dateCreated datePublished" datetime="2020-10-14T22:39:07+08:00">2020-10-14</time>
+              <time title="创建时间：2020-10-14 17:15:05 / 修改时间：18:32:03" itemprop="dateCreated datePublished" datetime="2020-10-14T17:15:05+08:00">2020-10-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -196,6 +294,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -237,7 +337,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/22/IntegrateAlipaySDK/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/LaHuoApp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -251,7 +351,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/22/IntegrateAlipaySDK/" class="post-title-link" itemprop="url">Theos和Python集成支付宝</a>
+            <a href="/2020/07/27/LaHuoApp/" class="post-title-link" itemprop="url">逆向某拉货APP登录过程</a>
         </h2>
 
         <div class="post-meta">
@@ -261,108 +361,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-09-22 00:13:43" itemprop="dateCreated datePublished" datetime="2020-09-22T00:13:43+08:00">2020-09-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-14 22:51:02" itemprop="dateModified" datetime="2020-10-14T22:51:02+08:00">2020-10-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li>环境<ul>
-<li>macOS端：Theos、Xcode11.3、macOS10.14.6</li>
-<li>客户端：iPhone6、iOS11、unc0ver越狱</li>
-<li>服务端：Centos8、Python3.8</li>
-</ul>
-</li>
-<li>iOS正向开发中集成支付宝可以参照<a href="https://opendocs.alipay.com/open/204/105295" target="_blank" rel="noopener">官方文档</a></li>
-<li>iOS逆向开发参照此文</li>
-</ul>
-<h2 id="Theos集成"><a href="#Theos集成" class="headerlink" title="Theos集成"></a>Theos集成</h2><ul>
-<li><p><a href="https://opendocs.alipay.com/open/54/104509" target="_blank" rel="noopener">下载iOS_SDK</a>,解压后把<code>AlipaySDK.framework</code>和<code>AlipaySDK.bundle</code>放入Tweak根目录</p>
-</li>
-<li><p>在Makefile中添加支付宝依赖和framework</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TweakName_FRAMEWORKS += WebKit SystemConfiguration CoreTelephony QuartzCore CoreText CoreGraphics CoreMotion CFNetwork</span><br><span class="line">TweakName_LDFLAGS += -lz -lc++ AlipaySDK.framework/AlipaySDK</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用支付宝功能</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;AlipaySDK.framework/Headers/AlipaySDK.h&quot;</span><br><span class="line"></span><br><span class="line">[[%c(AlipaySDK) defaultService] payOrder:orderString fromScheme:@&quot;app://&quot; callback:^(NSDictionary *resultDic) &#123;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/22/IntegrateAlipaySDK/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/28/LaHuoApp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杂货铺">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/28/LaHuoApp/" class="post-title-link" itemprop="url">逆向某拉货APP登录过程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-28 21:59:18" itemprop="dateCreated datePublished" datetime="2020-07-28T21:59:18+08:00">2020-07-28</time>
+              <time title="创建时间：2020-07-27 14:47:10" itemprop="dateCreated datePublished" datetime="2020-07-27T14:47:10+08:00">2020-07-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -375,6 +374,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -400,12 +401,123 @@
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/28/LaHuoApp/#more" rel="contents">
+              <a class="btn" href="/2020/07/27/LaHuoApp/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/14/EnergyDetection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/14/EnergyDetection/" class="post-title-link" itemprop="url">iOS性能优化之耗电检测</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-14 14:25:08 / 修改时间：23:25:08" itemprop="dateCreated datePublished" datetime="2020-06-14T14:25:08+08:00">2020-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。</li>
+<li>本文给出Energy impact、Time Profiler、Energy Log、sysdiagnose四种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验</li>
+</ul>
+<h2 id="Energy-impact"><a href="#Energy-impact" class="headerlink" title="Energy impact"></a>Energy impact</h2><h3 id="寻找耗电来源"><a href="#寻找耗电来源" class="headerlink" title="寻找耗电来源"></a>寻找耗电来源</h3><ul>
+<li>连接真机-&gt;<code>command+R</code>运行项目-&gt;<code>command+7</code>打开-&gt;点击<code>Energy impact</code>查看电量情况，如图<br><img src="/images/EnergyDetection-01.png" alt></li>
+<li><code>Average Energy Impact</code>表示App的总体平均消耗电量评级。分为三部分，理想的状态时low、high状态。<ul>
+<li>low的时候指向绿色区域</li>
+<li>high的时候指向黄色区域</li>
+<li>very high指向红色区域</li>
+</ul>
+</li>
+<li><code>Average Component Utilizationn</code>帮助我们快速了解各耗电部分的占比。当<code>Average Energy Impact</code>为very high的状态时要找出下面哪部分占比大，进行相应的优化<ul>
+<li><code>Overhead</code>表示不是由App引起的耗电,可以忽略</li>
+<li><code>Network</code>表示网络能耗占总能耗的百分比</li>
+<li><code>CPU</code>表示CPU能耗占总能耗的百分比</li>
+<li><code>GPU</code>表示GPU能耗占总能耗的百分比</li>
+<li><code>Location</code>表示定位能耗占总能耗的百分比</li>
+</ul>
+</li>
+<li><code>Component Utilization</code>每根柱子代表每秒钟的耗电情况，每根柱子由不同颜色组成，不同颜色代表的意思参考<code>Average Component Utilizationn</code></li>
+<li>通过以上方法找出耗电占比大的某项(Network、CPU、GPU、Location)，通过Profiler找出耗电详情，具体方法如下<ul>
+<li>CPU和GPU点击<code>Time Profiler</code>按钮进入</li>
+<li>网络点击<code>Network Profiler</code>按钮进入</li>
+<li>定位点击<code>Location Profiler</code>按钮进入</li>
+</ul>
+</li>
+</ul>
+<h3 id="Time-Profiler"><a href="#Time-Profiler" class="headerlink" title="Time Profiler"></a>Time Profiler</h3><ul>
+<li>这里拿<code>Time Profiler</code>进行举例，点击<code>Time Profiler</code>进入后，左下角点击<code>Call Tree</code>进行过滤<ul>
+<li><code>Separate by Thread</code>按线程分开做分析，这样更容易揪出那些吃资源的问题线程。特别是对于主线程，它要处理和渲染所有的接口数据，一旦受到阻塞，程序必然卡顿或停止响应。</li>
+<li><code>Invert Call Tree</code>反向输出调用树，把调用层级最深的方法显示在最上面，更容易找到最耗时的操作。</li>
+<li><code>Hide Missing Symbols</code>隐藏缺失符号，如果dSYM文件或其他系统架构缺失，列表中会出现很多奇怪的十六进制的数值，用此选项把这些干扰元素屏蔽掉，让列表回归清爽。</li>
+<li><code>Hide System Libraries</code>隐藏系统库文件。过滤掉各种系统调用，只显示自己的代码调用。</li>
+<li><code>Flattern Recursion</code>拼合递归，将同一递归函数产生的多条堆栈（因为递归函数会调用自己）合并为一条。</li>
+<li><code>Top Functions</code>找到最耗时的函数或方法。</li>
+</ul>
+</li>
+<li>在调用树的表格中，按权重展开 （ weight ）,要干掉的就是权重大的，耗时间的。</li>
+<li>接着展开Main Thread(其他线程的耗时，相比主线程的，可忽略 )， 按住Option键，点击 Main Thread左边的小三角，可以一下子展开很多。</li>
+<li>找到最耗时的方法点击两次进入详情，这个时候可以优化了</li>
+</ul>
+
       
     </div>
 
@@ -468,6 +580,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -548,7 +662,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-14 22:46:18" itemprop="dateModified" datetime="2020-10-14T22:46:18+08:00">2020-10-14</time>
+                <time title="修改时间：2020-10-15 18:31:29" itemprop="dateModified" datetime="2020-10-15T18:31:29+08:00">2020-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -561,6 +675,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -644,7 +760,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-14 22:46:07" itemprop="dateModified" datetime="2020-10-14T22:46:07+08:00">2020-10-14</time>
+                <time title="修改时间：2020-10-15 18:31:29" itemprop="dateModified" datetime="2020-10-15T18:31:29+08:00">2020-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -657,6 +773,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -741,7 +859,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-14 18:17:16" itemprop="dateModified" datetime="2020-04-14T18:17:16+08:00">2020-04-14</time>
+                <time title="修改时间：2020-07-09 11:24:28" itemprop="dateModified" datetime="2020-07-09T11:24:28+08:00">2020-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -754,6 +872,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -844,7 +964,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-14 18:17:16" itemprop="dateModified" datetime="2020-04-14T18:17:16+08:00">2020-04-14</time>
+                <time title="修改时间：2020-07-09 11:24:28" itemprop="dateModified" datetime="2020-07-09T11:24:28+08:00">2020-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -857,6 +977,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -934,7 +1056,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-14 18:17:16" itemprop="dateModified" datetime="2020-04-14T18:17:16+08:00">2020-04-14</time>
+                <time title="修改时间：2020-07-09 11:24:28" itemprop="dateModified" datetime="2020-07-09T11:24:28+08:00">2020-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -947,6 +1069,8 @@
             </span>
 
           
+  
+  
 
         </div>
       </header>
@@ -957,96 +1081,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="H5代码"><a href="#H5代码" class="headerlink" title="H5代码"></a>H5代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>123<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"iOS下载"</span> <span class="attr">onclick</span>=<span class="string">"download()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.location.href=<span class="string">"itms-services://?action=download-manifest&amp;url=https://xx.com/xx.plist"</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h2 id="H5代码"><a href="#H5代码" class="headerlink" title="H5代码"></a>H5代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>123<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"iOS下载"</span> <span class="attr">onclick</span>=<span class="string">"download()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.location.href=<span class="string">"itms-services://?action=download-manifest&amp;url=https://xx.com/xx.plist"</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/13/WKWebViewDownloadApp/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/RunCycriptOniOS11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杂货铺">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/25/RunCycriptOniOS11/" class="post-title-link" itemprop="url">在iOS11上面运行cycript</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-25 11:57:29" itemprop="dateCreated datePublished" datetime="2019-04-25T11:57:29+08:00">2019-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-14 18:17:16" itemprop="dateModified" datetime="2020-04-14T18:17:16+08:00">2020-04-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>如果使用其它越狱工具请清除越狱环境,然后使用Undecimus3.0.0以上版本越狱。</p>
-</blockquote>
-<ul>
-<li>添加软件源 <code>apt.saurik.com/cydia</code>  </li>
-<li>通过Cydia安装cycript
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/25/RunCycriptOniOS11/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1135,7 +1173,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1148,7 +1186,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1226,6 +1264,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
+      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
+      placeholder: "单刀直入，留下意见",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
