@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Energy Log、sysdiagnose三种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验">
+<meta name="keywords" content="iOS,iOS性能优化,iOS耗电检测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS性能优化之耗电检测">
+<meta property="og:url" content="http://yoursite.com/2020/08/14/EnergyDetection/index.html">
+<meta property="og:site_name" content="杂货铺">
+<meta property="og:description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Energy Log、sysdiagnose三种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/EnergyDetection-01.png">
+<meta property="og:image" content="http://yoursite.com/images/EnergyDetection-02.png">
+<meta property="og:image" content="http://yoursite.com/images/Energy-02.png">
+<meta property="og:image" content="http://yoursite.com/images/Energy-03.png">
+<meta property="og:image" content="http://yoursite.com/images/Energy-04.png">
+<meta property="og:image" content="http://yoursite.com/images/Energy-05.png">
+<meta property="og:image" content="http://yoursite.com/images/Energy-06.png">
+<meta property="og:updated_time" content="2020-08-14T15:25:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS性能优化之耗电检测">
+<meta name="twitter:description" content="前言 如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。 本文给出Energy impact、Energy Log、sysdiagnose三种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验">
+<meta name="twitter:image" content="http://yoursite.com/images/EnergyDetection-01.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/14/EnergyDetection/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>iOS性能优化之耗电检测 | 杂货铺</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">杂货铺</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/14/EnergyDetection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS性能优化之耗电检测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-14 14:25:08 / 修改时间：23:25:08" itemprop="dateCreated datePublished" datetime="2020-08-14T14:25:08+08:00">2020-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/14/EnergyDetection/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/14/EnergyDetection/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>如果某个App耗电量过大会导致手机发烫，会导致电池寿命变短，会导致用户体验不好。</li>
+<li>本文给出Energy impact、Energy Log、sysdiagnose三种耗电检测方案，帮你找到耗电的代码，帮你提高用户体验</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Energy-impact"><a href="#Energy-impact" class="headerlink" title="Energy impact"></a>Energy impact</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>Edit Scheme-&gt;Profile-&gt;Build Configuration下拉设置为Debug，如果没有配置点击Instruments中的红色按钮运行iPhone的时候是会报错的</li>
+<li>Build Settings-&gt;Build Options-&gt;Debug Information Format-&gt;Debug-&gt;DWARF with dSYM File，如果没有配置检测结果显示地址而不是函数名。</li>
+<li>设置完成后选择<code>Product-&gt;Profile</code>或<code>快捷键cmd+ i</code>，再选对应的检测。</li>
+</ul>
+<h3 id="寻找耗电来源"><a href="#寻找耗电来源" class="headerlink" title="寻找耗电来源"></a>寻找耗电来源</h3><ul>
+<li>连接真机-&gt;<code>command+R</code>运行项目-&gt;<code>command+7</code>打开-&gt;点击<code>Energy impact</code>查看电量情况，如图<br><img src="/images/EnergyDetection-01.png" alt></li>
+<li><code>Average Energy Impact</code>表示App的总体平均消耗电量评级。分为三部分，理想的状态时low、high状态。<ul>
+<li>low的时候指向绿色区域</li>
+<li>high的时候指向黄色区域</li>
+<li>very high指向红色区域</li>
+</ul>
+</li>
+<li><code>Average Component Utilizationn</code>帮助我们快速了解各耗电部分的占比。当<code>Average Energy Impact</code>为very high的状态时要找出下面哪部分占比大，进行相应的优化<ul>
+<li><code>Overhead</code>表示不是由App引起的耗电,可以忽略</li>
+<li><code>Network</code>表示网络能耗占总能耗的百分比</li>
+<li><code>CPU</code>表示CPU能耗占总能耗的百分比</li>
+<li><code>GPU</code>表示GPU能耗占总能耗的百分比</li>
+<li><code>Location</code>表示定位能耗占总能耗的百分比</li>
+</ul>
+</li>
+<li><code>Component Utilization</code>每根柱子代表每秒钟的耗电情况，每根柱子由不同颜色组成，不同颜色代表的意思参考<code>Average Component Utilizationn</code></li>
+<li>通过以上方法找出耗电占比大的某项(Network、CPU、GPU、Location)，通过Profiler找出耗电详情，具体方法如下<ul>
+<li>CPU点击<code>Time Profiler</code>按钮进入</li>
+<li>网络点击<code>Network Profiler</code>按钮进入</li>
+<li>定位点击<code>Location Profiler</code>按钮进入</li>
+<li>GPU点击<code>Product</code>-&gt;<code>Profile</code>-&gt;<code>Core Animation</code>按钮进入</li>
+</ul>
+</li>
+</ul>
+<h3 id="Time-Profiler"><a href="#Time-Profiler" class="headerlink" title="Time Profiler"></a>Time Profiler</h3><ul>
+<li>这里拿<code>Time Profiler</code>进行举例，点击<code>Time Profiler</code>进入后，左下角点击<code>Call Tree</code>进行过滤<br><img src="/images/EnergyDetection-02.png" alt><ul>
+<li><code>Separate by Thread</code>按线程进行分析，便于找到消耗资源大的线程。</li>
+<li><code>Invert Call Tree</code>反向输出调用树，把调用层级反向输出，更容易找到最耗时的操作。</li>
+<li><code>Hide System Libraries</code>隐藏系统库文件，只显示自己的代码调用。</li>
+<li><code>Top Functions</code>找到最耗时的函数或方法。</li>
+</ul>
+</li>
+<li>在调用树的表格中，按权重(weight)展开，要干掉的就是权重大的，耗时间的。</li>
+<li>接着展开Main Thread(其他线程的耗时，相比主线程的，可忽略 )， 按住Option键，点击 Main Thread左边的小三角，可以一下子展开很多。</li>
+<li>找到最耗时的方法点击两次进入详情，这个时候可以优化了</li>
+</ul>
+<h2 id="Energy-Log"><a href="#Energy-Log" class="headerlink" title="Energy Log"></a>Energy Log</h2><ul>
+<li>方式一，适用于测试人员，测试时不需要把手机连接到Xcode，测试完成后在连接到Xcode查看数据<ul>
+<li>iPhone-&gt;设置-&gt;开发者-&gt;Loggin-&gt;Start Recording</li>
+<li>然后打开要测试的App随意点击，Stop Recording</li>
+<li>Xcode-&gt;Open Developer Tool-&gt;Instruments-&gt;Energy Log<ul>
+<li>选择要测试的设备和App</li>
+<li>左上角File-&gt;Import Logged Data From Device</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>方式二，适用于开发人员，测试时需要把手机连接到Xcode<ul>
+<li>双击打开EnergyLog直接点击红色圆点运行程序</li>
+<li>App启动后，在里面进行各种操作</li>
+<li>点击黑色方块停止检测，这个时候可以看到数据，如果正在检测是看不到数据的</li>
+</ul>
+</li>
+<li>使用说明<ul>
+<li>可以看到CPU活动比例，网络活动比例，亮度状态，手机睡眠状态，手机连接蓝牙状态，手机连接wifi状态，手机GPS状态这次都是手机耗电的构成部分。</li>
+<li>level值为0–20,值越大表示越耗电。1/20表示运行该app电池生命会有20个小时；20/20表示运行该app电池电量仅有1小时生命</li>
+<li>WWDC2018里介绍了用<code>Energy Log</code>来查CPU耗电，当前台三分钟或后台一分钟CPU线程连续占用80%以上就判定为耗电，同时记录耗电线程堆栈供分析</li>
+</ul>
+</li>
+</ul>
+<h2 id="sysdiagnose"><a href="#sysdiagnose" class="headerlink" title="sysdiagnose"></a>sysdiagnose</h2><h3 id="电量单位"><a href="#电量单位" class="headerlink" title="电量单位"></a>电量单位</h3><ul>
+<li>电压<ul>
+<li>电压以mV计，通过硬件测得，是计算其他数据的基础</li>
+<li>iPhone工作时，电压几乎一直恒定在4V左右，测试过程中出现过的最高电压是4.3V。</li>
+<li>当电池剩余电量越少时，电压值会变得越小，但波动不大。</li>
+<li>电压过小时，可能会引起手机直接关机，这也是为什么有时还有20%电量，但手机却开不了机了。</li>
+<li>新的电池，电压波动会小一些，越是老化，电压波动可能越大。</li>
+<li>电压这个值能用来判断当前电池的健康度。</li>
+</ul>
+</li>
+<li>电流<ul>
+<li>电流以mA计，直接通过硬件测得，是计算其他数据的基础，</li>
+<li>iPhone工作时，电流一般在1mA到700mA之间。超过500mA电池很容易发热。</li>
+</ul>
+</li>
+<li>温度<ul>
+<li>通过硬件接口获得，可以作为一个参考值</li>
+<li>测试过程中出现的最高温度是37度，能明显感觉到发热了。</li>
+</ul>
+</li>
+<li>mAh(毫安时)：<ul>
+<li>电池容量的计量单位，实际就是电池中可以释放为外部使用的电子的总数，需要乘上当前的电压(6P是4v)才是真正的能量。</li>
+</ul>
+</li>
+<li>公式<ul>
+<li>W=UIt=Pt,P=UI<ul>
+<li>W表示电工单位为J，U表示电压，I表示电流，t表示时间单位为s或h，P表示功率单位为W</li>
+<li>电功＝电压×电流×时间＝功率×时间 </li>
+</ul>
+</li>
+<li>P=UI=W/t<ul>
+<li>功率＝电压×电流＝电功÷时间</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><ul>
+<li><p>日志记录对电源使用没有影响，但是如果启用数天而不进行同步，它确实会累积磁盘空间。 为了避免这种磁盘使用情况的积累，一旦提供了所需的诊断信息，请关闭日志记录。</p>
+</li>
+<li><p>电池日志文件以<code>powerlog_</code>开头和以<code>.PLSQL</code>或<code>.PLSQL.gz</code>结尾</p>
+</li>
+<li><p>启用日志记录</p>
+<ul>
+<li>去<a href="https://developer.apple.com/bug-reporting/profiles-and-logs/?platform=ios" target="_blank" rel="noopener">苹果开发者网站</a>找到<code>Battery Lift</code>下载profile(需要登录开发者账号)<br><img src="/images/Energy-02.png" alt></li>
+<li>下载完成后通过隔空投送发到测试手机上安装。</li>
+<li>不要重启手机，等待10到30分钟，手机连上电脑，通过 iTunes 同步到电脑上。</li>
+</ul>
+</li>
+<li><p>日志位置</p>
+<ul>
+<li>iOS: 设置 &gt; 隐私 &gt; 分析 &gt; 分析数据 &gt; (定位sysdiagnose文件，使用隔空投送发送到macOS上面).</li>
+<li>macOS: ~/Library/Logs/CrashReporter/MobileDevice/[Your_Device_Name]/</li>
+<li>Windows 10: <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\USERID\AppData\Local\Packages\AppleInc.iTunes_devicename\LocalCache\Roaming\Apple</span><br><span class="line">Computer\Logs\CrashReporter\MobileDevice\[Your_Device_Name]/DiagnosticLogs/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>禁用日志记录</p>
+<ul>
+<li>Launch Settings.</li>
+<li>Tap General &gt; Profiles.</li>
+<li>Tap appropriate profile.</li>
+<li>Tap Remove and enter passcode if asked.</li>
+<li>Restart device.</li>
+</ul>
+</li>
+<li><p>找到<code>powerlog_2020-01-06-2020-01-09_0AF1E160.PLSQL</code>,使用<code>SQLPro for SQLite</code>或<code>Navicat Premius</code>打开，发现里面有几百张表，所有的电量数据都在里面，主要的几张表的意思如下</p>
+<ul>
+<li>PLBatteryAgent_EventBackward_Battery：整台机器的电量数据，包含电流、电压、温度等，每20秒左右一条数据</li>
+<li>PLBatteryAgent_EventBackward_BatteryUI：电量百分比数据，大于每300秒一条数据</li>
+<li>PLIOReportAgent_EventBackward_EneryModel： 整机的详细电量数据。包含 CPU\GPU\DRAM\ISP 等关键信息。每半小时到一小时一条数据。</li>
+<li>PLAccountingOperator_EventNone_Nodes：App结点信息，每个APP对应唯一的结点号。用来确定手机内具体哪个 App。</li>
+<li>PLApplicationAgent_EventForward_Application：App运行信息，记录每个App在哪个时间段以什么状态运行</li>
+<li>PLAppTimeService_Aggregate_AppRunTime：APP的运行时长统计，每个运行过的APP，一小时一条数据</li>
+<li>PLAccountingOperator_Aggregate_RootNodeEnergy： APP的电量详细数据，记录每个APP 的CPU\GPU\DRAM\ISP 等的耗电信息。一小时更新一次数据。<ul>
+<li>RootNodeID:6 isp</li>
+<li>RootNodeID:52 apsocbase</li>
+<li>RootNodeID:10 display</li>
+<li>RootNodeID:11 wifi data</li>
+<li>RootNodeID:8 GPU</li>
+<li>RootNodeID:4 venc</li>
+<li>RootNodeID:2 cpu</li>
+<li>RootNodeID:7 restofsoc</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="测试方式"><a href="#测试方式" class="headerlink" title="测试方式"></a>测试方式</h3><ul>
+<li>先去<code>PLAccountingOperator_EventNone_Nodes</code>通过BundleID找到我们要测试的App的I我们要测试微信，其实可以发现，表中对应的Name字段就是BundleID，微信对应的ID为10521。<br><img src="/images/Energy-03.png" alt></li>
+<li>得到每个App的唯一标识后，我们就可以去<code>PLAccountingOperator_Aggregate_RootNodeEnergy</code>表里看电量消耗数据了：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *,DATETIME(<span class="built_in">timestamp</span>,<span class="string">'unixepoch'</span>,<span class="string">'localtime'</span>) <span class="keyword">from</span> PLAccountingOperator_Aggregate_RootNodeEnergy <span class="keyword">WHERE</span> NodeID=<span class="number">10521</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">timestamp</span> <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="/images/Energy-04.png" alt></p>
+<ul>
+<li>表中的<code>Energy</code>就是对应消耗的电量了，这里的单位在iOS9是mAh，iOS9及以上应该是 1/1000 mAh。比方测试<code>2020-01-08 17:00:00</code>这个时间耗电量，可以执行SQL语句计算出来。这个耗电量为<code>3182 / 1000 = 3.182</code> mAh<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(Energy) <span class="keyword">from</span> PLAccountingOperator_Aggregate_RootNodeEnergy <span class="keyword">WHERE</span> NodeID=<span class="number">10521</span> <span class="keyword">AND</span> <span class="built_in">timestamp</span>=<span class="number">1578474000</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">timestamp</span> <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="/images/Energy-05.png" alt></p>
+<ul>
+<li>如果想知道运行这个App这段时间内的温度，可以<code>PLBatteryAgent_EventBackward_Battery</code>表中获取，但是因为该表的数据是整个机器的，所以我们需要根据对应的时间节点来观察数据：<br><img src="/images/Energy-06.png" alt></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/iOS性能优化/" rel="tag"># iOS性能优化</a>
+              <a href="/tags/iOS耗电检测/" rel="tag"># iOS耗电检测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/27/LaHuoApp/" rel="prev" title="逆向某拉货APP登录过程">
+      <i class="fa fa-chevron-left"></i> 逆向某拉货APP登录过程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/03/Weibo/" rel="next" title="微博跳广告和内部打开链接">
+      微博跳广告和内部打开链接 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Energy-impact"><span class="nav-number">2.</span> <span class="nav-text">Energy impact</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备"><span class="nav-number">2.1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找耗电来源"><span class="nav-number">2.2.</span> <span class="nav-text">寻找耗电来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Time-Profiler"><span class="nav-number">2.3.</span> <span class="nav-text">Time Profiler</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Energy-Log"><span class="nav-number">3.</span> <span class="nav-text">Energy Log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sysdiagnose"><span class="nav-number">4.</span> <span class="nav-text">sysdiagnose</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#电量单位"><span class="nav-number">4.1.</span> <span class="nav-text">电量单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">4.2.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试方式"><span class="nav-number">4.3.</span> <span class="nav-text">测试方式</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
+      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
+      placeholder: "单刀直入，留下意见",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
