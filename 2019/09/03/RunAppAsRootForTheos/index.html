@@ -17,22 +17,21 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   此文使用Theos新建的App，如果使用Xcode新建的App，请转入RunAppAsRootForXcode 阅读本文前，请首先阅读狗神的 Run an A">
-<meta name="keywords" content="iOS,逆向,root,Theos">
+  <meta name="description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   实现目标：点击按钮执行killall -9 SpringBoard,注销SpringBoard">
+<meta name="keywords" content="逆向,iOS,root,Theos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Run an App as root on iOS11 and iOS12 with Theos">
 <meta property="og:url" content="http://yoursite.com/2019/09/03/RunAppAsRootForTheos/index.html">
 <meta property="og:site_name" content="龙龙的技术博客">
-<meta property="og:description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   此文使用Theos新建的App，如果使用Xcode新建的App，请转入RunAppAsRootForXcode 阅读本文前，请首先阅读狗神的 Run an A">
+<meta property="og:description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   实现目标：点击按钮执行killall -9 SpringBoard,注销SpringBoard">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-03T15:25:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Run an App as root on iOS11 and iOS12 with Theos">
-<meta name="twitter:description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   此文使用Theos新建的App，如果使用Xcode新建的App，请转入RunAppAsRootForXcode 阅读本文前，请首先阅读狗神的 Run an A">
+<meta name="twitter:description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   实现目标：点击按钮执行killall -9 SpringBoard,注销SpringBoard">
 
 <link rel="canonical" href="http://yoursite.com/2019/09/03/RunAppAsRootForTheos/">
 
@@ -199,20 +198,6 @@
             </span>
 
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/09/03/RunAppAsRootForTheos/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/03/RunAppAsRootForTheos/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
 
         </div>
       </header>
@@ -230,12 +215,6 @@
 <li>iPhone机型：两个iPhone6</li>
 <li>越狱工具：unc0ver3.6.2</li>
 <li>没有测试：iOS13和iOS10，也许可以。</li>
-</ul>
-</li>
-<li>关于链接  <ul>
-<li>此文使用Theos新建的App，如果使用Xcode新建的App，请转入<a href="https://www.diffit.cn/2019/10/09/RunAppAsRootForXcode" target="_blank" rel="noopener">RunAppAsRootForXcode</a></li>
-<li>阅读本文前，请首先阅读狗神的 <a href="http://iosre.com/t/run-an-app-as-root-on-ios/239" target="_blank" rel="noopener">Run an App as root on iOS
-</a></li>
 </ul>
 </li>
 <li>实现目标：点击按钮执行<code>killall -9 SpringBoard</code>,注销SpringBoard</li>
@@ -307,8 +286,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/iOS/" rel="tag"># iOS</a>
               <a href="/tags/逆向/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
               <a href="/tags/root/" rel="tag"># root</a>
               <a href="/tags/Theos/" rel="tag"># Theos</a>
           </div>
@@ -323,7 +302,7 @@
       <i class="fa fa-chevron-left"></i> Run a daemon (as root) on iOS11 and iOS12
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/27/LaHuoApp/" rel="next" title="逆向某拉货APP登录过程">
+    <a href="/2020/07/28/LaHuoApp/" rel="next" title="逆向某拉货APP登录过程">
       逆向某拉货APP登录过程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -338,7 +317,6 @@
 
           </div>
           
-    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -490,35 +468,6 @@
   
 
   
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : true,
-      notify     : false,
-      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
-      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
-      placeholder: "单刀直入，留下意见",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
 </body>
 </html>

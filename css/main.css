@@ -297,6 +297,7 @@ th,
 td {
   font-weight: normal;
   padding: 8px;
+  text-align: left;
   vertical-align: middle;
 }
 th,
@@ -1165,7 +1166,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f0ff37;
+  background: #ff322a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1929,10 +1930,10 @@ pre .javascript .function {
   width: 90%;
 }
 .reward-container button {
-  background: transparent;
-  border: 1px solid #fc6423;
-  border-radius: 0;
-  color: #fc6423;
+  background: #ff2a2a;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
   line-height: 2;
   outline: 0;
@@ -1940,9 +1941,7 @@ pre .javascript .function {
   vertical-align: text-top;
 }
 .reward-container button:hover {
-  background: #fc6423;
-  border: 1px solid transparent;
-  color: #fa9366;
+  background: #f55;
 }
 #qr {
   padding-top: 20px;

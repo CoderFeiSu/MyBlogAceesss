@@ -17,12 +17,11 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta name="description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
-<meta name="keywords" content="iOS,逆向">
+<meta name="keywords" content="逆向,iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向某听书APP登录过程">
 <meta property="og:url" content="http://yoursite.com/2019/12/23/ListenBookApp/index.html">
@@ -208,20 +207,6 @@
             </span>
 
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/23/ListenBookApp/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/23/ListenBookApp/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
 
         </div>
       </header>
@@ -387,8 +372,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/iOS/" rel="tag"># iOS</a>
               <a href="/tags/逆向/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
           </div>
 
         
@@ -406,7 +391,6 @@
 
           </div>
           
-    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -558,35 +542,6 @@
   
 
   
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : true,
-      notify     : false,
-      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
-      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
-      placeholder: "单刀直入，留下意见",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
 </body>
 </html>
