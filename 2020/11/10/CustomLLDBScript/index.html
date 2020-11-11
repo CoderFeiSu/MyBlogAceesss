@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="description" content="说在前面 iOS逆向开发中，当我们命中方法断点后，需要打印方法调用者、方法名、参数。 1234567891011121314151617Process 42106 resumingProcess 42106 stopped* thread #1, queue = &apos;com.apple.main-thread&apos;, stop reason = breakpoint 1.1    frame #0: 0">
+<meta name="keywords" content="逆向,iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义LLDB脚本">
+<meta property="og:url" content="http://yoursite.com/2020/11/10/CustomLLDBScript/index.html">
+<meta property="og:site_name" content="龙龙的技术博客">
+<meta property="og:description" content="说在前面 iOS逆向开发中，当我们命中方法断点后，需要打印方法调用者、方法名、参数。 1234567891011121314151617Process 42106 resumingProcess 42106 stopped* thread #1, queue = &apos;com.apple.main-thread&apos;, stop reason = breakpoint 1.1    frame #0: 0">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-11-10T03:19:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义LLDB脚本">
+<meta name="twitter:description" content="说在前面 iOS逆向开发中，当我们命中方法断点后，需要打印方法调用者、方法名、参数。 1234567891011121314151617Process 42106 resumingProcess 42106 stopped* thread #1, queue = &apos;com.apple.main-thread&apos;, stop reason = breakpoint 1.1    frame #0: 0">
+
+<link rel="canonical" href="http://yoursite.com/2020/11/10/CustomLLDBScript/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>自定义LLDB脚本 | 龙龙的技术博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">龙龙的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/10/CustomLLDBScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="龙龙的技术博客,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="龙龙的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自定义LLDB脚本
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-10 10:18:30 / 修改时间：11:19:30" itemprop="dateCreated datePublished" datetime="2020-11-10T10:18:30+08:00">2020-11-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/10/CustomLLDBScript/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/10/CustomLLDBScript/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><ul>
+<li><p>iOS逆向开发中，当我们命中方法断点后，需要打印方法调用者、方法名、参数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Process 42106 resuming</span><br><span class="line">Process 42106 stopped</span><br><span class="line">* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span><br><span class="line">    frame #0: 0x00000001008f7bfc OCTest` __hidden#17_  at __hidden#40_:126</span><br><span class="line">Target 0: (OCTest) stopped.</span><br><span class="line">(lldb) po $x0 // 打印方法调用者</span><br><span class="line">&lt;ViewController: 0x101e1d000&gt;</span><br><span class="line">(lldb) po (char *)$x1 // 打印方法名</span><br><span class="line">"performLoginWithUserName:password:encryptType:completion:"</span><br><span class="line">(lldb) po $x2 // 打印第一个参数</span><br><span class="line">lyy2020@163.com</span><br><span class="line">(lldb) po $x3 // 打印第二个参数</span><br><span class="line">L163.2020</span><br><span class="line">(lldb) po $x4 // 打印第三个参数</span><br><span class="line">1</span><br><span class="line">(lldb) po $x5 // 打印第四个参数</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每次都做相同的操作显得特别啰嗦，浪费时间又浪费精力，有没有比较简单的方法呢，答案是有的。</p>
+</li>
+<li><p>我们可以自定义脚本，断点命中后，执行一个自定义命令自动打印以上参数，大大提高逆向的效率，何其快哉。</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><ul>
+<li><p>Python的强大毋庸置疑，LLDB提供了Python脚本扩展支持，那么LLDB与Python配合无限强大</p>
+</li>
+<li><p>进入LLDB模式，并获得帮助</p>
+<ul>
+<li><code>(lldb) script help(lldb)</code> 获取模块信息</li>
+<li><code>(lldb) script help(lldb.SBFrame)</code> 获得lldb.SBFrame类的帮助</li>
+<li><code>(lldb) script help(lldb.process)</code> 获得lldb.process对象帮助</li>
+</ul>
+</li>
+<li><p>从<a href="https://lldb.llvm.org/use/python-reference.html" target="_blank" rel="noopener">官网</a>可知，使用Python函数创建一个新的LLDB命令，要求的格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">command_function</span><span class="params">(debugger, command, exe_ctx, result, internal_dict)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>debugger：lldb.SBDebugger类型，表示当前调试器对象</li>
+<li>command：包含执行命令所有参数的Python字符串。</li>
+<li>exe_ctx：lldb.SBExecutionContext类型，表示执行上下文对象</li>
+<li>result：lldb.SBCommandReturnObject类型，一个包含成功或者失败信息的返回对象</li>
+<li>internal_dict： 包含所有变量和函数的Python字典对象</li>
+</ul>
+</li>
+<li><p>以上是Python函数，所以使用Pycharm编写代码再合适不过了，原因如下</p>
+<ul>
+<li>断点调式功能异常强大</li>
+<li>代码提示功能无与伦比</li>
+<li>…更多…</li>
+</ul>
+</li>
+</ul>
+<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><ul>
+<li><p>执行<code>(lldb) script help(lldb)</code>，找到LLDB模块的位置，在Pycharm中进行导入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...省略很多... </span><br><span class="line">FILE</span><br><span class="line">  /Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python3/lldb/__init__.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装官网的做法，并不能成功使用lldb模块，所以不采用这种方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python3/lldb'</span>)</span><br><span class="line"><span class="keyword">import</span> lldb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>首先进行如下操作，然后在Pycharm中直接<code>import lldb</code>，发现没有报错，证明可以导入LLDB模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">拷贝</span><br><span class="line">/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/Resources/Python3/lldb 文件夹</span><br><span class="line">到</span><br><span class="line">/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages目录下，</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><ul>
+<li><p>当命中断点后，执行<code>objargs</code>命令直接打印所有参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Process 42161 stopped</span><br><span class="line">* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span><br><span class="line">  frame #0: 0x00000001000cfbfc OCTest` __hidden#18_  at __hidden#43_:128</span><br><span class="line">Target 0: (OCTest) stopped.</span><br><span class="line">(lldb) objargs</span><br><span class="line">方法调用者：&lt;ViewController: 0x1004173d0&gt;</span><br><span class="line">方法名:	    performLoginWithUserName:password:encryptType:completion:</span><br><span class="line">第1个参数：【类型:__NSCFConstantString】【值:lyy2020@163.com】</span><br><span class="line">第2个参数：【类型:__NSCFConstantString】【值:L163.2020】</span><br><span class="line">第3个参数：【类型:unsigned long】【值:3】</span><br><span class="line">第4个参数：【类型:__NSGlobalBlock__】【签名:"v8@?0"】</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据<code>:</code>计算参数个数</p>
+</li>
+<li><p>参数类型</p>
+<ul>
+<li>OC对象区分是不是Block类型，分别打印</li>
+<li>基本数据类型，直接打印类型</li>
+</ul>
+</li>
+<li><p>Block签名：</p>
+<ul>
+<li>可以访问<a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" target="_blank" rel="noopener">Apple开发者官网</a>，了解各个字符的意思</li>
+<li>可以执行<code>po [NSMethodSignature signatureWithObjCTypes:&quot;\&quot;v8@?0\&quot;&quot;]</code>打印查看各个参数的意思</li>
+</ul>
+</li>
+</ul>
+<h3 id="编写函数"><a href="#编写函数" class="headerlink" title="编写函数"></a>编写函数</h3><ul>
+<li>使用Pycharm新建<code>Debug.py</code>，内容如下<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lldb</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化输出</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__format_output</span><span class="params">(return_obj)</span>:</span></span><br><span class="line">   output = return_obj.GetOutput()</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">None</span> <span class="keyword">if</span> <span class="keyword">not</span> output <span class="keyword">else</span> output.replace(<span class="string">'\n'</span>, <span class="string">''</span>).replace(<span class="string">'\r'</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印各个参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__print_arg</span><span class="params">(interpreter, return_obj, sequence)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    打印函数的第几个参数，传入1打印第一个，以此类推</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    register = <span class="string">'$x%s'</span> % str(sequence + <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 参数值</span></span><br><span class="line">    interpreter.HandleCommand(<span class="string">'po %s'</span> % register, return_obj)</span><br><span class="line">    arg_value = __format_output(return_obj)</span><br><span class="line">    <span class="comment"># 参数类型</span></span><br><span class="line">    interpreter.HandleCommand(<span class="string">'po [%s class]'</span> % register, return_obj)</span><br><span class="line">    arg_type: str = __format_output(return_obj)</span><br><span class="line">    <span class="comment"># 不是oc对象类型，是基本数据类型</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> arg_type:</span><br><span class="line">        interpreter.HandleCommand(<span class="string">'p %s'</span> % register, return_obj)</span><br><span class="line">        p1 = re.compile(<span class="string">r'[(](.*?)[)]'</span>, re.S)  <span class="comment"># 提取括号里面的参数类型</span></span><br><span class="line">        arr = re.findall(p1, __format_output(return_obj))</span><br><span class="line">        arg_type = arr[<span class="number">0</span>]</span><br><span class="line">        print(<span class="string">"第%s个参数：【类型:%s】【值:%s】"</span> % (sequence, arg_type, arg_value))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># 是oc对象类型，判断是不是block类型</span></span><br><span class="line">    interpreter.HandleCommand(<span class="string">'po (BOOL)[%s isKindOfClass: [NSBlock class]]'</span> % register, return_obj)</span><br><span class="line">    is_block = __format_output(return_obj)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> is_block == <span class="string">'YES'</span>:  <span class="comment"># 如果不是block</span></span><br><span class="line">        print(<span class="string">"第%s个参数：【类型:%s】【值:%s】"</span> % (sequence, arg_type, arg_value))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># block的处理方式</span></span><br><span class="line">    interpreter.HandleCommand(<span class="string">'x/4xg %s'</span> % register, return_obj)</span><br><span class="line">    descriptor_address = __format_output(return_obj).split(<span class="string">' '</span>)[<span class="number">-1</span>]</span><br><span class="line">    offset = <span class="number">3</span> <span class="keyword">if</span> <span class="string">'Global'</span> <span class="keyword">in</span> arg_type <span class="keyword">else</span> <span class="number">5</span></span><br><span class="line">    interpreter.HandleCommand(<span class="string">'x/%sxg %s'</span> % (str(offset),descriptor_address), return_obj)</span><br><span class="line">    sign_address = __format_output(return_obj).split(<span class="string">' '</span>)[<span class="number">-1</span>]</span><br><span class="line">    interpreter.HandleCommand(<span class="string">'x/s %s'</span> % sign_address, return_obj)</span><br><span class="line">    sign = __format_output(return_obj).split(<span class="string">' '</span>)[<span class="number">1</span>]</span><br><span class="line">    print(<span class="string">"第%s个参数：【类型:%s】【签名:%s】"</span> % (sequence, arg_type, sign))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义打印参数的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">objargs_func</span><span class="params">(debugger, command, exe_ctx, result, internal_dict)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    人性化的方式打印objc_msgSend的各个参数</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    interpreter = debugger.GetCommandInterpreter()</span><br><span class="line">    <span class="comment"># 保存结果</span></span><br><span class="line">    return_obj = lldb.SBCommandReturnObject()</span><br><span class="line">    <span class="comment"># 处理命令</span></span><br><span class="line">    interpreter.HandleCommand(<span class="string">'po $x0'</span>, return_obj)</span><br><span class="line">    print(<span class="string">"方法调用者：%s"</span> % __format_output(return_obj))</span><br><span class="line">    interpreter.HandleCommand(<span class="string">'x/s $x1'</span>, return_obj)</span><br><span class="line">    method_name: str = __format_output(return_obj).split(<span class="string">' '</span>)[<span class="number">1</span>][<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">    print(<span class="string">"方法名:\t    %s"</span> % method_name)</span><br><span class="line">    args = method_name.split(<span class="string">':'</span>)[:<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> len(args):  <span class="comment"># 如果没有参数</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> index, arg <span class="keyword">in</span> enumerate(args):</span><br><span class="line">        sequence = index + <span class="number">1</span></span><br><span class="line">        __print_arg(interpreter, return_obj, sequence)</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="导出命令"><a href="#导出命令" class="headerlink" title="导出命令"></a>导出命令</h3><ul>
+<li><p>在Debug.py中填入如下内容。<code>__lldb_init_module</code>是脚本的入口，添加后可以提供给LLDB交互界面使用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__lldb_init_module</span><span class="params">(debugger, internal_dict)</span>:</span></span><br><span class="line">    debugger.HandleCommand(<span class="string">'command script add -f Debug.objargs_func objargs'</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Debug.objargs_func</code>为执行objargs时自动映射的函数</li>
+<li><code>objargs</code>为LLDB交互中使用的命令</li>
+</ul>
+</li>
+<li><p>将Python脚本加载到LLDB中</p>
+<ul>
+<li><p>若是自动加载，需要<code>vim ~/.lldbinit</code>，然后里面就输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command script import ~/Exercise/Debug.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若是临时加载，只需在LLDB模式下输入<code>command script import ~/Exercise/Debug.py</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h2><h3 id="简单介绍-1"><a href="#简单介绍-1" class="headerlink" title="简单介绍"></a>简单介绍</h3><ul>
+<li>有时需要在LLDB中对Python脚本断点调试，这时需要用到pdb。pdb是python程序提供了一种交互的源代码调试功能，主要特性包括设置断点、单步调试、进入函数调试、查看当前代码、查看栈片段、动态改变变量的值等。</li>
+<li>pdb提供了一些常用的调试命令，如下<ul>
+<li>break(缩写为b)  设置断点</li>
+<li>continue(缩写为c)  跳过断点，继续执行</li>
+<li>list(缩写为l)  查看当前的代码段所在的行</li>
+<li>step(缩写为s)  单步进入函数</li>
+<li>return(缩写为r) 执行代码直到函数返回</li>
+<li>exit(或q) 退出当前的调式模式</li>
+<li>next(缩写为n) 跳过当前行</li>
+<li>pp 打印变量的值</li>
+<li>help 帮助</li>
+</ul>
+</li>
+</ul>
+<h3 id="基本调试"><a href="#基本调试" class="headerlink" title="基本调试"></a>基本调试</h3><ul>
+<li><p>在<code>objargs_func</code>函数开头设置断点，依次打印五个参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Process 42161 resuming</span><br><span class="line">Process 42161 stopped</span><br><span class="line">* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span><br><span class="line">    frame #0: 0x00000001000cfbfc OCTest` __hidden#18_  at __hidden#43_:128</span><br><span class="line">Target 0: (OCTest) stopped.</span><br><span class="line">(lldb) objargs</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(55)objargs_func()</span><br><span class="line"><span class="meta">-&gt;</span> interpreter = debugger.GetCommandInterpreter()</span><br><span class="line">(Pdb) l</span><br><span class="line"> 50  	def objargs_func(debugger, command, exe_ctx, result, internal_dict):</span><br><span class="line"> 51  	    """</span><br><span class="line"> 52  	    人性化的方式打印objc_msgSend的各个参数</span><br><span class="line"> 53  	    """</span><br><span class="line"> 54  	    pdb.set_trace()</span><br><span class="line"> 55  -&gt;	    interpreter = debugger.GetCommandInterpreter()</span><br><span class="line"> 56  	    # 保存结果</span><br><span class="line"> 57  	    return_obj = lldb.SBCommandReturnObject()</span><br><span class="line"> 58  	    # 处理命令</span><br><span class="line"> 59  	    interpreter.HandleCommand('po $x0', return_obj)</span><br><span class="line"> 60  	    print("方法调用者：%s" % __format_output(return_obj))</span><br><span class="line">(Pdb) pp debugger</span><br><span class="line">&lt;lldb.SBDebugger; proxy of &lt;Swig Object of type 'lldb::SBDebugger *' at 0x112553300&gt; &gt;</span><br><span class="line">(Pdb) pp command</span><br><span class="line">''</span><br><span class="line">(Pdb) pp exe_ctx</span><br><span class="line">&lt;lldb.SBExecutionContext; proxy of &lt;Swig Object of type 'lldb::SBExecutionContext *' at 0x112469f00&gt; &gt;</span><br><span class="line">(Pdb) pp result</span><br><span class="line">&lt;lldb.SBCommandReturnObject; proxy of &lt;Swig Object of type 'lldb::SBCommandReturnObject *' at 0x112469a20&gt; &gt;</span><br><span class="line">(Pdb) pp internal_dict</span><br><span class="line">(Pdb) c</span><br><span class="line">方法调用者：&lt;ViewController: 0x1004173d0&gt;</span><br><span class="line">方法名:	    performLoginWithUserName:password:encryptType:completion:</span><br><span class="line">第1个参数：【类型:__NSCFConstantString】【值:lyy2020@163.com】</span><br><span class="line">第2个参数：【类型:__NSCFConstantString】【值:L163.2020】</span><br><span class="line">第3个参数：【类型:unsigned long】【值:3】</span><br><span class="line">第4个参数：【类型:__NSGlobalBlock__】【签名:"v8@?0"】</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在debug的时候不一定能记住当前的代码块，如要要查看具体的代码块，则可以通过<code>l</code>命令显示，会用箭头<code>-&gt;</code>指向当前debug的语句</li>
+<li>如果需要在调试过程中打印变量的值，可以直接使用<code>pp</code>加上变量名。需要注意的是打印仅仅在当前的语句已经被执行了之后才能看到具体的值，否则会报错。</li>
+</ul>
+</li>
+<li><p>对函数进行断点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">(lldb) objargs</span><br><span class="line">方法调用者：&lt;ViewController: 0x1004173d0&gt;</span><br><span class="line">方法名:	    performLoginWithUserName:password:encryptType:completion:</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(21)__print_arg()</span><br><span class="line"><span class="meta">-&gt;</span> arg_value = __format_output(return_obj)</span><br><span class="line">(Pdb) l</span><br><span class="line"> 19  	    interpreter.HandleCommand('po %s' % register, return_obj)</span><br><span class="line"> 20  	    pdb.set_trace()</span><br><span class="line"> 21  -&gt;	    arg_value = __format_output(return_obj)</span><br><span class="line"> 22  	    # 参数类型</span><br><span class="line"> 23  	    interpreter.HandleCommand('po [%s class]' % register, return_obj)</span><br><span class="line"> 24  	    arg_type: str = __format_output(return_obj)</span><br><span class="line">(Pdb) s</span><br><span class="line">--Call--</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(7)__format_output()</span><br><span class="line"><span class="meta">-&gt;</span> def __format_output(return_obj):</span><br><span class="line">(Pdb) n</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(8)__format_output()</span><br><span class="line"><span class="meta">-&gt;</span> output = return_obj.GetOutput()</span><br><span class="line">(Pdb) n</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(9)__format_output()</span><br><span class="line"><span class="meta">-&gt;</span> return None if not output else output.replace('\n', '').replace('\r', '')</span><br><span class="line">(Pdb) l</span><br><span class="line">  6  	# 格式化输出</span><br><span class="line">  7  	def __format_output(return_obj):</span><br><span class="line">  8  	    output = return_obj.GetOutput()</span><br><span class="line">  9  -&gt;	    return None if not output else output.replace('\n', '').replace('\r', '')</span><br><span class="line"> 10</span><br><span class="line">(Pdb) pp output</span><br><span class="line">'lyy2020@163.com\n\n'</span><br><span class="line">(Pdb) r</span><br><span class="line">--Return--</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(9)__format_output()-&gt;'lyy2020@163.com'</span><br><span class="line"><span class="meta">-&gt;</span> return None if not output else output.replace('\n', '').replace('\r', '')</span><br><span class="line">(Pdb) r</span><br><span class="line"><span class="meta">&gt;</span> /Users/drag/OCTest/OCTest/Debug.py(23)__print_arg()</span><br><span class="line"><span class="meta">-&gt;</span> interpreter.HandleCommand('po [%s class]' % register, return_obj)</span><br><span class="line">(Pdb)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直接使用<code>s</code>进入函数内部</li>
+<li>直接使用<code>r</code>退出当前子函数</li>
+<li>直接使用<code>n</code>按顺序执行代码，遇到子函数不进入。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/逆向/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/14/PreferenceBundleModern/" rel="prev" title="创建依附于设置的APP(preference_bundle_modern)">
+      <i class="fa fa-chevron-left"></i> 创建依附于设置的APP(preference_bundle_modern)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#说在前面"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍"><span class="nav-number">2.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建环境"><span class="nav-number">3.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战"><span class="nav-number">4.</span> <span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">4.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写函数"><span class="nav-number">4.2.</span> <span class="nav-text">编写函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出命令"><span class="nav-number">4.3.</span> <span class="nav-text">导出命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pdb调试"><span class="nav-number">5.</span> <span class="nav-text">pdb调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍-1"><span class="nav-number">5.1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本调试"><span class="nav-number">5.2.</span> <span class="nav-text">基本调试</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">龙龙的技术博客,各种IT知识的聚合</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
+      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
+      placeholder: "单刀直入，留下意见",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
