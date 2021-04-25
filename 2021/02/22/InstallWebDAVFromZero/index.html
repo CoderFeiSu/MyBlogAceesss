@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="description" content="前言 起因： App端需要实现WebDAv客户端功能，搭建一台WebDAV服务器满足客户端的增删改查需求。 云端现有的WebDAV服务器不能满足自己的需要   从零开始： 下载centOS服务器镜像 安装centOS服务器系统 安装指定版本nginx 在centOS服务器上安装WebDAV服务   环境 macOS10.14.6 Parallels Desktop 14，虚拟机软件，安装centO">
+<meta name="keywords" content="WebDAV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零搭建WebDAV服务器">
+<meta property="og:url" content="http://yoursite.com/2021/02/22/InstallWebDAVFromZero/index.html">
+<meta property="og:site_name" content="龙龙的技术博客">
+<meta property="og:description" content="前言 起因： App端需要实现WebDAv客户端功能，搭建一台WebDAV服务器满足客户端的增删改查需求。 云端现有的WebDAV服务器不能满足自己的需要   从零开始： 下载centOS服务器镜像 安装centOS服务器系统 安装指定版本nginx 在centOS服务器上安装WebDAV服务   环境 macOS10.14.6 Parallels Desktop 14，虚拟机软件，安装centO">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-02-22T13:59:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零搭建WebDAV服务器">
+<meta name="twitter:description" content="前言 起因： App端需要实现WebDAv客户端功能，搭建一台WebDAV服务器满足客户端的增删改查需求。 云端现有的WebDAV服务器不能满足自己的需要   从零开始： 下载centOS服务器镜像 安装centOS服务器系统 安装指定版本nginx 在centOS服务器上安装WebDAV服务   环境 macOS10.14.6 Parallels Desktop 14，虚拟机软件，安装centO">
+
+<link rel="canonical" href="http://yoursite.com/2021/02/22/InstallWebDAVFromZero/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从零搭建WebDAV服务器 | 龙龙的技术博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">龙龙的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/22/InstallWebDAVFromZero/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="龙龙的技术博客,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="龙龙的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零搭建WebDAV服务器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-22 19:59:30 / 修改时间：21:59:30" itemprop="dateCreated datePublished" datetime="2021-02-22T19:59:30+08:00">2021-02-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/centOS/" itemprop="url" rel="index"><span itemprop="name">centOS</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/22/InstallWebDAVFromZero/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/22/InstallWebDAVFromZero/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>起因：<ul>
+<li>App端需要实现WebDAv客户端功能，搭建一台WebDAV服务器满足客户端的增删改查需求。</li>
+<li>云端现有的WebDAV服务器不能满足自己的需要</li>
+</ul>
+</li>
+<li>从零开始：<ul>
+<li>下载centOS服务器镜像</li>
+<li>安装centOS服务器系统</li>
+<li>安装指定版本nginx</li>
+<li>在centOS服务器上安装WebDAV服务</li>
+</ul>
+</li>
+<li>环境<ul>
+<li>macOS10.14.6</li>
+<li>Parallels Desktop 14，虚拟机软件，安装centOS服务器</li>
+<li>centOS7.6，centOS操作系统</li>
+<li>SecureCRT，centOS操作系统的macOS客户端</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="安装centOS"><a href="#安装centOS" class="headerlink" title="安装centOS"></a>安装centOS</h2><ul>
+<li><p>下载centOS7.6镜像</p>
+<ul>
+<li>因为这样或那样的原因，阿里源等其它大型源都不再提供指定版本的镜像下载功能。不过本人另辟蹊径，找到了方法，供大家参考。</li>
+<li>通过 <a href="http://mirrors.aliyun.com/centos/" target="_blank" rel="noopener">http://mirrors.aliyun.com/centos/</a> 查看自己需要下载的版本，记下来。</li>
+<li>替换掉 <a href="https://mirrors.aliyun.com/centos-vault/7.5.1804/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso" target="_blank" rel="noopener">https://mirrors.aliyun.com/centos-vault/7.5.1804/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso</a> 里面的版本号就可以直接进行下载。</li>
+</ul>
+</li>
+<li><p>利用Parallels新建centOS系统，新建完成后，光盘加载centOS7.6镜像进行系统安装。过程很简单，这里不做介绍。</p>
+</li>
+<li><p>打开Parallels-&gt;<code>设备</code>-&gt;<code>网络</code>-&gt;<code>桥接网络</code>-&gt;<code>Wi-Fi</code>,把虚拟机和macOS放在同一个本地局域网中，方便本地测试WebDAV服务。</p>
+</li>
+<li><p>系统安装完成后，需要配置IP，才能通信，步骤如下</p>
+<ul>
+<li>执行<code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code>打开文件</li>
+<li>更改如下内容<ul>
+<li>BOOTPROTO=static # 从dhcp修改为static</li>
+<li>ONBOOT=yes # 从no修改为yes</li>
+</ul>
+</li>
+<li>添加如下内容<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IPADDR=192.168.1.248</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.1.1</span><br><span class="line">DNS1=192.168.1.1</span><br><span class="line">DNS2=8.8.8.8</span><br><span class="line">DNS3=114.114.114.114</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>IP配置完成后，需要执行<code>service network restart</code>重启网络，就可以通信了。如果还是不能通信，需要执行<code>reboot</code>。</p>
+</li>
+<li><p>使用SecureCRT连接上服务器，你可以愉快地玩耍了</p>
+</li>
+</ul>
+<h2 id="安装Parallels-Tools"><a href="#安装Parallels-Tools" class="headerlink" title="安装Parallels Tools"></a>安装Parallels Tools</h2><ul>
+<li><p>安装Parallels Tools高效地使用虚拟机，让你达到事倍功半的效果。</p>
+</li>
+<li><p>打开<code>顶部工具栏</code>-&gt;<code>操作</code>-&gt;<code>安装Parallels Tools...</code>，加载<code>Parallels Tools</code>光盘</p>
+</li>
+<li><p>挂载光盘<code>mount /dev/cdrom /media</code></p>
+</li>
+<li><p>执行<code>cd /media &amp;&amp; ./install</code>进行安装，会报错，要求手动安装一些依赖包。</p>
+</li>
+<li><p>使用如下命令升级系统内核，过程比较慢，请耐心等待。内核升级后，会安装上面要求的依赖包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum clean all</span><br><span class="line">sudo yum update</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用<code>./install</code>重新执行安装就可以了</p>
+</li>
+</ul>
+<h2 id="安装常用命令"><a href="#安装常用命令" class="headerlink" title="安装常用命令"></a>安装常用命令</h2><ul>
+<li>安装下载命令<code>yum install wget -y</code></li>
+<li>安装rz和sz命令，可以在SecureCRT上使macOS和centOS服务器互传文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install lrzsz -y</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="安装nginx时加载WebDAV模块"><a href="#安装nginx时加载WebDAV模块" class="headerlink" title="安装nginx时加载WebDAV模块"></a>安装nginx时加载WebDAV模块</h2><ul>
+<li><p>进入用户级的源码目录<code>cd /usr/local/src</code>，下载nginx安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://nginx.org/download/nginx-1.18.0.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nginx自带的dav模块功能有限，我们需要扩展它的功能，下载webDAV扩展包</p>
+<ul>
+<li>进入 <a href="https://github.com/arut/nginx-dav-ext-module/releases/tag/v3.0.0" target="_blank" rel="noopener">https://github.com/arut/nginx-dav-ext-module/releases/tag/v3.0.0</a> 下载tar.gz包</li>
+<li>SecureCRT使用<code>rz</code>上传macOS上的<code>nginx-dav-ext-module-3.0.0.tar.gz</code>到centOS的<code>/usr/local/src</code>目录下</li>
+</ul>
+</li>
+<li><p>解压webDAV扩展包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-dav-ext-module-3.0.0.tar.gz </span><br><span class="line">mv nginx-dav-ext-module-3.0.0 nginx-dav-ext-module</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装编译必备工具包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  yum -y install gcc pcre-devel openssl openssl-devel libxslt-devel</span><br><span class="line">  ``` </span><br><span class="line">* 因为nginx并没有默认内建WebDAV模块，所以需要我们在配置市手动开启，并加入扩展模块</span><br><span class="line">  ```shell</span><br><span class="line">  tar -zxvf nginx-1.18.0.tar.gz </span><br><span class="line">  cd nginx-1.18.0</span><br><span class="line">  ./configure --prefix=/usr/local/nginx --with-http_dav_module --add-module=/usr/local/src/nginx-dav-ext-module</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译安装<code>make &amp;&amp; make install</code>，大功告成。</p>
+</li>
+</ul>
+<h2 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h2><h3 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h3><ul>
+<li><p>当执行<code>service nginx start</code>会出现<code>Failed to start nginx.service: Unit not found.</code>错误</p>
+</li>
+<li><p>执行<code>vi /etc/init.d/nginx</code>,填写一下内容，然后保存退出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"><span class="meta">#</span> nginx - this script starts and stops the nginx daemin</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> chkconfig:   - 85 15</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span> description:  Nginx is an HTTP(S) server, HTTP(S) reverse \</span><br><span class="line"><span class="meta">#</span>               proxy and IMAP/POP3 proxy server</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span> processname: nginx</span><br><span class="line"><span class="meta">#</span> config:      /usr/local/nginx/conf/nginx.conf</span><br><span class="line"><span class="meta">#</span> pidfile:     /usr/local/nginx/logs/nginx.pid</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span> Source function library.</span><br><span class="line"> </span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span> Source networking configuration.</span><br><span class="line"> </span><br><span class="line">. /etc/sysconfig/network</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span> Check that networking is up.</span><br><span class="line"> </span><br><span class="line">[ "$NETWORKING" = "no" ] &amp;&amp; exit 0</span><br><span class="line"> </span><br><span class="line">nginx="/usr/local/nginx/sbin/nginx"</span><br><span class="line"> </span><br><span class="line">prog=$(basename $nginx)</span><br><span class="line"> </span><br><span class="line">NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"</span><br><span class="line"> </span><br><span class="line">lockfile=/var/lock/subsys/nginx</span><br><span class="line"> </span><br><span class="line">start() &#123;</span><br><span class="line"> </span><br><span class="line">    [ -x $nginx ] || exit 5</span><br><span class="line"> </span><br><span class="line">    [ -f $NGINX_CONF_FILE ] || exit 6</span><br><span class="line"> </span><br><span class="line">    echo -n $"Starting $prog: "</span><br><span class="line"> </span><br><span class="line">    daemon $nginx -c $NGINX_CONF_FILE</span><br><span class="line"> </span><br><span class="line">    retval=$?</span><br><span class="line"> </span><br><span class="line">    echo</span><br><span class="line"> </span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</span><br><span class="line"> </span><br><span class="line">    return $retval</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">stop() &#123;</span><br><span class="line"> </span><br><span class="line">    echo -n $"Stopping $prog: "</span><br><span class="line"> </span><br><span class="line">    killproc $prog -QUIT</span><br><span class="line"> </span><br><span class="line">    retval=$?</span><br><span class="line"> </span><br><span class="line">    echo</span><br><span class="line"> </span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</span><br><span class="line"> </span><br><span class="line">    return $retval</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">restart() &#123;</span><br><span class="line"> </span><br><span class="line">    configtest || return $?</span><br><span class="line"> </span><br><span class="line">    stop</span><br><span class="line"> </span><br><span class="line">    start</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">reload() &#123;</span><br><span class="line"> </span><br><span class="line">    configtest || return $?</span><br><span class="line"> </span><br><span class="line">    echo -n $"Reloading $prog: "</span><br><span class="line"> </span><br><span class="line">    killproc $nginx -HUP</span><br><span class="line"> </span><br><span class="line">    RETVAL=$?</span><br><span class="line"> </span><br><span class="line">    echo</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">force_reload() &#123;</span><br><span class="line"> </span><br><span class="line">    restart</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">configtest() &#123;</span><br><span class="line"> </span><br><span class="line"><span class="meta">  $</span>nginx -t -c $NGINX_CONF_FILE</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">rh_status() &#123;</span><br><span class="line"> </span><br><span class="line">    status $prog</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">rh_status_q() &#123;</span><br><span class="line"> </span><br><span class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">case "$1" in</span><br><span class="line"> </span><br><span class="line">    start)</span><br><span class="line"> </span><br><span class="line">        rh_status_q &amp;&amp; exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line"> </span><br><span class="line">    stop)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line"> </span><br><span class="line">    restart|configtest)</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line"> </span><br><span class="line">    reload)</span><br><span class="line">        rh_status_q || exit 7</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    force-reload)</span><br><span class="line">        force_reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        rh_status</span><br><span class="line">        ;;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    condrestart|try-restart)</span><br><span class="line"> </span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">            ;;</span><br><span class="line"> </span><br><span class="line">    *)</span><br><span class="line"> </span><br><span class="line">        echo $"Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;"</span><br><span class="line">        exit 2</span><br><span class="line"> </span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后执行以下语句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/init.d</span><br><span class="line">chmod 755 nginx</span><br><span class="line">chkconfig --add nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新执行<code>service nginx start</code>发现成功了。</p>
+</li>
+</ul>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><ul>
+<li><p>编辑<code>vi /lib/systemd/system/nginx.service</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=nginx</span><br><span class="line">After=network.target</span><br><span class="line">  </span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx</span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s quit</span><br><span class="line">PrivateTmp=true</span><br><span class="line">  </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务开启<code>systemctl enable nginx.service</code></p>
+</li>
+<li><p>再次执行启动命令<code>service nginx start</code></p>
+</li>
+</ul>
+<h2 id="配置WebDAV"><a href="#配置WebDAV" class="headerlink" title="配置WebDAV"></a>配置WebDAV</h2><ul>
+<li><p>新建根目录，并授权</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/local/nginx/webdav</span><br><span class="line">chmod 777 /usr/local/nginx/webdav</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑<code>vim /usr/local/nginx/conf/nginx.conf</code>,配置nginx虚拟服务器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 80;</span><br><span class="line">  location / &#123;</span><br><span class="line">      root /usr/local/nginx/webdav;</span><br><span class="line">      dav_methods PUT DELETE MKCOL COPY MOVE; #DAV支持的请求方法</span><br><span class="line">      dav_ext_methods PROPFIND OPTIONS; #DAV扩展支持的请求方法</span><br><span class="line">      charset utf-8;  #设置为utf-8不然中文容易乱码</span><br><span class="line">      create_full_put_path on; #启用创建目录支持</span><br><span class="line">      dav_access user:rw group:r all:r;  #设置新创建的文件和目录的访问权限</span><br><span class="line">      limit_except GET PROPFIND OPTIONS HEAD &#123; #匿名用户只有查看权限，登录用户才能进行读写操作</span><br><span class="line">            auth_basic "Authorized Users Only";</span><br><span class="line">            auth_basic_user_file /usr/local/nginx/conf/passwd.conf;</span><br><span class="line">      &#125;</span><br><span class="line">      autoindex on; </span><br><span class="line">      autoindex_exact_size off;</span><br><span class="line">      autoindex_localtime on;</span><br><span class="line">      min_delete_depth 0;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>* </p>
+</li>
+<li><p>设置Webdav账号(test01)密码(123)</p>
+<ul>
+<li>安装htpasswd工具：<code>yum install -y httpd-tools</code></li>
+<li>生成用户认证文件：<code>htpasswd -c /usr/local/nginx/conf/passwd.conf test01</code></li>
+</ul>
+</li>
+<li><p>重启服务<code>service nginx restart</code>后，当我们兴高采烈地在浏览器输入<code>http://192.168.1.248</code>进行访问时，发现报了一大堆错误。根据以往经验，这是防火墙的原因。</p>
+</li>
+</ul>
+<h2 id="防火墙设置"><a href="#防火墙设置" class="headerlink" title="防火墙设置"></a>防火墙设置</h2><ul>
+<li><p>防火墙默认情况下会在开启状态，并且会开机启动。因为WebDav用的是80端口，并且没有在防火墙上暴露出去，所以不能对外提供服务，两个方法可以解决：</p>
+<ul>
+<li>直接关闭防火墙，这个不安全，所以不推荐</li>
+<li>开发WebDAV使用的80端口，推荐这个方案</li>
+</ul>
+</li>
+<li><p>执行以下命令，开放这个端口，这样外部就能访问.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=80/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看防火墙端口信息<code>firewall-cmd --list-ports</code>，发现已经暴露出去，再次访问就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# firewall-cmd --list-ports</span><br><span class="line">80/tcp</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li>macOS或windows端都有相应的WebDAV客户端，使用客户端测试一下服务器的增删改查功能。</li>
+<li>测试过程中，如果出现问题，肯定是我们搭建的服务器有有问题，因为我们下载的客户端都是相对成熟的。  </li>
+<li>测试没有问题就可以在App端接入了。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WebDAV/" rel="tag"># WebDAV</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/22/OfflineDownloadNovels/" rel="prev" title="逆向某著名小说App进行脱机下载">
+      <i class="fa fa-chevron-left"></i> 逆向某著名小说App进行脱机下载
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/25/XtraFinder/" rel="next" title="macOS逆向之跳过XtraFinder试用界面">
+      macOS逆向之跳过XtraFinder试用界面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装centOS"><span class="nav-number">2.</span> <span class="nav-text">安装centOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Parallels-Tools"><span class="nav-number">3.</span> <span class="nav-text">安装Parallels Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装常用命令"><span class="nav-number">4.</span> <span class="nav-text">安装常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装nginx时加载WebDAV模块"><span class="nav-number">5.</span> <span class="nav-text">安装nginx时加载WebDAV模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动nginx"><span class="nav-number">6.</span> <span class="nav-text">启动nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务启动"><span class="nav-number">6.1.</span> <span class="nav-text">服务启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开机启动"><span class="nav-number">6.2.</span> <span class="nav-text">开机启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置WebDAV"><span class="nav-number">7.</span> <span class="nav-text">配置WebDAV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙设置"><span class="nav-number">8.</span> <span class="nav-text">防火墙设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">9.</span> <span class="nav-text">测试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">龙龙的技术博客,各种IT知识的聚合</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
+      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
+      placeholder: "单刀直入，留下意见",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
