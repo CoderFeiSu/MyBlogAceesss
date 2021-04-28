@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="description" content="说在前面 本文警告：此文仅限于技术交流，如果损害了App方利益，请发邮件zhulongfei28@gmail.com，谢谢。 开发工具： Reveal查看App界面 Frida跟踪方法调用过程 class-dump导出头文件 IDA分析Mach-O文件 theos开发tweak插件 restore-symbol恢复符号表   本文目标：去除开屏广告、下载广告、页内广告">
+<meta name="keywords" content="逆向,iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="今日头条旗下XX小说去广告">
+<meta property="og:url" content="http://yoursite.com/2020/12/22/Reading/index.html">
+<meta property="og:site_name" content="龙龙的技术博客">
+<meta property="og:description" content="说在前面 本文警告：此文仅限于技术交流，如果损害了App方利益，请发邮件zhulongfei28@gmail.com，谢谢。 开发工具： Reveal查看App界面 Frida跟踪方法调用过程 class-dump导出头文件 IDA分析Mach-O文件 theos开发tweak插件 restore-symbol恢复符号表   本文目标：去除开屏广告、下载广告、页内广告">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/Reading-01.png">
+<meta property="og:updated_time" content="2020-12-22T13:59:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="今日头条旗下XX小说去广告">
+<meta name="twitter:description" content="说在前面 本文警告：此文仅限于技术交流，如果损害了App方利益，请发邮件zhulongfei28@gmail.com，谢谢。 开发工具： Reveal查看App界面 Frida跟踪方法调用过程 class-dump导出头文件 IDA分析Mach-O文件 theos开发tweak插件 restore-symbol恢复符号表   本文目标：去除开屏广告、下载广告、页内广告">
+<meta name="twitter:image" content="http://yoursite.com/images/Reading-01.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/22/Reading/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>今日头条旗下XX小说去广告 | 龙龙的技术博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">龙龙的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/22/Reading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="龙龙的技术博客,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="龙龙的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          今日头条旗下XX小说去广告
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-22 19:59:30 / 修改时间：21:59:30" itemprop="dateCreated datePublished" datetime="2020-12-22T19:59:30+08:00">2020-12-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/12/22/Reading/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/22/Reading/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><ul>
+<li>本文警告：此文仅限于技术交流，如果损害了App方利益，请发邮件<code>zhulongfei28@gmail.com</code>，谢谢。</li>
+<li>开发工具：<ul>
+<li>Reveal查看App界面</li>
+<li>Frida跟踪方法调用过程</li>
+<li>class-dump导出头文件</li>
+<li>IDA分析Mach-O文件</li>
+<li>theos开发tweak插件</li>
+<li>restore-symbol恢复符号表</li>
+</ul>
+</li>
+<li>本文目标：去除开屏广告、下载广告、页内广告</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="事前准备"><a href="#事前准备" class="headerlink" title="事前准备"></a>事前准备</h2><ul>
+<li>使用frida-tools和frida-ios-dump进行脱壳</li>
+<li>Mach-O拖入IDA进行分析</li>
+<li>restore-symbol恢复Mach-O符号表后替换原有Mach-O文件</li>
+<li>theos新建一个tweak项目</li>
+</ul>
+<h2 id="开屏广告"><a href="#开屏广告" class="headerlink" title="开屏广告"></a>开屏广告</h2><ul>
+<li><p>App启动时会有5s的开屏广告，广告过后会直接进入App里面。这个时候迅速用Reveal查看，要不然就很快跳过去了。本人试了好几遍才捕捉到这个界面，发现广告是由<code>SSReadingAdSplashCSJViewController</code>控制的。</p>
+</li>
+<li><p>使用<code>frida-trace</code>追踪控制器的所有方法，找到哪里对这个控制器进行初始化。把初始化的条件破坏，就不会进行初始化了，也就没有所谓的广告了。-f选项加上App的BundleID表示重启App进行跟踪，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida-trace -U  -f com.dragon.read -m "*[SSReadingAdSplashCSJViewController *]"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命令执行后，会打印如下内容，这个时候需要打印堆栈，查看哪里调用了<code>init</code>方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Started tracing 45 functions. Press Ctrl+C to stop.</span><br><span class="line">         /* TID 0x403 */</span><br><span class="line">2786 ms  -[SSReadingAdSplashCSJViewController init]</span><br><span class="line">2787 ms  -[SSReadingAdSplashCSJViewController setDelegate:0x12e0e7ae0]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入如下路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__handlers__文件夹 -&gt; SSReadingAdSplashCSJViewController文件夹 -&gt; init.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>init.js</code>文件，修改以下内容。按<code>control + c</code>终止程序，执行以上跟踪方法，会重新进入App。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onEnter(log, args, state) &#123;</span><br><span class="line">  log(<span class="string">`-[SSReadingAdSplashCSJViewController init]`</span>);</span><br><span class="line">  log(Thread.backtrace(<span class="keyword">this</span>.context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join(<span class="string">'\n\t'</span>));</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用堆栈确实打印出来了，一层一层好多调用。有<code>load</code>和<code>task</code>关键字的方法表示已经在调用广告了，这个应该不是我们需要的。<code>SSReadingAdSplashService</code>表示跟开屏广告有关的服务，大概率这个跟是否开启广告有着密切的关系，我们需要从这个类入手。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Started tracing 45 functions. Press Ctrl+C to stop.</span><br><span class="line">         /* TID 0x403 */</span><br><span class="line">2585 ms  -[SSReadingAdSplashCSJViewController init]</span><br><span class="line">2585 ms  0x101420158 Reading!-[SSReadingAdSplashCSJTask setupSplashController]</span><br><span class="line">        0x10141f934 Reading!-[SSReadingAdSplashCSJTask load]</span><br><span class="line">        0x10126b4a0 Reading!-[SSReadingAdSplashLoader flushQueue:]</span><br><span class="line">        0x10126ae70 Reading!-[SSReadingAdSplashLoader onTaskCompletion:error:]</span><br><span class="line">        0x10126ad54 Reading!0x5a2d54</span><br><span class="line">        0x1013fccac Reading!-[SSReadingAdSplashBrandTask onCompletionWithError:]</span><br><span class="line">        0x1013fc7a8 Reading!-[SSReadingAdSplashBrandTask onAdLoadFailureWithError:]</span><br><span class="line">        0x1013fb458 Reading!-[SSReadingAdSplashBrandTask load]</span><br><span class="line">        0x10126b4a0 Reading!-[SSReadingAdSplashLoader flushQueue:]</span><br><span class="line">        0x10126a328 Reading!-[SSReadingAdSplashLoader load]</span><br><span class="line">        0x10157eaf8 Reading!-[SSReadingAdSplashService loadSplashWithHotLaunch:]</span><br><span class="line">        0x10157ee84 Reading!-[SSReadingAdSplashService appLaunchSplash]</span><br><span class="line">        0x1014be6b8 Reading!-[SSReadingAppDelegate appWillFinishLaunchWithOptions:]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跟踪<code>SSReadingAdSplashService</code>的所有方法，仔细查看发现<code>shouldShowSplashAd</code>是否展示开屏广告，终于找到了，需要验证一下猜想</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">frida-trace -U  -f com.dragon.read -m "*[SSReadingAdSplashService *]"</span><br><span class="line"></span><br><span class="line">Started tracing 21 functions. Press Ctrl+C to stop.</span><br><span class="line">         /* TID 0x403 */</span><br><span class="line">2344 ms  -[SSReadingAdSplashService onServiceInit]</span><br><span class="line">2345 ms     | -[SSReadingAdSplashService addObservers]</span><br><span class="line">2345 ms     | -[SSReadingAdSplashService shouldShowSplashAd]</span><br><span class="line">            ....</span><br><span class="line">2349 ms  -[SSReadingAdSplashService appLaunchSplash]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>shouldShowSplashAd.js</code>，更改返回值为0，表示不展示广告，按<code>control + c</code>终止程序，重新进执行以上跟踪方法，发现不会出现开屏广告</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onLeave(log, retval, state) &#123;</span><br><span class="line">    retval.replace(<span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大胆在Tweak.x中写入一下代码，从此告别了开屏广告，美滋滋呀，美滋滋。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%hook SSReadingAdSplashService</span><br><span class="line">- (BOOL)shouldShowSplashAd &#123; </span><br><span class="line">    return NO; </span><br><span class="line">&#125;</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="下载广告"><a href="#下载广告" class="headerlink" title="下载广告"></a>下载广告</h2><ul>
+<li><p>随便找一本小说进入，然后后点击下载，会有如下弹框，让我们看完广告去下载。要不然每次点击下载都要看广告，这样也太烦了。<br><img src="/images/Reading-01.png" alt></p>
+</li>
+<li><p>通过Reveal发现弹框属于<code>SSNewKCAlertView</code>视图，跟踪<code>SSNewKCAlertView</code>所有方法。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida-trace -U -m "*[SSNewKCAlertView *]" XX小说</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当点击下载时，会首先执行如下方法进行初始化弹框操作。打印此方法的调用堆栈，找到哪里进行了广告弹框的初始化操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">58574 ms  -[SSNewKCAlertView initWithStyle:0x0 title:0x103320958 detail:0x0 actions:0x14e6b2990]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>initWithStyle_title_detail_actions_.js</code>文件，在入口处添加如下代码，打印函数调用堆栈和模块在内存中的偏移地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">onEnter(log, args, state) &#123;</span><br><span class="line">    let funcAddr = Module.findExportByName('dyld', '_dyld_get_image_vmaddr_slide')</span><br><span class="line">    let funcBody = new NativeFunction(funcAddr, 'ulong', ['ulong'])</span><br><span class="line">    let aslrAddr = funcBody(0).toString(16)</span><br><span class="line">    log('ASLR偏移地址为：0x' + aslrAddr)</span><br><span class="line">    log(`-[SSNewKCAlertView initWithStyle:$&#123;args[2]&#125; title:$&#123;args[3]&#125; detail:$&#123;args[4]&#125; actions:$&#123;args[5]&#125;]`);</span><br><span class="line">    log(Thread.backtrace(this.context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join('\n\t'));</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中断方法执行，再次执行跟踪方法，重新点击下载，会打印如下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3443 ms  ASLR偏移地址为：0x288000</span><br><span class="line">3443 ms  -[SSNewKCAlertView initWithStyle:0x0 title:0x1024b0958 detail:0x0 actions:0x111b66a80]</span><br><span class="line">3443 ms  0x100c87ef4 Reading!+[SSCommonMethod showAlertViewWithStyle:title:detail:action:darkMode:showCloseBtn:]</span><br><span class="line">        0x1009ce37c Reading!-[SSReaderManager inspire_showInspireAlertWithBookId:confirm:]</span><br><span class="line">        0x1004d9b3c Reading!-[SSReaderManager downloadBookAfterWatchInspire]</span><br><span class="line">        0x100511d28 Reading!-[SSReaderManager onDownloadBtnClick:]</span><br><span class="line">        0x100935fd0 Reading!-[SSReadingNavigationView onDownloadBtnClick:]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不难发现以下两个方法是已经在执行弹框操作了，不在研究范围之内，直接忽略掉。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+[SSCommonMethod showAlertViewWithStyle:title:detail:action:darkMode:showCloseBtn:]</span><br><span class="line">-[SSReaderManager inspire_showInspireAlertWithBookId:confirm:]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面方法是关注的重点，大概意思就是观看完广告视频才能下载，我们需要知道满足什么条件会执行这个方法，我们让它不满足这个条件，就会直接执行下载操作。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-[SSReaderManager downloadBookAfterWatchInspire]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算<code>0x100511d28-0x288000(ASLR偏移地址)=0x100289D28</code>的结果，拿<code>0x100289D28</code>放到IDA进行地址搜索，发现定位到如下位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void __cdecl -[SSReaderManager onDownloadBtnClick:](SSReaderManager *self, SEL a2, id a3)</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  // 此处为定位(光标)位置</span><br><span class="line">  -[SSReaderManager onReaderDownloadBtnClick](self, &quot;onReaderDownloadBtnClick&quot;, a3);</span><br><span class="line">  ...</span><br><span class="line">  objc_msgSend(v8, &quot;report_click_reader:content:bookType:&quot;, v10, CFSTR(&quot;download&quot;), v14);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开<code>onReaderDownloadBtnClick</code>方法实现的伪代码，发现快200行代码，这也太多了，怎么找呢？一行一行看，直到发现<code>downloadBookAfterWatchInspire</code>方法。经过耐心寻找，一直找到最后才发现相关代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">v56 = +[SSABTestHelper buzz_book_download_inspire_type](</span><br><span class="line">        &amp;OBJC_CLASS___SSABTestHelper,</span><br><span class="line">        &quot;buzz_book_download_inspire_type&quot;);</span><br><span class="line">if ( v56 == (void *)2 )</span><br><span class="line">&#123;</span><br><span class="line">  v57 = &quot;downloadBookAfterWatchInspire&quot;;</span><br><span class="line">  goto LABEL_12;</span><br><span class="line">&#125;</span><br><span class="line">if ( v56 == (void *)1 )</span><br><span class="line">&#123;</span><br><span class="line">  v57 = &quot;downloadBookDirectly&quot;;</span><br><span class="line">  goto LABEL_12;</span><br><span class="line">&#125;</span><br><span class="line">if ( !v56 )</span><br><span class="line">&#123;</span><br><span class="line">LABEL_17:</span><br><span class="line">  v57 = &quot;downloadBookAfterBuyVip&quot;;</span><br><span class="line">LABEL_12:</span><br><span class="line">  objc_msgSend(v2, v57);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过上面代码分析，得出如下结论</p>
+<ul>
+<li>下载方法有三种：<code>downloadBookAfterWatchInspire</code>表示看完广告视频进行下载，<code>downloadBookAfterBuyVip</code>表示购买完vip就行下载，<code>downloadBookDirectly</code>表示直接进行下载</li>
+<li>通过v56的值也就是<code>buzz_book_download_inspire_type</code>的值判断进行哪种方式的下载</li>
+<li>设置值为1，也就是<code>+[SSABTestHelper buzz_book_download_inspire_type] = 1</code>时，可以直接进行下载</li>
+</ul>
+</li>
+<li><p>打开Tweak.x文件，写下如下代码。安装后，重新点击下载，发现可以直接下载，不用看任何广告。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%hook SSABTestHelper</span><br><span class="line">+ (long long)buzz_book_download_inspire_type &#123;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="页内广告"><a href="#页内广告" class="headerlink" title="页内广告"></a>页内广告</h2><ul>
+<li><p>随便找个小说翻几页就会出现一个广告，这样的阅读体验让人感到难受极了。出现广告的时候用Reveal查看发现属于<code>SSReadingAdChapterMiddleContentViewController</code>，需要追踪这个控制的所有方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida-trace -U -m "*[SSReadingAdChapterMiddleContentViewController *]" XX小说</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发现每出现一个广告，都会调用如下方法。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">187872 ms  -[SSReadingAdChapterMiddleContentViewController initWithModel:0x157ceeb70]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>initWithModel.js</code>，添加以下内容，打印调用堆栈</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onEnter(log, args, state) &#123;</span><br><span class="line">  log(<span class="string">`-[SSReadingAdChapterMiddleContentViewController initWithModel:<span class="subst">$&#123;args[<span class="number">2</span>]&#125;</span>]`</span>);</span><br><span class="line">  log(Thread.backtrace(<span class="keyword">this</span>.context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join(<span class="string">'\n\t'</span>));</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用堆栈层级比较多，把重要的贴出来，如下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">frida-trace -U -m "-[SSReadingAdChapterMiddleContentViewController initWithModel:]" XX小说</span><br><span class="line">....</span><br><span class="line">         /* TID 0x303 */</span><br><span class="line">2802 ms  -[SSReadingAdChapterMiddleContentViewController initWithModel:0x158c5c7f0]</span><br><span class="line">2802 ms  0x10173b688 Reading!-[SSReadingAdManager chapterMiddleAdVCWithReaderModel:curPageContext:targetPageContext:pageChangeInfo:adATData:adCSJData:]</span><br><span class="line">        0x1013cbd34 Reading!-[SSReadingAdManager satiAdWithReaderModel:curPageContext:targetPageContext:pageChangeInfo:]</span><br><span class="line">        0x101509338 Reading!-[SSReadingAdManager getBusinessInsertedVCWithReadModel:curPageContext:targetPageContext:pageChangeInfo:]</span><br><span class="line">        0x1010a9e14 Reading!-[SSReaderManager requestInsertedVCWithReadModel:curPageContext:targetPageContext:pageChangeInfo:]</span><br><span class="line">        0x10195ecb4 Reading!-[BDReaderViewController tryGetInsertedVC:fromPageContext:toPageContext:]</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以清晰地发现<code>SSReadingAdManager</code>是一个跟广告有关的管理器，顾名思义，出现了广告才会出现管理器。广告哪里来，肯定是从网络请求的，而<code>SSReaderManager requestInsertedVCWithReadModel</code>就像是从网路请求广告数据。这是我们的猜测，在Tweak.x中写如下代码，验证一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%hook SSReaderManager</span><br><span class="line">- (id)requestInsertedVCWithReadModel:(id)arg1 curPageContext:(id)arg2 targetPageContext:(id)arg3 pageChangeInfo:(id)arg4 &#123;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>手机注销后，随便打开一个小说，随便翻看，发现再也没有广告了。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/逆向/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/10/CustomLLDBScript/" rel="prev" title="自定义打印方法参数的LLDB命令">
+      <i class="fa fa-chevron-left"></i> 自定义打印方法参数的LLDB命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/22/InstallWebDAVFromZero/" rel="next" title="从零搭建WebDAV服务器">
+      从零搭建WebDAV服务器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#说在前面"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事前准备"><span class="nav-number">2.</span> <span class="nav-text">事前准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开屏广告"><span class="nav-number">3.</span> <span class="nav-text">开屏广告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载广告"><span class="nav-number">4.</span> <span class="nav-text">下载广告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页内广告"><span class="nav-number">5.</span> <span class="nav-text">页内广告</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">龙龙的技术博客,各种IT知识的聚合</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : '5NADpHIap0UnyPFY8JD2w8vT-gzGzoHsz',
+      appKey     : 'oFU18srnDuJc1BRp9sgXpyO5',
+      placeholder: "单刀直入，留下意见",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
