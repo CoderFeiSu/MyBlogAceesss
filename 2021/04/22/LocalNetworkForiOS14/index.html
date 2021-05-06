@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="说在前面 iOS14的适配集中在用户隐私和安全方面，包含相册、位置、本地网络、广告标识符、剪切板等隐私权限的适配。前段时间做了相册权限和本地网络权限的适配，相册权限的适配比较简单，不在本文讲解范围内，本文主要讲解本地网络适配。 苹果官方没有给出具体API查询本地网络权限是否开启，这给开发者带来了难度。本文采用间接的方式在需要本地网络权限的时候，提示是否开启权限，如果没有开启权限就不能执行相应的操作">
+<meta name="keywords" content="iOS,本地网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS14本地网络适配">
+<meta property="og:url" content="http://yoursite.com/2021/04/22/LocalNetworkForiOS14/index.html">
+<meta property="og:site_name" content="龙龙的技术博客">
+<meta property="og:description" content="说在前面 iOS14的适配集中在用户隐私和安全方面，包含相册、位置、本地网络、广告标识符、剪切板等隐私权限的适配。前段时间做了相册权限和本地网络权限的适配，相册权限的适配比较简单，不在本文讲解范围内，本文主要讲解本地网络适配。 苹果官方没有给出具体API查询本地网络权限是否开启，这给开发者带来了难度。本文采用间接的方式在需要本地网络权限的时候，提示是否开启权限，如果没有开启权限就不能执行相应的操作">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/LocalNetworkForiOS14-01.png">
+<meta property="og:image" content="http://yoursite.com/images/LocalNetworkForiOS14-02.png">
+<meta property="og:image" content="http://yoursite.com/images/LocalNetworkForiOS14-03.png">
+<meta property="og:image" content="http://yoursite.com/images/LocalNetworkForiOS14-04.png">
+<meta property="og:updated_time" content="2021-04-22T13:59:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS14本地网络适配">
+<meta name="twitter:description" content="说在前面 iOS14的适配集中在用户隐私和安全方面，包含相册、位置、本地网络、广告标识符、剪切板等隐私权限的适配。前段时间做了相册权限和本地网络权限的适配，相册权限的适配比较简单，不在本文讲解范围内，本文主要讲解本地网络适配。 苹果官方没有给出具体API查询本地网络权限是否开启，这给开发者带来了难度。本文采用间接的方式在需要本地网络权限的时候，提示是否开启权限，如果没有开启权限就不能执行相应的操作">
+<meta name="twitter:image" content="http://yoursite.com/images/LocalNetworkForiOS14-01.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/22/LocalNetworkForiOS14/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>iOS14本地网络适配 | 龙龙的技术博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">龙龙的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/22/LocalNetworkForiOS14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="龙龙的技术博客,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="龙龙的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS14本地网络适配
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-22 19:59:30 / 修改时间：21:59:30" itemprop="dateCreated datePublished" datetime="2021-04-22T19:59:30+08:00">2021-04-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><ul>
+<li>iOS14的适配集中在用户隐私和安全方面，包含相册、位置、本地网络、广告标识符、剪切板等隐私权限的适配。前段时间做了相册权限和本地网络权限的适配，相册权限的适配比较简单，不在本文讲解范围内，本文主要讲解本地网络适配。</li>
+<li>苹果官方没有给出具体API查询本地网络权限是否开启，这给开发者带来了难度。本文采用间接的方式在需要本地网络权限的时候，提示是否开启权限，如果没有开启权限就不能执行相应的操作。本文讲解在<a href="https://apps.apple.com/cn/app/id1551985045" target="_blank" rel="noopener">NXPlayer</a>这款App中怎样适配本地网络权限的。<a id="more"></a>  </li>
+<li>点击底部<code>换机</code>标签-&gt;点击<code>我是发送者</code>按钮-&gt;选好资料<code>开始发送</code>.<ul>
+<li>如果本地网络权限没有开启就会出现如下所示<br><img src="/images/LocalNetworkForiOS14-01.png" alt></li>
+<li>如果本地网络权限已经开启，就不会有弹框提示，会直接出现一个二维码<br><img src="/images/LocalNetworkForiOS14-02.png" alt></li>
+</ul>
+</li>
+<li>点击底部<code>换机</code>标签-&gt;点击<code>我是接收者</code>按钮-&gt;进入二维码扫描界面，扫描刚才生成的二维码。<ul>
+<li>如果本地网络权限没有开启就会出现如下所示<br><img src="/images/LocalNetworkForiOS14-03.png" alt></li>
+<li>如果本地网络权限已经开启，就会直接连接上，跳转到资料传输界面。</li>
+</ul>
+</li>
+<li>MultipeerConnectivity是一个通过WiFi在近距离设备间建立连接、交换数据的框架，该App使用此框架编写接收和发送资料的代码。为了简单起见，需要单独写一个<a href="/resources/LocalNetwork.zip">demo</a>，项目名称叫LocalNetwork，演示是怎样检测到是否开启了本地网络权限的。</li>
+</ul>
+<h2 id="请求权限"><a href="#请求权限" class="headerlink" title="请求权限"></a>请求权限</h2><ul>
+<li><p>iOS14当App要使用Bonjour服务或者访问本地网络时，需要在Info.plist中配置两项</p>
+<ul>
+<li><p>配置”NSBonjourServices”，格式为”_serviceType._tcp”</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> &lt;key&gt;<span class="type">NSBonjourServices</span>&lt;/key&gt;</span><br><span class="line">&lt;array&gt;</span><br><span class="line">	&lt;string&gt;_me-transferdata._tcp&lt;/string&gt;</span><br><span class="line">&lt;/array&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“权限使用说明“描述为啥需要这个权限，要说清楚，要不然过不了审核</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Privacy</span> - <span class="type">Local</span> <span class="type">Network</span> <span class="type">Usage</span> <span class="type">Description</span> <span class="type">String</span> 请点击“好”以访问本地网络，发现、连接其他设备并进行数据传输</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以上两项配置完成后，当App第一次使用到本地网络功能时，会有如下提示<br><img src="/images/LocalNetworkForiOS14-04.png" alt></p>
+</li>
+</ul>
+</li>
+<li><p>接收端需要扫描发送端的二维码进行连接，需要在Info.plist中配置相机权限说明</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Privacy</span> - <span class="type">Camera</span> <span class="type">Usage</span> <span class="type">Description</span> <span class="type">String</span>  请点击“好”以访问相机，扫描二维码连接发送端设备</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>iOS14之前默认都有本地网络访问权限，直接回调“true”；iOS14开始可以通过“DNSServiceBrowse”回调返回的错误码来判断是不是有权限</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">requestLocalNetworkAuthorization</span><span class="params">(completion: @escaping <span class="params">(<span class="params">(<span class="number">_</span> granted: Bool)</span></span></span></span>-&gt;())) &#123;</span><br><span class="line">  <span class="keyword">if</span> #available(iOS <span class="number">14</span>, *) &#123;</span><br><span class="line">      _localNetworkCompletion = completion</span><br><span class="line">      <span class="keyword">let</span> browseCallback: <span class="type">DNSServiceBrowseReply</span> = &#123; (<span class="number">_</span>, flags, <span class="number">_</span>, errorCode, name, regtype, domain, context) <span class="keyword">in</span></span><br><span class="line">          <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">              _localNetworkCompletion?(errorCode != kDNSServiceErr_PolicyDenied)</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="type">DispatchQueue</span>.global().async &#123;</span><br><span class="line">          <span class="keyword">var</span> browseRef: <span class="type">DNSServiceRef?</span></span><br><span class="line">          <span class="type">DNSServiceBrowse</span>(&amp;browseRef, <span class="number">0</span>, <span class="number">0</span>, <span class="string">"_me-transferdata._tcp"</span>, <span class="literal">nil</span>, browseCallback, <span class="literal">nil</span>)</span><br><span class="line">          <span class="type">DNSServiceProcessResult</span>(browseRef);</span><br><span class="line">          <span class="type">DNSServiceRefDeallocate</span>(browseRef);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">          completion(<span class="literal">true</span>)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地网络功能需要打开Wifi开关</p>
+<ul>
+<li><p>通过如下代码判断Wifi是否打开</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isWifiEnable: <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> ifaddr: <span class="type">UnsafeMutablePointer</span>&lt;ifaddrs&gt;?</span><br><span class="line">    <span class="keyword">guard</span> getifaddrs(&amp;ifaddr) == <span class="number">0</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">false</span>&#125;</span><br><span class="line">    <span class="keyword">let</span> cset = <span class="type">NSCountedSet</span>()</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">let</span> addr = ifaddr &#123;</span><br><span class="line">        <span class="keyword">let</span> addrFamily = addr.pointee.ifa_addr.pointee.sa_family</span><br><span class="line">        <span class="keyword">if</span> addrFamily == <span class="type">UInt8</span>(<span class="type">AF_INET</span>) || addrFamily == <span class="type">UInt8</span>(<span class="type">AF_INET6</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> name = <span class="type">String</span>(cString: addr.pointee.ifa_name)</span><br><span class="line">            cset.add(name)</span><br><span class="line">        &#125;</span><br><span class="line">        ifaddr = addr.pointee.ifa_next</span><br><span class="line">    &#125;</span><br><span class="line">    freeifaddrs(ifaddr)</span><br><span class="line">    <span class="keyword">return</span> cset.<span class="built_in">count</span>(<span class="keyword">for</span>: <span class="string">"awdl0"</span>) &gt; <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Wifi开关如果打开了就可以继续使用，没有打开就不能进行下一步。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">sendBtnClicked</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"我是发送者"</span>)</span><br><span class="line">    <span class="keyword">if</span> !<span class="type">UIDevice</span>.current.isWifiEnable &#123;</span><br><span class="line">        presentWiFiAlterController()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    navigationController?.pushViewController(<span class="type">SendController</span>(), animated: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">receiveBtnClicked</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"我是接收者"</span>)</span><br><span class="line">    <span class="keyword">if</span> !<span class="type">UIDevice</span>.current.isWifiEnable &#123;</span><br><span class="line">        presentWiFiAlterController()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    navigationController?.pushViewController(<span class="type">ReceiveController</span>(), animated: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="发送数据"><a href="#发送数据" class="headerlink" title="发送数据"></a>发送数据</h2><ul>
+<li><p>iOS14在开启广播的前提下才能检测是否有本地网络权限，所以必须先调用如下方法进行开启：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> advertiser: <span class="type">MCNearbyServiceAdvertiser</span> = &#123;</span><br><span class="line">    <span class="keyword">let</span> advertiser = <span class="type">MCNearbyServiceAdvertiser</span>(peer: dataCenter.peerID, discoveryInfo: <span class="literal">nil</span>, serviceType: dataCenter.serviceType)</span><br><span class="line">    advertiser.delegate = dataCenter</span><br><span class="line">    <span class="keyword">return</span> advertiser</span><br><span class="line">&#125;()</span><br><span class="line"> </span><br><span class="line">advertiser.startAdvertisingPeer()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>广播开启后，请求是否有本地网络权限，有权限就直接显示二维码，没有权限就提示开启权限</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">requestLocalNetworkAuthorization &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (granted) <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> weakSelf = <span class="keyword">self</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    <span class="keyword">if</span> granted &#123;</span><br><span class="line">        <span class="keyword">let</span> data = <span class="type">NSKeyedArchiver</span>.archivedData(withRootObject: weakSelf.dataCenter.peerID)</span><br><span class="line">        weakSelf.qrCodeView.image = <span class="type">UIImage</span>.qrcodeImage(from:data.hexString, with:<span class="type">UIImage</span>(named: <span class="string">"SendQRIcon"</span>))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    weakSelf.presentLocalNetworkAlterController &#123;</span><br><span class="line">        weakSelf.navigationController?.popViewController(animated: <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对方扫描二维码连接成功后，发送一条信息给对方</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">session</span><span class="params">(peer peerID: MCPeerID, didChange state: TransferDataSessionState)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> state == .connected &#123;</span><br><span class="line">        dataCenter.send(type: .text, data: <span class="string">"我是发送者"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">session</span><span class="params">(didReceive data: <span class="keyword">Any</span>, with type: TransferDataType)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(#function,<span class="string">"接收到消息--\(data)"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="接收数据"><a href="#接收数据" class="headerlink" title="接收数据"></a>接收数据</h2><ul>
+<li><p>指定扫描二维码区域</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 添加预览和蒙版 */</span></span><br><span class="line">layer.insertSublayer(previewLayer, at: <span class="number">0</span>)</span><br><span class="line">previewLayer.addSublayer(maskLayer)</span><br><span class="line">maskLayer.setNeedsDisplay()</span><br><span class="line"><span class="comment">/* 启动扫描 */</span></span><br><span class="line">startRunning()</span><br><span class="line"><span class="comment">/* 必须首先添加预览图层和启动扫描才能得到正确的扫描区域 */</span></span><br><span class="line"><span class="keyword">let</span> insertRect = previewLayer.metadataOutputRectConverted(fromLayerRect: containerView.frame)</span><br><span class="line">output.rectOfInterest = insertRect</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>扫描二维码得到数据后回调给控制器</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">metadataOutput</span><span class="params">(<span class="number">_</span> output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> metadataObjects.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="comment">/* 取出扫描到的数据 */</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> readableObject = metadataObjects.last <span class="keyword">as</span>? <span class="type">AVMetadataMachineReadableCodeObject</span>,</span><br><span class="line">              <span class="keyword">let</span> stringValue = readableObject.stringValue <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        delegate?.scanViewMetadataOutput(with: stringValue)</span><br><span class="line">        stopRunning()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接收控制器拿到扫描数据后，接档转换为peerID,然后进行连接</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">scanViewMetadataOutput</span><span class="params">(with stringValue: String)</span></span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> hexData = stringValue.hexData,</span><br><span class="line">          <span class="keyword">let</span> otherPeerID = <span class="type">NSKeyedUnarchiver</span>.unarchiveObject(with: hexData) <span class="keyword">as</span>? <span class="type">MCPeerID</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    <span class="keyword">self</span>.performScanStop()</span><br><span class="line">    <span class="comment">/* 进行连接 */</span></span><br><span class="line">    browser.invitePeer(otherPeerID, to: dataCenter.session, withContext: <span class="literal">nil</span>, timeout: <span class="number">10</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行连接后，有两种情况：</p>
+<ul>
+<li><p>连接成功，发送消息给对方</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">session</span><span class="params">(peer peerID: MCPeerID, didChange state: TransferDataSessionState)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> state == .connected &#123;</span><br><span class="line">        dataCenter.send(type: .text, data: <span class="string">"我是接收者"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">session</span><span class="params">(didReceive data: <span class="keyword">Any</span>, with type: TransferDataType)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(#function,<span class="string">"接收到消息--\(data)"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>没有连接，丢失了连接。如果丢失了连接，并且满足以下两个条件就判断为没有开启本地网络权限，这个时候需要弹框提示开启权限</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">browser</span><span class="params">(didLostPeer peerID: MCPeerID)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> #available(iOS <span class="number">14</span>, *) &#123;</span><br><span class="line">        <span class="keyword">if</span> !isScanFinished &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        presentLocalNetworkAlterController &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> weakSelf = <span class="keyword">self</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">            weakSelf.navigationController?.popViewController(animated: <span class="literal">true</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>iOS14以下本地网络权限默认为开启，所以条件之一为iOS14以下系统</li>
+<li>丢失连接有很多情况，在发送方满足了所有的连接条件，接收方还是丢失了连接，这个是条件之二</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>此方法只适用于使用MultipeerConnectivity框架的App，对于其它框架中使用了本地网络功能的App不一定适用</li>
+<li>官方没有Api来判断是否开启了本地网络权限，本文采用的是间接方式来判断是否卡其权限。<ul>
+<li>发送端采用<code>DNSService</code>方式</li>
+<li>接收端采用<code>didLostPeer</code>方式</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/本地网络/" rel="tag"># 本地网络</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/22/InstallWebDAVFromZero/" rel="prev" title="从零搭建WebDAV服务器">
+      <i class="fa fa-chevron-left"></i> 从零搭建WebDAV服务器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/05/XtraFinder/" rel="next" title="macOS逆向之跳过XtraFinder试用界面">
+      macOS逆向之跳过XtraFinder试用界面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#说在前面"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求权限"><span class="nav-number">2.</span> <span class="nav-text">请求权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送数据"><span class="nav-number">3.</span> <span class="nav-text">发送数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接收数据"><span class="nav-number">4.</span> <span class="nav-text">接收数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">龙龙的技术博客,各种IT知识的聚合</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
