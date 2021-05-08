@@ -24,7 +24,7 @@
   <meta name="description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
 <meta name="keywords" content="逆向,iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逆向某听书APP登录过程">
+<meta property="og:title" content="分析某听书APP登录协议">
 <meta property="og:url" content="http://yoursite.com/2019/12/23/ListenBookApp/index.html">
 <meta property="og:site_name" content="龙龙的技术博客">
 <meta property="og:description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://yoursite.com/images/ListenBookApp-02.png">
 <meta property="og:updated_time" content="2019-12-23T12:08:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逆向某听书APP登录过程">
+<meta name="twitter:title" content="分析某听书APP登录协议">
 <meta name="twitter:description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
 <meta name="twitter:image" content="http://yoursite.com/images/ListenBookApp-01.png">
 
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>逆向某听书APP登录过程 | 龙龙的技术博客</title>
+  <title>分析某听书APP登录协议 | 龙龙的技术博客</title>
   
 
 
@@ -178,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          逆向某听书APP登录过程
+          分析某听书APP登录协议
         </h1>
 
         <div class="post-meta">
@@ -248,7 +248,7 @@
 <li><p>VIP没有搞掉不甘心，总想搞事情，就逆向登录过程吧。</p>
 </li>
 </ul>
-<h2 id="逆向登录过程"><a href="#逆向登录过程" class="headerlink" title="逆向登录过程"></a>逆向登录过程</h2><h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><ul>
+<h2 id="分析登录协议"><a href="#分析登录协议" class="headerlink" title="分析登录协议"></a>分析登录协议</h2><h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><ul>
 <li>到登录界面，输入用户名和密码，点击登录。通过Charles抓包如图<br><img src="/images/ListenBookApp-02.png" alt></li>
 <li>上图可知请求分为三部分:<ul>
 <li>BaseURL:<code>https://XXOO.info/XXOO/ClientLogon.action</code></li>
@@ -442,7 +442,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前序"><span class="nav-number">2.</span> <span class="nav-text">前序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">2.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逆向VIP过程"><span class="nav-number">2.2.</span> <span class="nav-text">逆向VIP过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逆向登录过程"><span class="nav-number">3.</span> <span class="nav-text">逆向登录过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求参数"><span class="nav-number">3.1.</span> <span class="nav-text">请求参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找传参函数"><span class="nav-number">3.2.</span> <span class="nav-text">寻找传参函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Query-String"><span class="nav-number">3.3.</span> <span class="nav-text">解析Query String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Form-Body-里面的参数"><span class="nav-number">3.4.</span> <span class="nav-text">解析Form(Body)里面的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说在最后"><span class="nav-number">3.5.</span> <span class="nav-text">说在最后</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前序"><span class="nav-number">2.</span> <span class="nav-text">前序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">2.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逆向VIP过程"><span class="nav-number">2.2.</span> <span class="nav-text">逆向VIP过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析登录协议"><span class="nav-number">3.</span> <span class="nav-text">分析登录协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求参数"><span class="nav-number">3.1.</span> <span class="nav-text">请求参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找传参函数"><span class="nav-number">3.2.</span> <span class="nav-text">寻找传参函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Query-String"><span class="nav-number">3.3.</span> <span class="nav-text">解析Query String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Form-Body-里面的参数"><span class="nav-number">3.4.</span> <span class="nav-text">解析Form(Body)里面的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说在最后"><span class="nav-number">3.5.</span> <span class="nav-text">说在最后</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
