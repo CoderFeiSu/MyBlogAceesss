@@ -22,11 +22,11 @@
 
 <script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta name="description" content="简介 环境 macOS端：Theos、Xcode11.3、macOS10.14.6 客户端：iPhone6、iOS11、unc0ver越狱 服务端：Centos8、Python3.8   iOS正向开发中集成支付宝可以参照官方文档 iOS逆向开发参照此文  Theos集成 下载iOS_SDK,解压后把AlipaySDK.framework和AlipaySDK.bundle放入Tweak根目录  在">
-<meta name="keywords" content="Python,逆向,iOS,Django">
+<meta name="keywords" content="逆向,iOS,Python,Django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Theos和Python集成支付宝">
 <meta property="og:url" content="http://yoursite.com/2020/06/17/IntegrateAlipaySDK/index.html">
-<meta property="og:site_name" content="龙龙的技术博客">
+<meta property="og:site_name" content="杂货铺">
 <meta property="og:description" content="简介 环境 macOS端：Theos、Xcode11.3、macOS10.14.6 客户端：iPhone6、iOS11、unc0ver越狱 服务端：Centos8、Python3.8   iOS正向开发中集成支付宝可以参照官方文档 iOS逆向开发参照此文  Theos集成 下载iOS_SDK,解压后把AlipaySDK.framework和AlipaySDK.bundle放入Tweak根目录  在">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-06-17T14:15:08.000Z">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Theos和Python集成支付宝 | 龙龙的技术博客</title><meta name="robots" content="noindex">
+  <title>Theos和Python集成支付宝 | 杂货铺</title>
   
 
 
@@ -98,7 +98,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">龙龙的技术博客</h1>
+      <h1 class="site-title">杂货铺</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -167,11 +167,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="">
-      <meta itemprop="description" content="龙龙的技术博客,各种IT知识的聚合">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="龙龙的技术博客">
+      <meta itemprop="name" content="杂货铺">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -267,7 +267,7 @@
 <li>Python项目中新建<code>alipay_public_key.txt</code>放入<code>支付宝公钥</code>,新建<code>app_private_key.txt</code>放入<code>应用私钥</code>。</li>
 <li>返回订单字符串代码为：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> alipay.aop.api.AlipayClientConfig <span class="keyword">import</span> AlipayClientConfig</span><br><span class="line"><span class="keyword">from</span> alipay.aop.api.DefaultAlipayClient <span class="keyword">import</span> DefaultAlipayClient</span><br><span class="line"><span class="keyword">from</span> alipay.aop.api.domain.AlipayTradeAppPayModel <span class="keyword">import</span> AlipayTradeAppPayModel</span><br><span class="line"><span class="keyword">from</span> alipay.aop.api.request.AlipayTradeAppPayRequest <span class="keyword">import</span> AlipayTradeAppPayRequest</span><br><span class="line"><span class="comment"># 获取公私钥字符串</span></span><br><span class="line">abspath = os.path.abspath(os.path.join(os.getcwd(), <span class="string">"order"</span>))</span><br><span class="line">private_path = os.path.join(abspath, <span class="string">'app_private_key.txt'</span>)</span><br><span class="line">public_path = os.path.join(abspath, <span class="string">'alipay_public_key.txt'</span>)</span><br><span class="line">app_private_key = open(private_path).read()</span><br><span class="line">alipay_public_key = open(public_path).read()</span><br><span class="line"><span class="comment"># 设置配置，包括支付宝网关地址、app_id、应用私钥、支付宝公钥等，其他配置值可以查看AlipayClientConfig的定义。</span></span><br><span class="line">alipay_client_config = AlipayClientConfig()</span><br><span class="line">alipay_client_config.app_id = <span class="string">'Your AppId'</span></span><br><span class="line">alipay_client_config.app_private_key = app_private_key</span><br><span class="line">alipay_client_config.alipay_public_key = alipay_public_key</span><br><span class="line"><span class="comment"># 构造唤起支付宝客户端支付时传递的请求串示例：alipay.trade.app.pay</span></span><br><span class="line">model = AlipayTradeAppPayModel()</span><br><span class="line">model.timeout_express = <span class="string">"90m"</span> <span class="comment"># 超时时间</span></span><br><span class="line">model.total_amount = <span class="string">"9.9"</span> <span class="comment"># 金额</span></span><br><span class="line">model.subject = <span class="string">"商品购买"</span> <span class="comment"># 购买时显示的标题</span></span><br><span class="line">model.out_trade_no = time.strftime(<span class="string">'%Y%m%d%H%M%S'</span>) + <span class="string">'_'</span> + udid <span class="comment"># 订单号</span></span><br><span class="line">request = AlipayTradeAppPayRequest(biz_model=model)</span><br><span class="line">request.notify_url = <span class="string">"http://xxx.com/api/order"</span> <span class="comment"># 回调地址</span></span><br><span class="line"><span class="comment"># 得到客户端对象。</span></span><br><span class="line">client = DefaultAlipayClient(alipay_client_config=alipay_client_config, logger=logger)</span><br><span class="line">orderSting = client.sdk_execute(request) <span class="comment"># 返回给客户端使用</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<!-- flag of hidden posts -->
+
     </div>
 
     
@@ -276,9 +276,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"># Python</a>
               <a href="/tags/逆向/" rel="tag"># 逆向</a>
               <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
               <a href="/tags/Django/" rel="tag"># Django</a>
           </div>
 
@@ -298,6 +298,16 @@
 </script>
 
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/08/RemoveSIMAlertWindows/" rel="prev" title="移除SIM卡弹框">
+      <i class="fa fa-chevron-left"></i> 移除SIM卡弹框
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/27/LaHuoApp/" rel="next" title="逆向某拉货APP登录过程">
+      逆向某拉货APP登录过程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
     
 
@@ -364,14 +374,14 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name"></p>
-  <div class="site-description" itemprop="description">龙龙的技术博客,各种IT知识的聚合</div>
+  <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
