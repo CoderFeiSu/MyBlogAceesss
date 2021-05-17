@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,93 +15,65 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
-<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   阅读本文前，请首先阅读 RunAppAsRootForTheos理论部分 此文使用Xcode新建的App，如果使用Theos新建的App，请转入RunAppA">
-<meta name="keywords" content="逆向,iOS,root,Xcode">
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;hide&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   阅读本文前，请首先阅读 RunAppAsRootForTheos理论部分 此文使用Xcode新建的App，如果使用Theos新建的App，请转入RunAppA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Run an App as root on iOS11 and iOS12 with Xcode">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/RunAppAsRootForXcode/index.html">
 <meta property="og:site_name" content="杂货铺">
 <meta property="og:description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   阅读本文前，请首先阅读 RunAppAsRootForTheos理论部分 此文使用Xcode新建的App，如果使用Theos新建的App，请转入RunAppA">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-09T15:25:08.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-09T07:25:08.000Z">
+<meta property="article:modified_time" content="2019-10-09T15:25:08.000Z">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="root">
+<meta property="article:tag" content="Xcode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Run an App as root on iOS11 and iOS12 with Xcode">
-<meta name="twitter:description" content="注意事项 测试环境 macOS: 10.14.6 iPhoneOS: iOS11.0、iOS12.0、 iPhone机型：两个iPhone6 越狱工具：unc0ver3.6.2 没有测试：iOS13和iOS10，也许可以。   关于链接   阅读本文前，请首先阅读 RunAppAsRootForTheos理论部分 此文使用Xcode新建的App，如果使用Theos新建的App，请转入RunAppA">
+
 
 <link rel="canonical" href="http://yoursite.com/2019/10/09/RunAppAsRootForXcode/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Run an App as root on iOS11 and iOS12 with Xcode | 杂货铺</title>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;09&#x2F;RunAppAsRootForXcode&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;10&#x2F;09&#x2F;RunAppAsRootForXcode&#x2F;&quot;,&quot;title&quot;:&quot;Run an App as root on iOS11 and iOS12 with Xcode&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Run an App as root on iOS11 and iOS12 with Xcode | 杂货铺</title><script src="/js/config.js"></script><script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   
 
 
 
 
-
-
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">杂货铺</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -111,198 +85,15 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/RunAppAsRootForXcode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杂货铺">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Run an App as root on iOS11 and iOS12 with Xcode
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-10-09 15:25:08 / 修改时间：23:25:08" itemprop="dateCreated datePublished" datetime="2019-10-09T15:25:08+08:00">2019-10-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- HeaderFooterAD -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-6694280780402885"
-            data-ad-slot="9902930001"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li>测试环境<ul>
-<li>macOS: 10.14.6</li>
-<li>iPhoneOS: iOS11.0、iOS12.0、</li>
-<li>iPhone机型：两个iPhone6</li>
-<li>越狱工具：unc0ver3.6.2</li>
-<li>没有测试：iOS13和iOS10，也许可以。</li>
-</ul>
-</li>
-<li>关于链接  <ul>
-<li>阅读本文前，请首先阅读 <a href="https://www.diffit.cn/2019/09/03/RunAppAsRootForTheos" target="_blank" rel="noopener">RunAppAsRootForTheos理论部分</a></li>
-<li>此文使用Xcode新建的App，如果使用Theos新建的App，请转入<a href="https://www.diffit.cn/2019/09/03/RunAppAsRootForTheos" target="_blank" rel="noopener">RunAppAsRootForTheos</a></li>
-</ul>
-</li>
-<li>实现目标：点击按钮执行<code>killall -9 SpringBoard</code>,注销SpringBoard</li>
-</ul>
-<a id="more"></a>
-
-<h2 id="App代码"><a href="#App代码" class="headerlink" title="App代码"></a>App代码</h2><ul>
-<li><p>本案例中使用Xcode新建的项目名称叫RootApp</p>
-</li>
-<li><p>在Xcode中找到main.m,添加<code>setuid(0)</code>,设置uid</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        setuid(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([  AppDelegate <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击动作相关的代码如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;spawn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> spawn(<span class="keyword">const</span> <span class="keyword">char</span>* executable, ...) &#123;</span><br><span class="line">    <span class="keyword">int</span>     ret;</span><br><span class="line">    pid_t   pid;</span><br><span class="line">    va_list args;</span><br><span class="line">    va_start(args, executable);</span><br><span class="line">    ret = posix_spawn(&amp;pid, executable, <span class="literal">NULL</span>, <span class="literal">NULL</span>, (<span class="keyword">char</span>* <span class="keyword">const</span> *)args, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">0</span>) waitpid(pid, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)stop:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"RootAppTest: %d, %d, %d"</span>, getuid(), geteuid(), spawn(<span class="string">"/usr/bin/killall"</span>,   <span class="string">"/usr/bin/killall"</span>, <span class="string">"-9"</span>, <span class="string">"SpringBoard"</span>, <span class="literal">NULL</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码写完后，进行编译，编译完成后把RootApp.app放入iPhone上的/Applications里面</p>
-</li>
-</ul>
-<h2 id="运行App"><a href="#运行App" class="headerlink" title="运行App"></a>运行App</h2><ul>
-<li><p>SSH登录iPhone，执行以下命令，要不然看不到App图标</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ root# uicache</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>更改二进制文件权限，要不然App不能启动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ root# chmod 755 /Applications/RootApp.app/RootApp</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>至此App可以成功打开</p>
-</li>
-</ul>
-<h2 id="设置euid"><a href="#设置euid" class="headerlink" title="设置euid"></a>设置euid</h2><ul>
-<li><p>点击按钮并不会注销SpringBoard，打印uid和euid都为501而不是0</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RootAppTest: <span class="number">501</span>, <span class="number">501</span>, <span class="number">1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>为RootApp文件设置euid</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ root# chmod u+s /Applications/RootApp.app/RootApp</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行<code>killall -9 SpringBoard</code>，然后重新打开App，点击按钮，这个时候打印出来uid和euid为0</p>
-</li>
-<li><p>虽然uid和euid为0但是不能注销SpringBoard，因为需要<code>可执行文件签权</code></p>
-</li>
-</ul>
-<h2 id="可执行文件签权"><a href="#可执行文件签权" class="headerlink" title="可执行文件签权"></a>可执行文件签权</h2><ul>
-<li><p>新建RootApp.entitlements文件，内容为</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs  /PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;com.apple.private.security.no-container&lt;/key&gt;</span><br><span class="line">    &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">    &lt;key&gt;com.apple.private.skip-library-validation&lt;/key&gt;</span><br><span class="line">    &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">    &lt;key&gt;platform-application&lt;/key&gt;</span><br><span class="line">    &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过iFunBox上传到iPhone，然后签权</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldid -S/RootApp.entitlements /Applications/RootApp.app/RootApp</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行<code>killall -9 SpringBoard</code>，重新打开App，点击按钮会注销SpringBoard</p>
-</li>
-<li><p>至此大功告成</p>
-</li>
-</ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/逆向/" rel="tag"># 逆向</a>
-              <a href="/tags/iOS/" rel="tag"># iOS</a>
-              <a href="/tags/root/" rel="tag"># root</a>
-              <a href="/tags/Xcode/" rel="tag"># Xcode</a>
-          </div>
-
-        
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -316,67 +107,19 @@
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
+</div>
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/09/03/RunAppAsRootForTheos/" rel="prev" title="Run an App as root on iOS11 and iOS12 with Theos">
-      <i class="fa fa-chevron-left"></i> Run an App as root on iOS11 and iOS12 with Theos
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/12/23/ListenBookApp/" rel="next" title="分析某听书APP登录协议">
-      分析某听书APP登录协议 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -385,18 +128,19 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App代码"><span class="nav-number">2.</span> <span class="nav-text">App代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行App"><span class="nav-number">3.</span> <span class="nav-text">运行App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置euid"><span class="nav-number">4.</span> <span class="nav-text">设置euid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可执行文件签权"><span class="nav-number">5.</span> <span class="nav-text">可执行文件签权</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">App代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CApp"><span class="nav-number">3.</span> <span class="nav-text">运行App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEeuid"><span class="nav-number">4.</span> <span class="nav-text">设置euid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E7%AD%BE%E6%9D%83"><span class="nav-number">5.</span> <span class="nav-text">可执行文件签权</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name"></p>
   <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -414,7 +158,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -422,23 +166,181 @@
 
 
 
+        </div>
       </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/RunAppAsRootForXcode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Run an App as root on iOS11 and iOS12 with Xcode
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-10-09 15:25:08 / 修改时间：23:25:08" itemprop="dateCreated datePublished" datetime="2019-10-09T15:25:08+08:00">2019-10-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E9%80%86%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>测试环境<ul>
+<li>macOS: 10.14.6</li>
+<li>iPhoneOS: iOS11.0、iOS12.0、</li>
+<li>iPhone机型：两个iPhone6</li>
+<li>越狱工具：unc0ver3.6.2</li>
+<li>没有测试：iOS13和iOS10，也许可以。</li>
+</ul>
+</li>
+<li>关于链接  <ul>
+<li>阅读本文前，请首先阅读 <a target="_blank" rel="noopener" href="https://www.diffit.cn/2019/09/03/RunAppAsRootForTheos">RunAppAsRootForTheos理论部分</a></li>
+<li>此文使用Xcode新建的App，如果使用Theos新建的App，请转入<a target="_blank" rel="noopener" href="https://www.diffit.cn/2019/09/03/RunAppAsRootForTheos">RunAppAsRootForTheos</a></li>
+</ul>
+</li>
+<li>实现目标：点击按钮执行<code>killall -9 SpringBoard</code>,注销SpringBoard</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="App代码"><a href="#App代码" class="headerlink" title="App代码"></a>App代码</h2><ul>
+<li>本案例中使用Xcode新建的项目名称叫RootApp</li>
+<li>在Xcode中找到main.m,添加<code>setuid(0)</code>,设置uid<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&quot;AppDelegate.h&quot;</span></span></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        setuid(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([  AppDelegate <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>点击动作相关的代码如下<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;spawn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> spawn(<span class="keyword">const</span> <span class="keyword">char</span>* executable, ...) &#123;</span><br><span class="line">    <span class="keyword">int</span>     ret;</span><br><span class="line">    pid_t   pid;</span><br><span class="line">    va_list args;</span><br><span class="line">    va_start(args, executable);</span><br><span class="line">    ret = posix_spawn(&amp;pid, executable, <span class="literal">NULL</span>, <span class="literal">NULL</span>, (<span class="keyword">char</span>* <span class="keyword">const</span> *)args, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">0</span>) waitpid(pid, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">IBAction</span>)stop:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;RootAppTest: %d, %d, %d&quot;</span>, getuid(), geteuid(), spawn(<span class="string">&quot;/usr/bin/killall&quot;</span>,   <span class="string">&quot;/usr/bin/killall&quot;</span>, <span class="string">&quot;-9&quot;</span>, <span class="string">&quot;SpringBoard&quot;</span>, <span class="literal">NULL</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>代码写完后，进行编译，编译完成后把RootApp.app放入iPhone上的/Applications里面</li>
+</ul>
+<h2 id="运行App"><a href="#运行App" class="headerlink" title="运行App"></a>运行App</h2><ul>
+<li>SSH登录iPhone，执行以下命令，要不然看不到App图标<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ root# uicache</span><br></pre></td></tr></table></figure></li>
+<li>更改二进制文件权限，要不然App不能启动<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ root# chmod 755 /Applications/RootApp.app/RootApp</span><br></pre></td></tr></table></figure></li>
+<li>至此App可以成功打开</li>
+</ul>
+<h2 id="设置euid"><a href="#设置euid" class="headerlink" title="设置euid"></a>设置euid</h2><ul>
+<li>点击按钮并不会注销SpringBoard，打印uid和euid都为501而不是0<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RootAppTest: <span class="number">501</span>, <span class="number">501</span>, <span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li>为RootApp文件设置euid<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ root# chmod u+s /Applications/RootApp.app/RootApp</span><br></pre></td></tr></table></figure></li>
+<li>执行<code>killall -9 SpringBoard</code>，然后重新打开App，点击按钮，这个时候打印出来uid和euid为0</li>
+<li>虽然uid和euid为0但是不能注销SpringBoard，因为需要<code>可执行文件签权</code></li>
+</ul>
+<h2 id="可执行文件签权"><a href="#可执行文件签权" class="headerlink" title="可执行文件签权"></a>可执行文件签权</h2><ul>
+<li>新建RootApp.entitlements文件，内容为<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;http://www.apple.com/DTDs  /PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">&quot;1.0&quot;</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;com.apple.private.security.no-container&lt;/key&gt;</span><br><span class="line">    &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">    &lt;key&gt;com.apple.private.skip-library-validation&lt;/key&gt;</span><br><span class="line">    &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">    &lt;key&gt;platform-application&lt;/key&gt;</span><br><span class="line">    &lt;<span class="literal">true</span>/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure></li>
+<li>通过iFunBox上传到iPhone，然后签权<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldid -S/RootApp.entitlements /Applications/RootApp.app/RootApp</span><br></pre></td></tr></table></figure></li>
+<li>执行<code>killall -9 SpringBoard</code>，重新打开App，点击按钮会注销SpringBoard</li>
+<li>至此大功告成</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-6694280780402885"
+    data-ad-slot="9902930001"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/root/" rel="tag"># root</a>
+              <a href="/tags/Xcode/" rel="tag"># Xcode</a>
+          </div>
+
         
 
-        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/03/RunAppAsRootForTheos/" rel="prev" title="Run an App as root on iOS11 and iOS12 with Theos">
+                  <i class="fa fa-chevron-left"></i> Run an App as root on iOS11 and iOS12 with Theos
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/23/ListenBookApp/" rel="next" title="分析某听书APP登录协议">
+                  分析某听书APP登录协议 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -446,31 +348,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder"></span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -479,18 +365,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 </body>
 </html>

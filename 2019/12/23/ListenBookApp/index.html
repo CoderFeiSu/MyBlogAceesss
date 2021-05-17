@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,96 +15,66 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
-<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
-<meta name="keywords" content="逆向,iOS">
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;hide&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分析某听书APP登录协议">
 <meta property="og:url" content="http://yoursite.com/2019/12/23/ListenBookApp/index.html">
 <meta property="og:site_name" content="杂货铺">
 <meta property="og:description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/ListenBookApp-01.png">
 <meta property="og:image" content="http://yoursite.com/images/ListenBookApp-02.png">
-<meta property="og:updated_time" content="2019-12-23T12:08:30.000Z">
+<meta property="article:published_time" content="2019-12-23T03:08:30.000Z">
+<meta property="article:modified_time" content="2019-12-23T12:08:30.000Z">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分析某听书APP登录协议">
-<meta name="twitter:description" content="注意 此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！ 关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 这并不是基础教程，需要一定iOS逆向经验的人才能看懂。  前序工具 SSL Kill Switch 2 抓取https包 Reveal 查看AP">
 <meta name="twitter:image" content="http://yoursite.com/images/ListenBookApp-01.png">
+
 
 <link rel="canonical" href="http://yoursite.com/2019/12/23/ListenBookApp/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>分析某听书APP登录协议 | 杂货铺</title>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;23&#x2F;ListenBookApp&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;12&#x2F;23&#x2F;ListenBookApp&#x2F;&quot;,&quot;title&quot;:&quot;分析某听书APP登录协议&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>分析某听书APP登录协议 | 杂货铺</title><script src="/js/config.js"></script><script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   
 
 
 
 
-
-
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">杂货铺</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -114,278 +86,15 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/ListenBookApp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杂货铺">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          分析某听书APP登录协议
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-12-23 11:08:30 / 修改时间：20:08:30" itemprop="dateCreated datePublished" datetime="2019-12-23T11:08:30+08:00">2019-12-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- HeaderFooterAD -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-6694280780402885"
-            data-ad-slot="9902930001"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
-<li>此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！</li>
-<li>关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件<code>zhulongfei28@gmail.com</code>，谢谢。</li>
-<li>这并不是基础教程，需要一定iOS逆向经验的人才能看懂。</li>
-</ul>
-<h2 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
-<li>SSL Kill Switch 2 抓取https包</li>
-<li>Reveal 查看APP视图结构</li>
-<li>class-dump 导出头文件</li>
-<li>IDA 反汇编Mach-O文件</li>
-<li>Charles APP抓包</li>
-<li>Frida Hook框架</li>
-</ul>
-<a id="more"></a>
-
-<h3 id="逆向VIP过程"><a href="#逆向VIP过程" class="headerlink" title="逆向VIP过程"></a>逆向VIP过程</h3><ul>
-<li><p>这年头看见VIP就手痒，如图点击带有VIP标识的栏目会弹出如图所示，然后逆向就开始了<br><img src="/images/ListenBookApp-01.png" alt></p>
-</li>
-<li><p>使用Reveal查看发现列表控制器是<code>LMBookSectionListVC</code>,点击的Cell是<code>LMSectionlistCell</code>,根据经验就知道当执行<code>didSelectRowAtIndexPath</code>时触发的弹框。</p>
-</li>
-<li><p>使用IDA反汇编Mach-O文件,然后找到<code>LMBookSectionListVC tableView:didSelectRowAtIndexPath:</code>,<code>Fn + F5</code>一下可以看到伪代码，大体如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">   <span class="built_in">NSArray</span> *bookSections =  [[<span class="keyword">self</span> ownerVM] bookSections];</span><br><span class="line">   LMSection *section = [bookSections safeObjectAtIndex: indexPath.row];</span><br><span class="line">   <span class="keyword">if</span> ([<span class="keyword">self</span> isPlayerPlayingWithSection: section]) &#123; <span class="comment">// 如果正在播放，就继续不播放</span></span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 如果没有播放就判断能不能播放</span></span><br><span class="line">   <span class="keyword">if</span> ([section hasBuy] == <span class="number">1</span> || [section downloadStatus] == <span class="number">4</span> || ([section strategy] &amp; <span class="number">0x10</span>)) &#123; <span class="comment">// 满足其中一个就播放</span></span><br><span class="line">      [<span class="keyword">self</span> playWithSection: section];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>所以hook代码如下。插件安装完成后没有了上面的弹框，直接跳转到播放页面，但是给了一个播放错误的提示<code>收费章节未购买</code></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">%hook LMSection</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">long</span> <span class="keyword">long</span>)hasBuy &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">long</span> <span class="keyword">long</span>)strategy &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">16</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">long</span> <span class="keyword">long</span>)downloadStatus &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过Charles抓包。猜测是通过token判断是不是VIP，如果不是，list列表为空，就没有播放链接，这下就歇菜了。</p>
-<ul>
-<li>进入播放页面请求：<a href="https://XXOO.info/yyting/gateway/entityPath.action(此处省略很多)" target="_blank" rel="noopener">https://XXOO.info/yyting/gateway/entityPath.action(此处省略很多)</a></li>
-<li>进入播放页面响应：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;list&quot;: null,</span><br><span class="line">  &quot;msg&quot;: &quot;收费章节未购买!&quot;,</span><br><span class="line">  &quot;status&quot;: 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>VIP没有搞掉不甘心，总想搞事情，就逆向登录过程吧。</p>
-</li>
-</ul>
-<h2 id="分析登录协议"><a href="#分析登录协议" class="headerlink" title="分析登录协议"></a>分析登录协议</h2><h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><ul>
-<li>到登录界面，输入用户名和密码，点击登录。通过Charles抓包如图<br><img src="/images/ListenBookApp-02.png" alt></li>
-<li>上图可知请求分为三部分:<ul>
-<li>BaseURL:<code>https://XXOO.info/XXOO/ClientLogon.action</code></li>
-<li>Query String: <code>imei</code>和<code>token</code></li>
-<li>Form: <code>account</code>,<code>pwd</code>,<code>nwt</code>,<code>q</code>,<code>sc</code></li>
-</ul>
-</li>
-<li>Query String拼接到BaseURL后面，Form就是Body内容</li>
-</ul>
-<h3 id="寻找传参函数"><a href="#寻找传参函数" class="headerlink" title="寻找传参函数"></a>寻找传参函数</h3><ul>
-<li><p>到登录界面，使用Reveal发现登录按钮属于<code>LMLoginViewController</code></p>
-</li>
-<li><p>终端执行<code>frida-trace -U -m &quot;-[LMLoginViewController *]&quot; 某听书APP</code>命令，点击登录按钮，发现执行<code>clickLoginButton:</code>方法</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> /* TID 0x403 */</span><br><span class="line">...省略很多</span><br><span class="line">1146 ms  -[LMLoginViewController clickLoginButton:&lt;LMOrangeButton: 0x115d31fe0; baseClass = UIButton; frame = (38 277; 299 44); clipsToBounds = YES; opaque = NO; layer = &lt;CALayer: 0x1c442dac0&gt;&gt;]</span><br><span class="line">...省略很多</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>所以接下来在IDA中查看<code>-[LMLoginViewController clickLoginButton:]</code>的实现，核心代码概括如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-[LMLoginViewController clickLoginButton:] &#123;</span><br><span class="line">   [[LMDataManager shareDataManger] manualLoginWithAccount:pwd:success:failure:]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接着查看<code>-[LMDataManager manualLoginWithAccount:pwd:success:failure:]</code>实现，核心代码概括如下，接下来要分析这三段代码。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)manualLoginWithAccount:(<span class="built_in">NSString</span> *)account pwd:(<span class="built_in">NSString</span> *)pwd success:(<span class="keyword">id</span>)successBlock failure:(<span class="keyword">id</span>)failureBlock &#123;</span><br><span class="line">   LMHTTPParam *params = [LMHTTPParam buildManualLoginParamDicWithAccount:account pwd:pwd];</span><br><span class="line">   LMLoginApi *request = [[LMLoginApi alloc] initWithRequestParams: params];</span><br><span class="line">   [request startRequestWithSuccessCompletion:successBlock failureCompletion:failureBlock];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>IDA分析<code>+[LMHTTPParam buildManualLoginParamDicWithAccount:account pwd:pwd]</code>核心代码概括如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+ [LMHTTPParam buildManualLoginParamDicWithAccount:account pwd:pwd] &#123;</span><br><span class="line">   <span class="built_in">NSString</span> *md5Pwd = MD5DigestToNSString(pwd);</span><br><span class="line">   <span class="built_in">NSString</span> *base64Pwd =  +[LMGTMBase64 base64WithHexStr: md5Pwd] &#123;</span><br><span class="line">      <span class="built_in">NSData</span> *data = [%c(LMGTMBase64) encodeData:md5Pwd isChunked: <span class="literal">NO</span>];</span><br><span class="line">      <span class="built_in">NSString</span> *base64Pwd = [[<span class="built_in">NSString</span> alloc] initWithData:data encoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">      <span class="keyword">return</span>  base64Pwd;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">NSDictionary</span> *params = @&#123;<span class="string">@"account"</span>: account, <span class="string">@"pwd"</span>: base64Pwd&#125;;</span><br><span class="line">   <span class="keyword">return</span> params</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>IDA分析<code>-[[LMLoginApi alloc] initWithRequestParams: params]</code>没有做什么特别操作</p>
-</li>
-<li><p>IDA分析<code>-[request startRequestWithSuccessCompletion:successBlock failureCompletion:failureBlock]</code>,核心代码如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startRequestWithSuccessCompletion:successBlock failureCompletion:failureBlock &#123;</span><br><span class="line">      - [request startWithCompletionBlockWithSuccess:successBlock failure:failureBlock] &#123;</span><br><span class="line">         - [YTKBaseRequest setCompletionBlockWithSuccess:failure:];</span><br><span class="line">         - [YTKBaseRequest start] &#123;</span><br><span class="line">            - [[YTKNetworkAgent sharedAgent] addRequest: request] &#123;</span><br><span class="line">                -[request buildCustomUrlRequest]</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>IDA分析<code>-[request buildCustomUrlRequest]</code>,代码很多很长，有四段代码需要注意。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v52 = objc_msgSend(v90, <span class="string">"multipartFormRequestWithMethod:URLString:parameters:constructingBodyWithBlock:error:"</span>,<span class="built_in">CFSTR</span>(<span class="string">"POST"</span>),v50,v30,v32,&amp;v95);</span><br><span class="line">v73 = objc_msgSend(v90, <span class="string">"requestWithMethod:URLString:parameters:error:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"POST"</span>), v50, v30, &amp;v94);</span><br><span class="line">v86 = objc_msgSend(v90, <span class="string">"requestWithMethod:URLString:parameters:error:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"GET"</span>), v85, v30, &amp;v93);</span><br><span class="line">v70 = objc_msgSend(v90, <span class="string">"requestWithMethod:URLString:parameters:error:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"HEAD"</span>), v68, v30, &amp;v92);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们进行的是POST请求，所以<code>v73 = objc_msgSend(v90, &quot;requestWithMethod:URLString:parameters:error:&quot;, CFSTR(&quot;POST&quot;), v50, v30, &amp;v94);</code>我们需要分析</p>
-</li>
-<li><p>从上可知v50包含我们需要的Query String，v30包含我们需要的Form，也就是body。所以接下来就要对这两个参数进行追踪。</p>
-</li>
-</ul>
-<h3 id="解析Query-String"><a href="#解析Query-String" class="headerlink" title="解析Query String"></a>解析Query String</h3><ul>
-<li><p>跟踪v50如下，发现v50来源于v46，v46是<code>+[NSURL URLWithString:relativeToURL:]</code>，那么我们其实要寻找v39</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v46 = objc_msgSend(&amp;OBJC_CLASS___NSURL, <span class="string">"URLWithString:relativeToURL:"</span>, v39, v44);</span><br><span class="line">v47 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v46);</span><br><span class="line">objc_release(v45);</span><br><span class="line">objc_release(v42);</span><br><span class="line">v48 = objc_msgSend(v47, <span class="string">"absoluteString"</span>);</span><br><span class="line">v49 = &amp;v2-&gt;<span class="keyword">super</span>;</span><br><span class="line">v50 = objc_retainAutoreleasedReturnValue(v48);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>跟踪v39如下,IDA伪代码如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v33 = ((<span class="keyword">id</span> (__cdecl *)(LMRequestAgent_meta *, SEL))objc_msgSend)(</span><br><span class="line">        (LMRequestAgent_meta *)&amp;OBJC_CLASS___LMRequestAgent,</span><br><span class="line">        <span class="string">"shareRequestAgent"</span>);</span><br><span class="line">v34 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v33);</span><br><span class="line">v35 = ((<span class="keyword">id</span> (__cdecl *)(YTKBaseRequest *, SEL))objc_msgSend)(&amp;v2-&gt;<span class="keyword">super</span>, <span class="string">"requestUrl"</span>);</span><br><span class="line">v36 = objc_retainAutoreleasedReturnValue(v35);</span><br><span class="line">v37 = v36;</span><br><span class="line">v38 = objc_msgSend(v34, <span class="string">"addParamForPostRequestUrl:"</span>, v36);</span><br><span class="line">v39 = objc_retainAutoreleasedReturnValue(v38);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>简化一下v39代码, 并且进入<code>addParamForPostRequestUrl</code>查看实现，可以发现取出token和imei进行拼接，拼接结果就是我们需要的<code>Query String</code>,我们离目标越来越近。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *requestUrl = -[YTKBaseRequest requestUrl];</span><br><span class="line">v39 = [[LMRequestAgent shareRequestAgent] addParamForPostRequestUrl: requestUrl] &#123;</span><br><span class="line">   v6 = -[LMRequestAgent requestToken](v3, <span class="string">"requestToken"</span>);</span><br><span class="line">   v7 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v6);</span><br><span class="line">   v8 = -[LMRequestAgent requestImei](v3, <span class="string">"requestImei"</span>);</span><br><span class="line">   v9 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v8);</span><br><span class="line">   v10 = objc_msgSend(&amp;OBJC_CLASS___NSMutableString, <span class="string">"string"</span>);</span><br><span class="line">   v11 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v10);</span><br><span class="line">   <span class="keyword">if</span> ( v9 &amp;&amp; objc_msgSend(v9, <span class="string">"length"</span>) )</span><br><span class="line">     objc_msgSend(v11, <span class="string">"appendFormat:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"?imei=%@"</span>), v9);</span><br><span class="line">   <span class="keyword">if</span> ( v7 &amp;&amp; objc_msgSend(v7, <span class="string">"length"</span>) )</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="keyword">if</span> ( objc_msgSend(v11, <span class="string">"length"</span>) )</span><br><span class="line">       objc_msgSend(v11, <span class="string">"appendFormat:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"&amp;token=%@"</span>), v7);</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">       objc_msgSend(v11, <span class="string">"appendFormat:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"token=%@"</span>), v7);</span><br><span class="line">   &#125;</span><br><span class="line">   objc_msgSend(v11, <span class="string">"insertString:atIndex:"</span>, v5, <span class="number">0</span>LL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>-[LMRequestAgent requestToken]</code>实现如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-[LMRequestAgent requestToken] &#123;</span><br><span class="line">  <span class="keyword">return</span> [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] objectForKey: <span class="string">@"token"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>-[LMRequestAgent requestImei]</code>实现如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先从钥匙串里面取如果取到就直接返回。没有取到就生成一个，把新生成的存入钥匙串，并且返回。</span></span><br><span class="line">-[LMRequestAgent requestImei] &#123;</span><br><span class="line">  <span class="built_in">NSString</span> *udid =  +[LMUDIDTools UDID] &#123;</span><br><span class="line">    v2 = +[LMUDIDTools getUDIDFromKeyChain]</span><br><span class="line">    v3 = +[LMUDIDTools _UDID_iOS7]</span><br><span class="line">    <span class="keyword">if</span> ( !v2</span><br><span class="line">      || (<span class="keyword">unsigned</span> __int64)objc_msgSend(v2, <span class="string">"isEqualToString:"</span>, <span class="built_in">CFSTR</span>(<span class="string">"00000000-0000-0000-0000-000000000000"</span>)) &amp; <span class="number">1</span></span><br><span class="line">      || !((<span class="keyword">unsigned</span> __int64)objc_msgSend(v2, <span class="string">"isEqualToString:"</span>, v3) &amp; <span class="number">1</span>) ) &#123;</span><br><span class="line">      v2 = +[LMUDIDTools _UDID_iOS7](&amp;OBJC_CLASS___LMUDIDTools, <span class="string">"_UDID_iOS7"</span>);</span><br><span class="line">      +[LMUDIDTools settUDIDToKeyChain:](&amp;OBJC_CLASS___LMUDIDTools, <span class="string">"settUDIDToKeyChain:"</span>, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 对UDID进行Base64,LMGTMBase64使用了开源库`GTMBase64`</span></span><br><span class="line">  <span class="keyword">return</span> [udid BASE64Encode] &#123;</span><br><span class="line">      <span class="built_in">NSData</span> *uuidData = [uuid dataUsingEncoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">      <span class="built_in">NSData</span> *uuidBase64Data = [LMGTMBase64 encodeData: uuidData];</span><br><span class="line">      <span class="built_in">NSString</span> *imei = [[<span class="built_in">NSString</span> alloc] initWithData:uuidBase64Data encoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">      <span class="keyword">return</span> imei</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们可以自己写一个<code>-[LMRequestAgent requestImei]</code>简单的实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *requestImei() &#123;</span><br><span class="line">  <span class="built_in">NSString</span> *uuid = [[<span class="built_in">NSUUID</span> UUID] UUIDString];</span><br><span class="line">  <span class="built_in">NSData</span> *uuidData = [uuid dataUsingEncoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">  <span class="built_in">NSData</span> *uuidBase64Data = [GTMBase64 encodeData: uuidData];</span><br><span class="line">  <span class="built_in">NSString</span> *imei = [[<span class="built_in">NSString</span> alloc] initWithData:uuidBase64Data encoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">  <span class="keyword">return</span> imei;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>到这里<code>Query String</code>的两个参数<code>token</code>和<code>imei</code>都解析完成</p>
-</li>
-</ul>
-<h3 id="解析Form-Body-里面的参数"><a href="#解析Form-Body-里面的参数" class="headerlink" title="解析Form(Body)里面的参数"></a>解析Form(Body)里面的参数</h3><ul>
-<li><p>还记得最上面的<code>v73 = objc_msgSend(v90, &quot;requestWithMethod:URLString:parameters:error:&quot;, CFSTR(&quot;POST&quot;), v50, v30, &amp;v94);</code>吧，v30就是body里面的参数。<br>我们需要追踪v30的来源。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v24 = ((<span class="keyword">id</span> (__cdecl *)(LMRequestAgent_meta *, SEL))objc_msgSend)(</span><br><span class="line">        (LMRequestAgent_meta *)&amp;OBJC_CLASS___LMRequestAgent,</span><br><span class="line">        <span class="string">"shareRequestAgent"</span>);</span><br><span class="line">v25 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v24);</span><br><span class="line">v26 = ((<span class="keyword">id</span> (__cdecl *)(LMBaseRequest *, SEL))objc_msgSend)(v2, <span class="string">"requestArgument"</span>);</span><br><span class="line">v27 = objc_retainAutoreleasedReturnValue(v26);</span><br><span class="line">v28 = v27;</span><br><span class="line">v29 = objc_msgSend(v25, <span class="string">"processRequest:withArgument:"</span>, v2, v27);</span><br><span class="line">v30 = objc_retainAutoreleasedReturnValue(v29);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>简化一下代码就是</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[LMRequestAgent shareRequestAgent] processRequest:request withArgument: [request requestArgument]];</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>[LMRequestAgent processRequest:withArgument:]</code>实现代码很长，前面分析过Form里面需要的参数是<code>account</code>,<code>pwd</code>,<code>nwt</code>,<code>q</code>,<code>sc</code>。</p>
-<ul>
-<li>account和pwd我们已经解析出来了，下面要解析<code>nwt</code>,<code>q</code>,<code>sc</code>这三个。</li>
-<li>多次点击登录按钮发现<code>nwt</code>的值一直为<code>1</code>。</li>
-<li><code>q</code>每点击一次就<code>+1</code>,猜测<code>q</code>指的是查询次数。</li>
-<li><code>sc</code>每点击一次值都不一样，它应该是一些可变参数的拼接</li>
-</ul>
-</li>
-<li><p>所以接下来的操作都是解析<code>sc</code>,大致浏览一遍，发现，根据上下文可以v8是NSMutableDictionary</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_msgSend(v8, <span class="string">"setObject:forKey:"</span>, v60, <span class="built_in">CFSTR</span>(<span class="string">"sc"</span>));</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>跟踪一下<code>frida-trace -U -m &quot;-[NSMutableDictionary setObject:forKey:]&quot; 某听书APP</code>，点击登录按钮会出现很多的调用，需要我们过滤一下key。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">log, args, state</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (ObjC.Object(args[<span class="number">3</span>]) != <span class="string">'sc'</span>) <span class="keyword">return</span></span><br><span class="line">  log(<span class="string">'-[__NSDictionaryM setObject:'</span> + ObjC.Object(args[<span class="number">2</span>]) + <span class="string">' forKey:'</span> + ObjC.Object(args[<span class="number">3</span>]) + <span class="string">']'</span>);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>再次点击登录按钮发现确实执行了，这个值跟Chales里面看到的值是一样的。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Started tracing 13 functions. Press Ctrl+C to stop.</span><br><span class="line">         /* TID 0x403 */</span><br><span class="line">1203 ms  -[__NSDictionaryM setObject:e7b06599148c4dab5daf45b526e69a4f forKey:sc]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这个时候就需要追踪v60的来源。发现v60是<code>[v57 MD5DigestToNSString]</code>，也就是对v57进行md5得到v60。而v57又来自于v56。v56是拼接的字符串，拼接的是<code>v55</code>和<code>OoiwGXXOO!5kU#@ku0BWm</code>两个字符串。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">v56 = objc_msgSend(</span><br><span class="line">        &amp;OBJC_CLASS___NSString,</span><br><span class="line">        "stringWithFormat:",</span><br><span class="line">        CFSTR("%@%@"),</span><br><span class="line">        v55,</span><br><span class="line">        CFSTR("OoiwGXXOO!5kU#@ku0BWm"),</span><br><span class="line">        v83);</span><br><span class="line">v57 = (void *)objc_retainAutoreleasedReturnValue(v56);</span><br><span class="line">v58 = v57;</span><br><span class="line">v59 = objc_msgSend(v57, "MD5DigestToNSString");</span><br><span class="line">v60 = (void *)objc_retainAutoreleasedReturnValue(v59);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接下来看看v55来自于v54,v54也是字符串的拼接。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v54 = objc_msgSend(&amp;OBJC_CLASS___NSString, <span class="string">"createURLStringWithPath:andParams:"</span>, v52, v8);</span><br><span class="line">v55 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v54);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>跟踪一下<code>frida-trace -U -m &quot;+[NSString createURLStringWithPath:andParams:]&quot; 某听书APP</code>,执行后找到对应的js文件，更改如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">log, args, state</span>) </span>&#123;</span><br><span class="line">  log(<span class="string">'+[NSString createURLStringWithPath:'</span> + ObjC.Object(args[<span class="number">2</span>])+ <span class="string">' andParams:'</span> + ObjC.Object(args[<span class="number">3</span>]) + <span class="string">']'</span>);</span><br><span class="line">&#125;,</span><br><span class="line">onLeave: <span class="function"><span class="keyword">function</span> (<span class="params">log, retval, state</span>) </span>&#123;</span><br><span class="line">  log(<span class="string">'函数返回值'</span> + ObjC.Object(retval));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>终端再次执行上面的跟踪命令,点击登录按钮输出如下。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+[NSString createURLStringWithPath:/XXOO/ClientLogon.action andParams:&#123;</span><br><span class="line">   account = Tyyy;</span><br><span class="line">   imei = M0Q1MDZGMzAtRDREOS00OUMyLUE2MUUtRUM1RUYyMjJENDc1;</span><br><span class="line">   nwt = 1;</span><br><span class="line">   pwd = "0QkGw9rBFy1PYL1B8iSudQ==";</span><br><span class="line">   q = 411;</span><br><span class="line">   token = "wQYGmjeAR1zP1SZKF6GjFg**_u6nbPC95d-IUR7IALtZAUA**";</span><br><span class="line"> &#125;]</span><br><span class="line"> 1538 ms  函数返回值/XXOO/ClientLogon.action?account=Tyyy&amp;imei=M0Q1MDZGMzAtRDREOS00OUMyLUE2MUUtRUM1RUYyMjJENDc1&amp;nwt=1&amp;pwd=0QkGw9rBFy1PYL1B8iSudQ==&amp;q=411&amp; token=wQYGmjeAR1zP1SZKF6GjFg**_u6nbPC95d-IUR7IALtZAUA**</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这下就跟明确了，所需要的值都已经求出了，只要拼接就可以得到相应的字符串</p>
-</li>
-</ul>
-<h3 id="说在最后"><a href="#说在最后" class="headerlink" title="说在最后"></a>说在最后</h3><ul>
-<li><p>最终代码如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NSString *<span class="title">getImei</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  NSString *uuid = [[NSUUID UUID] UUIDString];</span><br><span class="line">  NSData *uuidData = [uuid dataUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">  NSData *uuidBase64Data = [GTMBase64 encodeData: uuidData];</span><br><span class="line">  NSString *imei = [[NSString alloc] initWithData:uuidBase64Data encoding: NSUTF8StringEncoding];</span><br><span class="line">  <span class="keyword">return</span> imei;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">NSString *<span class="title">MD5DigestToNSString</span><span class="params">(NSString *str)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> v10[<span class="number">16</span>]; </span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *v3 = [str UTF8String];</span><br><span class="line">  <span class="keyword">size_t</span> v5 = <span class="built_in">strlen</span>(v3);</span><br><span class="line">  CC_MD5(v3, v5, v10);</span><br><span class="line">  NSMutableString *v7 = ([[NSMutableString alloc] initWithCapacity: <span class="number">32L</span>L]);</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span>  v8 = <span class="number">0L</span>L;</span><br><span class="line">  <span class="keyword">do</span> [v7 appendFormat:@<span class="string">"%02x"</span>, (<span class="keyword">unsigned</span> <span class="keyword">char</span>)v10[v8++]];</span><br><span class="line">  <span class="keyword">while</span> ( v8 != <span class="number">16</span> );</span><br><span class="line">  <span class="keyword">return</span> v7;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NSString *baseURL = @<span class="string">"https://XXOO.info"</span>;</span><br><span class="line">NSString *relativeURL = @<span class="string">"/XXOO/ClientLogon.action?"</span>;</span><br><span class="line"><span class="comment">// 获取Imei</span></span><br><span class="line">NSString *imei = getImei();</span><br><span class="line"><span class="comment">// 获取token</span></span><br><span class="line">NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey: @<span class="string">"token"</span>];</span><br><span class="line"><span class="comment">// 查询字符串</span></span><br><span class="line">NSString *queryStr = [NSString stringWithFormat:@<span class="string">"imei=%@&amp;token=%@"</span>,imei, token];</span><br><span class="line">NSString *account = @<span class="string">"YourUserName"</span>;</span><br><span class="line">NSString *pwdText = @<span class="string">"YourPassword"</span>;</span><br><span class="line">NSString *pwdMd5 = MD5DigestToNSString(pwdText);</span><br><span class="line">NSData *pwdData = [%c(LMGTMBase64) encodeData: pwdMd5 isChunked: NO];</span><br><span class="line">NSString *pwdBase64 = [[NSString alloc] initWithData:pwdData encoding: NSUTF8StringEncoding];</span><br><span class="line"><span class="comment">// 查询次数</span></span><br><span class="line">NSString *q = @<span class="string">"1"</span>;</span><br><span class="line">NSString *nwt = @<span class="string">"1"</span>;</span><br><span class="line"><span class="comment">// 可以看成是加盐字符串</span></span><br><span class="line">NSString *salt = @<span class="string">"OoiwGXXOO!5kU#@ku0BWm"</span>;</span><br><span class="line"><span class="comment">// 生成sc</span></span><br><span class="line">NSString *scStr = [NSString stringWithFormat:@<span class="string">"%@account=%@&amp;imei=%@&amp;nwt=%@&amp;pwd=%@&amp;q=%@&amp;token=%@%@"</span>,</span><br><span class="line">                           relativeURL, account,imei,nwt,pwdBase64,q,token,salt];</span><br><span class="line">NSString *scMd5 = MD5DigestToNSString(scStr);</span><br><span class="line"><span class="comment">// 执行请求</span></span><br><span class="line">NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];</span><br><span class="line">request.URL = [NSURL URLWithString: [NSString stringWithFormat:@<span class="string">"%@%@%@"</span>,baseURL,relativeURL,queryStr]];</span><br><span class="line">request.HTTPMethod = @<span class="string">"POST"</span>;</span><br><span class="line">NSString *params = [NSString stringWithFormat:@<span class="string">"account=%@&amp;nwt=%@&amp;pwd=%@&amp;q=%@&amp;sc=%@"</span>,</span><br><span class="line">                    account,nwt,pwdBase64,q,scMd5];</span><br><span class="line">NSData *data  = [params dataUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">request.HTTPBody = data;</span><br><span class="line">NSURLSessionDataTask *dataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;</span><br><span class="line">    id obj =[NSJSONSerialization JSONObjectWithData:data options:<span class="number">0</span> error:nil];</span><br><span class="line">    NSLog(@<span class="string">"iOSRE:数据为%@"</span>,obj);</span><br><span class="line">&#125;];</span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>以上代码有两个地方还没有解析。</p>
-<ul>
-<li><code>[%c(LMGTMBase64) encodeData: pwdMd5 isChunked: NO];</code>这个不是开源库<code>GTMBase64</code>自带的方法，应该是自己封装的，伪代码显示还挺复杂的，以后有空在搞</li>
-<li><code>[[NSUserDefaults standardUserDefaults] objectForKey: @&quot;token&quot;]</code>，这个应该是从服务端拉取存入本地，有空在搞</li>
-</ul>
-</li>
-</ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/逆向/" rel="tag"># 逆向</a>
-              <a href="/tags/iOS/" rel="tag"># iOS</a>
-          </div>
-
-        
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -399,67 +108,19 @@
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
+</div>
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/10/09/RunAppAsRootForXcode/" rel="prev" title="Run an App as root on iOS11 and iOS12 with Xcode">
-      <i class="fa fa-chevron-left"></i> Run an App as root on iOS11 and iOS12 with Xcode
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/01/03/Oh-my-zsh/" rel="next" title="如何优雅地使用oh-my-zsh">
-      如何优雅地使用oh-my-zsh <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -468,18 +129,19 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前序"><span class="nav-number">2.</span> <span class="nav-text">前序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">2.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逆向VIP过程"><span class="nav-number">2.2.</span> <span class="nav-text">逆向VIP过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析登录协议"><span class="nav-number">3.</span> <span class="nav-text">分析登录协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求参数"><span class="nav-number">3.1.</span> <span class="nav-text">请求参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找传参函数"><span class="nav-number">3.2.</span> <span class="nav-text">寻找传参函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Query-String"><span class="nav-number">3.3.</span> <span class="nav-text">解析Query String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Form-Body-里面的参数"><span class="nav-number">3.4.</span> <span class="nav-text">解析Form(Body)里面的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说在最后"><span class="nav-number">3.5.</span> <span class="nav-text">说在最后</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">前序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">2.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E5%90%91VIP%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">逆向VIP过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E7%99%BB%E5%BD%95%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">分析登录协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">请求参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E4%BC%A0%E5%8F%82%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">寻找传参函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90Query-String"><span class="nav-number">3.3.</span> <span class="nav-text">解析Query String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90Form-Body-%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">解析Form(Body)里面的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">3.5.</span> <span class="nav-text">说在最后</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name"></p>
   <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -497,7 +159,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -505,23 +167,221 @@
 
 
 
+        </div>
       </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/ListenBookApp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          分析某听书APP登录协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-12-23 11:08:30 / 修改时间：20:08:30" itemprop="dateCreated datePublished" datetime="2019-12-23T11:08:30+08:00">2019-12-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E9%80%86%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li>此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！</li>
+<li>关键图片信息已打码，关键代码信息已用XXOO替代。如果APP方需要删除，请发邮件<code>zhulongfei28@gmail.com</code>，谢谢。</li>
+<li>这并不是基础教程，需要一定iOS逆向经验的人才能看懂。</li>
+</ul>
+<h2 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li>SSL Kill Switch 2 抓取https包</li>
+<li>Reveal 查看APP视图结构</li>
+<li>class-dump 导出头文件</li>
+<li>IDA 反汇编Mach-O文件</li>
+<li>Charles APP抓包</li>
+<li>Frida Hook框架</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="逆向VIP过程"><a href="#逆向VIP过程" class="headerlink" title="逆向VIP过程"></a>逆向VIP过程</h3><ul>
+<li>这年头看见VIP就手痒，如图点击带有VIP标识的栏目会弹出如图所示，然后逆向就开始了<br><img src="/images/ListenBookApp-01.png"></li>
+<li>使用Reveal查看发现列表控制器是<code>LMBookSectionListVC</code>,点击的Cell是<code>LMSectionlistCell</code>,根据经验就知道当执行<code>didSelectRowAtIndexPath</code>时触发的弹框。</li>
+<li>使用IDA反汇编Mach-O文件,然后找到<code>LMBookSectionListVC tableView:didSelectRowAtIndexPath:</code>,<code>Fn + F5</code>一下可以看到伪代码，大体如下<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">   <span class="built_in">NSArray</span> *bookSections =  [[<span class="keyword">self</span> ownerVM] bookSections];</span><br><span class="line">   LMSection *section = [bookSections safeObjectAtIndex: indexPath.row];</span><br><span class="line">   <span class="keyword">if</span> ([<span class="keyword">self</span> isPlayerPlayingWithSection: section]) &#123; <span class="comment">// 如果正在播放，就继续不播放</span></span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 如果没有播放就判断能不能播放</span></span><br><span class="line">   <span class="keyword">if</span> ([section hasBuy] == <span class="number">1</span> || [section downloadStatus] == <span class="number">4</span> || ([section strategy] &amp; <span class="number">0x10</span>)) &#123; <span class="comment">// 满足其中一个就播放</span></span><br><span class="line">      [<span class="keyword">self</span> playWithSection: section];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>所以hook代码如下。插件安装完成后没有了上面的弹框，直接跳转到播放页面，但是给了一个播放错误的提示<code>收费章节未购买</code><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">%hook LMSection</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">long</span> <span class="keyword">long</span>)hasBuy &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">long</span> <span class="keyword">long</span>)strategy &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">16</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">long</span> <span class="keyword">long</span>)downloadStatus &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">%end</span><br></pre></td></tr></table></figure></li>
+<li>通过Charles抓包。猜测是通过token判断是不是VIP，如果不是，list列表为空，就没有播放链接，这下就歇菜了。<ul>
+<li>进入播放页面请求：<a target="_blank" rel="noopener" href="https://xxoo.info/yyting/gateway/entityPath.action(%E6%AD%A4%E5%A4%84%E7%9C%81%E7%95%A5%E5%BE%88%E5%A4%9A)">https://XXOO.info/yyting/gateway/entityPath.action(此处省略很多)</a></li>
+<li>进入播放页面响应：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;list&quot;: null,</span><br><span class="line">  &quot;msg&quot;: &quot;收费章节未购买!&quot;,</span><br><span class="line">  &quot;status&quot;: 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>VIP没有搞掉不甘心，总想搞事情，就逆向登录过程吧。</li>
+</ul>
+<h2 id="分析登录协议"><a href="#分析登录协议" class="headerlink" title="分析登录协议"></a>分析登录协议</h2><h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><ul>
+<li>到登录界面，输入用户名和密码，点击登录。通过Charles抓包如图<br><img src="/images/ListenBookApp-02.png"></li>
+<li>上图可知请求分为三部分:<ul>
+<li>BaseURL:<code>https://XXOO.info/XXOO/ClientLogon.action</code></li>
+<li>Query String: <code>imei</code>和<code>token</code></li>
+<li>Form: <code>account</code>,<code>pwd</code>,<code>nwt</code>,<code>q</code>,<code>sc</code></li>
+</ul>
+</li>
+<li>Query String拼接到BaseURL后面，Form就是Body内容</li>
+</ul>
+<h3 id="寻找传参函数"><a href="#寻找传参函数" class="headerlink" title="寻找传参函数"></a>寻找传参函数</h3><ul>
+<li>到登录界面，使用Reveal发现登录按钮属于<code>LMLoginViewController</code></li>
+<li>终端执行<code>frida-trace -U -m &quot;-[LMLoginViewController *]&quot; 某听书APP</code>命令，点击登录按钮，发现执行<code>clickLoginButton:</code>方法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> /* TID 0x403 */</span><br><span class="line">...省略很多</span><br><span class="line">1146 ms  -[LMLoginViewController clickLoginButton:&lt;LMOrangeButton: 0x115d31fe0; baseClass = UIButton; frame = (38 277; 299 44); clipsToBounds = YES; opaque = NO; layer = &lt;CALayer: 0x1c442dac0&gt;&gt;]</span><br><span class="line">...省略很多</span><br></pre></td></tr></table></figure></li>
+<li>所以接下来在IDA中查看<code>-[LMLoginViewController clickLoginButton:]</code>的实现，核心代码概括如下：<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-[LMLoginViewController clickLoginButton:] &#123;</span><br><span class="line">   [[LMDataManager shareDataManger] manualLoginWithAccount:pwd:success:failure:]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>接着查看<code>-[LMDataManager manualLoginWithAccount:pwd:success:failure:]</code>实现，核心代码概括如下，接下来要分析这三段代码。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)manualLoginWithAccount:(<span class="built_in">NSString</span> *)account pwd:(<span class="built_in">NSString</span> *)pwd success:(<span class="keyword">id</span>)successBlock failure:(<span class="keyword">id</span>)failureBlock &#123;</span><br><span class="line">   LMHTTPParam *params = [LMHTTPParam buildManualLoginParamDicWithAccount:account pwd:pwd];</span><br><span class="line">   LMLoginApi *request = [[LMLoginApi alloc] initWithRequestParams: params];</span><br><span class="line">   [request startRequestWithSuccessCompletion:successBlock failureCompletion:failureBlock];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>IDA分析<code>+[LMHTTPParam buildManualLoginParamDicWithAccount:account pwd:pwd]</code>核心代码概括如下：<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+ [LMHTTPParam buildManualLoginParamDicWithAccount:account pwd:pwd] &#123;</span><br><span class="line">   <span class="built_in">NSString</span> *md5Pwd = MD5DigestToNSString(pwd);</span><br><span class="line">   <span class="built_in">NSString</span> *base64Pwd =  +[LMGTMBase64 base64WithHexStr: md5Pwd] &#123;</span><br><span class="line">      <span class="built_in">NSData</span> *data = [%c(LMGTMBase64) encodeData:md5Pwd isChunked: <span class="literal">NO</span>];</span><br><span class="line">      <span class="built_in">NSString</span> *base64Pwd = [[<span class="built_in">NSString</span> alloc] initWithData:data encoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">      <span class="keyword">return</span>  base64Pwd;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">NSDictionary</span> *params = @&#123;<span class="string">@&quot;account&quot;</span>: account, <span class="string">@&quot;pwd&quot;</span>: base64Pwd&#125;;</span><br><span class="line">   <span class="keyword">return</span> params</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>IDA分析<code>-[[LMLoginApi alloc] initWithRequestParams: params]</code>没有做什么特别操作</li>
+<li>IDA分析<code>-[request startRequestWithSuccessCompletion:successBlock failureCompletion:failureBlock]</code>,核心代码如下<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startRequestWithSuccessCompletion:successBlock failureCompletion:failureBlock &#123;</span><br><span class="line">      - [request startWithCompletionBlockWithSuccess:successBlock failure:failureBlock] &#123;</span><br><span class="line">         - [YTKBaseRequest setCompletionBlockWithSuccess:failure:];</span><br><span class="line">         - [YTKBaseRequest start] &#123;</span><br><span class="line">            - [[YTKNetworkAgent sharedAgent] addRequest: request] &#123;</span><br><span class="line">                -[request buildCustomUrlRequest]</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>IDA分析<code>-[request buildCustomUrlRequest]</code>,代码很多很长，有四段代码需要注意。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v52 = objc_msgSend(v90, <span class="string">&quot;multipartFormRequestWithMethod:URLString:parameters:constructingBodyWithBlock:error:&quot;</span>,<span class="built_in">CFSTR</span>(<span class="string">&quot;POST&quot;</span>),v50,v30,v32,&amp;v95);</span><br><span class="line">v73 = objc_msgSend(v90, <span class="string">&quot;requestWithMethod:URLString:parameters:error:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;POST&quot;</span>), v50, v30, &amp;v94);</span><br><span class="line">v86 = objc_msgSend(v90, <span class="string">&quot;requestWithMethod:URLString:parameters:error:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;GET&quot;</span>), v85, v30, &amp;v93);</span><br><span class="line">v70 = objc_msgSend(v90, <span class="string">&quot;requestWithMethod:URLString:parameters:error:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;HEAD&quot;</span>), v68, v30, &amp;v92);</span><br></pre></td></tr></table></figure></li>
+<li>我们进行的是POST请求，所以<code>v73 = objc_msgSend(v90, &quot;requestWithMethod:URLString:parameters:error:&quot;, CFSTR(&quot;POST&quot;), v50, v30, &amp;v94);</code>我们需要分析</li>
+<li>从上可知v50包含我们需要的Query String，v30包含我们需要的Form，也就是body。所以接下来就要对这两个参数进行追踪。</li>
+</ul>
+<h3 id="解析Query-String"><a href="#解析Query-String" class="headerlink" title="解析Query String"></a>解析Query String</h3><ul>
+<li>跟踪v50如下，发现v50来源于v46，v46是<code>+[NSURL URLWithString:relativeToURL:]</code>，那么我们其实要寻找v39<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v46 = objc_msgSend(&amp;OBJC_CLASS___NSURL, <span class="string">&quot;URLWithString:relativeToURL:&quot;</span>, v39, v44);</span><br><span class="line">v47 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v46);</span><br><span class="line">objc_release(v45);</span><br><span class="line">objc_release(v42);</span><br><span class="line">v48 = objc_msgSend(v47, <span class="string">&quot;absoluteString&quot;</span>);</span><br><span class="line">v49 = &amp;v2-&gt;<span class="keyword">super</span>;</span><br><span class="line">v50 = objc_retainAutoreleasedReturnValue(v48);</span><br></pre></td></tr></table></figure></li>
+<li>跟踪v39如下,IDA伪代码如下<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v33 = ((<span class="keyword">id</span> (__cdecl *)(LMRequestAgent_meta *, SEL))objc_msgSend)(</span><br><span class="line">        (LMRequestAgent_meta *)&amp;OBJC_CLASS___LMRequestAgent,</span><br><span class="line">        <span class="string">&quot;shareRequestAgent&quot;</span>);</span><br><span class="line">v34 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v33);</span><br><span class="line">v35 = ((<span class="keyword">id</span> (__cdecl *)(YTKBaseRequest *, SEL))objc_msgSend)(&amp;v2-&gt;<span class="keyword">super</span>, <span class="string">&quot;requestUrl&quot;</span>);</span><br><span class="line">v36 = objc_retainAutoreleasedReturnValue(v35);</span><br><span class="line">v37 = v36;</span><br><span class="line">v38 = objc_msgSend(v34, <span class="string">&quot;addParamForPostRequestUrl:&quot;</span>, v36);</span><br><span class="line">v39 = objc_retainAutoreleasedReturnValue(v38);</span><br></pre></td></tr></table></figure></li>
+<li>简化一下v39代码, 并且进入<code>addParamForPostRequestUrl</code>查看实现，可以发现取出token和imei进行拼接，拼接结果就是我们需要的<code>Query String</code>,我们离目标越来越近。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *requestUrl = -[YTKBaseRequest requestUrl];</span><br><span class="line">v39 = [[LMRequestAgent shareRequestAgent] addParamForPostRequestUrl: requestUrl] &#123;</span><br><span class="line">   v6 = -[LMRequestAgent requestToken](v3, <span class="string">&quot;requestToken&quot;</span>);</span><br><span class="line">   v7 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v6);</span><br><span class="line">   v8 = -[LMRequestAgent requestImei](v3, <span class="string">&quot;requestImei&quot;</span>);</span><br><span class="line">   v9 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v8);</span><br><span class="line">   v10 = objc_msgSend(&amp;OBJC_CLASS___NSMutableString, <span class="string">&quot;string&quot;</span>);</span><br><span class="line">   v11 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v10);</span><br><span class="line">   <span class="keyword">if</span> ( v9 &amp;&amp; objc_msgSend(v9, <span class="string">&quot;length&quot;</span>) )</span><br><span class="line">     objc_msgSend(v11, <span class="string">&quot;appendFormat:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;?imei=%@&quot;</span>), v9);</span><br><span class="line">   <span class="keyword">if</span> ( v7 &amp;&amp; objc_msgSend(v7, <span class="string">&quot;length&quot;</span>) )</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="keyword">if</span> ( objc_msgSend(v11, <span class="string">&quot;length&quot;</span>) )</span><br><span class="line">       objc_msgSend(v11, <span class="string">&quot;appendFormat:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;&amp;token=%@&quot;</span>), v7);</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">       objc_msgSend(v11, <span class="string">&quot;appendFormat:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;token=%@&quot;</span>), v7);</span><br><span class="line">   &#125;</span><br><span class="line">   objc_msgSend(v11, <span class="string">&quot;insertString:atIndex:&quot;</span>, v5, <span class="number">0</span>LL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><code>-[LMRequestAgent requestToken]</code>实现如下：<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-[LMRequestAgent requestToken] &#123;</span><br><span class="line">  <span class="keyword">return</span> [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] objectForKey: <span class="string">@&quot;token&quot;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><code>-[LMRequestAgent requestImei]</code>实现如下<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先从钥匙串里面取如果取到就直接返回。没有取到就生成一个，把新生成的存入钥匙串，并且返回。</span></span><br><span class="line">-[LMRequestAgent requestImei] &#123;</span><br><span class="line">  <span class="built_in">NSString</span> *udid =  +[LMUDIDTools UDID] &#123;</span><br><span class="line">    v2 = +[LMUDIDTools getUDIDFromKeyChain]</span><br><span class="line">    v3 = +[LMUDIDTools _UDID_iOS7]</span><br><span class="line">    <span class="keyword">if</span> ( !v2</span><br><span class="line">      || (<span class="keyword">unsigned</span> __int64)objc_msgSend(v2, <span class="string">&quot;isEqualToString:&quot;</span>, <span class="built_in">CFSTR</span>(<span class="string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>)) &amp; <span class="number">1</span></span><br><span class="line">      || !((<span class="keyword">unsigned</span> __int64)objc_msgSend(v2, <span class="string">&quot;isEqualToString:&quot;</span>, v3) &amp; <span class="number">1</span>) ) &#123;</span><br><span class="line">      v2 = +[LMUDIDTools _UDID_iOS7](&amp;OBJC_CLASS___LMUDIDTools, <span class="string">&quot;_UDID_iOS7&quot;</span>);</span><br><span class="line">      +[LMUDIDTools settUDIDToKeyChain:](&amp;OBJC_CLASS___LMUDIDTools, <span class="string">&quot;settUDIDToKeyChain:&quot;</span>, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 对UDID进行Base64,LMGTMBase64使用了开源库`GTMBase64`</span></span><br><span class="line">  <span class="keyword">return</span> [udid BASE64Encode] &#123;</span><br><span class="line">      <span class="built_in">NSData</span> *uuidData = [uuid dataUsingEncoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">      <span class="built_in">NSData</span> *uuidBase64Data = [LMGTMBase64 encodeData: uuidData];</span><br><span class="line">      <span class="built_in">NSString</span> *imei = [[<span class="built_in">NSString</span> alloc] initWithData:uuidBase64Data encoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">      <span class="keyword">return</span> imei</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>我们可以自己写一个<code>-[LMRequestAgent requestImei]</code>简单的实现<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *requestImei() &#123;</span><br><span class="line">  <span class="built_in">NSString</span> *uuid = [[<span class="built_in">NSUUID</span> UUID] UUIDString];</span><br><span class="line">  <span class="built_in">NSData</span> *uuidData = [uuid dataUsingEncoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">  <span class="built_in">NSData</span> *uuidBase64Data = [GTMBase64 encodeData: uuidData];</span><br><span class="line">  <span class="built_in">NSString</span> *imei = [[<span class="built_in">NSString</span> alloc] initWithData:uuidBase64Data encoding: <span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">  <span class="keyword">return</span> imei;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>到这里<code>Query String</code>的两个参数<code>token</code>和<code>imei</code>都解析完成</li>
+</ul>
+<h3 id="解析Form-Body-里面的参数"><a href="#解析Form-Body-里面的参数" class="headerlink" title="解析Form(Body)里面的参数"></a>解析Form(Body)里面的参数</h3><ul>
+<li>还记得最上面的<code>v73 = objc_msgSend(v90, &quot;requestWithMethod:URLString:parameters:error:&quot;, CFSTR(&quot;POST&quot;), v50, v30, &amp;v94);</code>吧，v30就是body里面的参数。<br>我们需要追踪v30的来源。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v24 = ((<span class="keyword">id</span> (__cdecl *)(LMRequestAgent_meta *, SEL))objc_msgSend)(</span><br><span class="line">        (LMRequestAgent_meta *)&amp;OBJC_CLASS___LMRequestAgent,</span><br><span class="line">        <span class="string">&quot;shareRequestAgent&quot;</span>);</span><br><span class="line">v25 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v24);</span><br><span class="line">v26 = ((<span class="keyword">id</span> (__cdecl *)(LMBaseRequest *, SEL))objc_msgSend)(v2, <span class="string">&quot;requestArgument&quot;</span>);</span><br><span class="line">v27 = objc_retainAutoreleasedReturnValue(v26);</span><br><span class="line">v28 = v27;</span><br><span class="line">v29 = objc_msgSend(v25, <span class="string">&quot;processRequest:withArgument:&quot;</span>, v2, v27);</span><br><span class="line">v30 = objc_retainAutoreleasedReturnValue(v29);</span><br></pre></td></tr></table></figure></li>
+<li>简化一下代码就是<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[LMRequestAgent shareRequestAgent] processRequest:request withArgument: [request requestArgument]];</span><br></pre></td></tr></table></figure></li>
+<li><code>[LMRequestAgent processRequest:withArgument:]</code>实现代码很长，前面分析过Form里面需要的参数是<code>account</code>,<code>pwd</code>,<code>nwt</code>,<code>q</code>,<code>sc</code>。<ul>
+<li>account和pwd我们已经解析出来了，下面要解析<code>nwt</code>,<code>q</code>,<code>sc</code>这三个。</li>
+<li>多次点击登录按钮发现<code>nwt</code>的值一直为<code>1</code>。</li>
+<li><code>q</code>每点击一次就<code>+1</code>,猜测<code>q</code>指的是查询次数。</li>
+<li><code>sc</code>每点击一次值都不一样，它应该是一些可变参数的拼接</li>
+</ul>
+</li>
+<li>所以接下来的操作都是解析<code>sc</code>,大致浏览一遍，发现，根据上下文可以v8是NSMutableDictionary<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_msgSend(v8, <span class="string">&quot;setObject:forKey:&quot;</span>, v60, <span class="built_in">CFSTR</span>(<span class="string">&quot;sc&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+<li>跟踪一下<code>frida-trace -U -m &quot;-[NSMutableDictionary setObject:forKey:]&quot; 某听书APP</code>，点击登录按钮会出现很多的调用，需要我们过滤一下key。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">log, args, state</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (ObjC.Object(args[<span class="number">3</span>]) != <span class="string">&#x27;sc&#x27;</span>) <span class="keyword">return</span></span><br><span class="line">  log(<span class="string">&#x27;-[__NSDictionaryM setObject:&#x27;</span> + ObjC.Object(args[<span class="number">2</span>]) + <span class="string">&#x27; forKey:&#x27;</span> + ObjC.Object(args[<span class="number">3</span>]) + <span class="string">&#x27;]&#x27;</span>);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></li>
+<li>再次点击登录按钮发现确实执行了，这个值跟Chales里面看到的值是一样的。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Started tracing 13 functions. Press Ctrl+C to stop.</span><br><span class="line">         /* TID 0x403 */</span><br><span class="line">1203 ms  -[__NSDictionaryM setObject:e7b06599148c4dab5daf45b526e69a4f forKey:sc]</span><br></pre></td></tr></table></figure></li>
+<li>这个时候就需要追踪v60的来源。发现v60是<code>[v57 MD5DigestToNSString]</code>，也就是对v57进行md5得到v60。而v57又来自于v56。v56是拼接的字符串，拼接的是<code>v55</code>和<code>OoiwGXXOO!5kU#@ku0BWm</code>两个字符串。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">v56 = objc_msgSend(</span><br><span class="line">        &amp;OBJC_CLASS___NSString,</span><br><span class="line">        &quot;stringWithFormat:&quot;,</span><br><span class="line">        CFSTR(&quot;%@%@&quot;),</span><br><span class="line">        v55,</span><br><span class="line">        CFSTR(&quot;OoiwGXXOO!5kU#@ku0BWm&quot;),</span><br><span class="line">        v83);</span><br><span class="line">v57 = (void *)objc_retainAutoreleasedReturnValue(v56);</span><br><span class="line">v58 = v57;</span><br><span class="line">v59 = objc_msgSend(v57, &quot;MD5DigestToNSString&quot;);</span><br><span class="line">v60 = (void *)objc_retainAutoreleasedReturnValue(v59);</span><br></pre></td></tr></table></figure></li>
+<li>接下来看看v55来自于v54,v54也是字符串的拼接。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v54 = objc_msgSend(&amp;OBJC_CLASS___NSString, <span class="string">&quot;createURLStringWithPath:andParams:&quot;</span>, v52, v8);</span><br><span class="line">v55 = (<span class="keyword">void</span> *)objc_retainAutoreleasedReturnValue(v54);</span><br></pre></td></tr></table></figure></li>
+<li>跟踪一下<code>frida-trace -U -m &quot;+[NSString createURLStringWithPath:andParams:]&quot; 某听书APP</code>,执行后找到对应的js文件，更改如下：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">log, args, state</span>) </span>&#123;</span><br><span class="line">  log(<span class="string">&#x27;+[NSString createURLStringWithPath:&#x27;</span> + ObjC.Object(args[<span class="number">2</span>])+ <span class="string">&#x27; andParams:&#x27;</span> + ObjC.Object(args[<span class="number">3</span>]) + <span class="string">&#x27;]&#x27;</span>);</span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">onLeave</span>: <span class="function"><span class="keyword">function</span> (<span class="params">log, retval, state</span>) </span>&#123;</span><br><span class="line">  log(<span class="string">&#x27;函数返回值&#x27;</span> + ObjC.Object(retval));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>终端再次执行上面的跟踪命令,点击登录按钮输出如下。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+[NSString createURLStringWithPath:/XXOO/ClientLogon.action andParams:&#123;</span><br><span class="line">   account = Tyyy;</span><br><span class="line">   imei = M0Q1MDZGMzAtRDREOS00OUMyLUE2MUUtRUM1RUYyMjJENDc1;</span><br><span class="line">   nwt = 1;</span><br><span class="line">   pwd = &quot;0QkGw9rBFy1PYL1B8iSudQ==&quot;;</span><br><span class="line">   q = 411;</span><br><span class="line">   token = &quot;wQYGmjeAR1zP1SZKF6GjFg**_u6nbPC95d-IUR7IALtZAUA**&quot;;</span><br><span class="line"> &#125;]</span><br><span class="line"> 1538 ms  函数返回值/XXOO/ClientLogon.action?account=Tyyy&amp;imei=M0Q1MDZGMzAtRDREOS00OUMyLUE2MUUtRUM1RUYyMjJENDc1&amp;nwt=1&amp;pwd=0QkGw9rBFy1PYL1B8iSudQ==&amp;q=411&amp; token=wQYGmjeAR1zP1SZKF6GjFg**_u6nbPC95d-IUR7IALtZAUA**</span><br></pre></td></tr></table></figure></li>
+<li>这下就跟明确了，所需要的值都已经求出了，只要拼接就可以得到相应的字符串</li>
+</ul>
+<h3 id="说在最后"><a href="#说在最后" class="headerlink" title="说在最后"></a>说在最后</h3><ul>
+<li>最终代码如下<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NSString *<span class="title">getImei</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  NSString *uuid = [[NSUUID UUID] UUIDString];</span><br><span class="line">  NSData *uuidData = [uuid dataUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">  NSData *uuidBase64Data = [GTMBase64 encodeData: uuidData];</span><br><span class="line">  NSString *imei = [[NSString alloc] initWithData:uuidBase64Data encoding: NSUTF8StringEncoding];</span><br><span class="line">  <span class="keyword">return</span> imei;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">NSString *<span class="title">MD5DigestToNSString</span><span class="params">(NSString *str)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> v10[<span class="number">16</span>]; </span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *v3 = [str UTF8String];</span><br><span class="line">  <span class="keyword">size_t</span> v5 = <span class="built_in">strlen</span>(v3);</span><br><span class="line">  CC_MD5(v3, v5, v10);</span><br><span class="line">  NSMutableString *v7 = ([[NSMutableString alloc] initWithCapacity: <span class="number">32LL</span>]);</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span>  v8 = <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">do</span> [v7 appendFormat:@<span class="string">&quot;%02x&quot;</span>, (<span class="keyword">unsigned</span> <span class="keyword">char</span>)v10[v8++]];</span><br><span class="line">  <span class="keyword">while</span> ( v8 != <span class="number">16</span> );</span><br><span class="line">  <span class="keyword">return</span> v7;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NSString *baseURL = @<span class="string">&quot;https://XXOO.info&quot;</span>;</span><br><span class="line">NSString *relativeURL = @<span class="string">&quot;/XXOO/ClientLogon.action?&quot;</span>;</span><br><span class="line"><span class="comment">// 获取Imei</span></span><br><span class="line">NSString *imei = getImei();</span><br><span class="line"><span class="comment">// 获取token</span></span><br><span class="line">NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey: @<span class="string">&quot;token&quot;</span>];</span><br><span class="line"><span class="comment">// 查询字符串</span></span><br><span class="line">NSString *queryStr = [NSString stringWithFormat:@<span class="string">&quot;imei=%@&amp;token=%@&quot;</span>,imei, token];</span><br><span class="line">NSString *account = @<span class="string">&quot;YourUserName&quot;</span>;</span><br><span class="line">NSString *pwdText = @<span class="string">&quot;YourPassword&quot;</span>;</span><br><span class="line">NSString *pwdMd5 = MD5DigestToNSString(pwdText);</span><br><span class="line">NSData *pwdData = [%c(LMGTMBase64) encodeData: pwdMd5 isChunked: NO];</span><br><span class="line">NSString *pwdBase64 = [[NSString alloc] initWithData:pwdData encoding: NSUTF8StringEncoding];</span><br><span class="line"><span class="comment">// 查询次数</span></span><br><span class="line">NSString *q = @<span class="string">&quot;1&quot;</span>;</span><br><span class="line">NSString *nwt = @<span class="string">&quot;1&quot;</span>;</span><br><span class="line"><span class="comment">// 可以看成是加盐字符串</span></span><br><span class="line">NSString *salt = @<span class="string">&quot;OoiwGXXOO!5kU#@ku0BWm&quot;</span>;</span><br><span class="line"><span class="comment">// 生成sc</span></span><br><span class="line">NSString *scStr = [NSString stringWithFormat:@<span class="string">&quot;%@account=%@&amp;imei=%@&amp;nwt=%@&amp;pwd=%@&amp;q=%@&amp;token=%@%@&quot;</span>,</span><br><span class="line">                           relativeURL, account,imei,nwt,pwdBase64,q,token,salt];</span><br><span class="line">NSString *scMd5 = MD5DigestToNSString(scStr);</span><br><span class="line"><span class="comment">// 执行请求</span></span><br><span class="line">NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];</span><br><span class="line">request.URL = [NSURL URLWithString: [NSString stringWithFormat:@<span class="string">&quot;%@%@%@&quot;</span>,baseURL,relativeURL,queryStr]];</span><br><span class="line">request.HTTPMethod = @<span class="string">&quot;POST&quot;</span>;</span><br><span class="line">NSString *params = [NSString stringWithFormat:@<span class="string">&quot;account=%@&amp;nwt=%@&amp;pwd=%@&amp;q=%@&amp;sc=%@&quot;</span>,</span><br><span class="line">                    account,nwt,pwdBase64,q,scMd5];</span><br><span class="line">NSData *data  = [params dataUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">request.HTTPBody = data;</span><br><span class="line">NSURLSessionDataTask *dataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;</span><br><span class="line">    id obj =[NSJSONSerialization JSONObjectWithData:data options:<span class="number">0</span> error:nil];</span><br><span class="line">    NSLog(@<span class="string">&quot;iOSRE:数据为%@&quot;</span>,obj);</span><br><span class="line">&#125;];</span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure></li>
+<li>以上代码有两个地方还没有解析。</li>
+<li><code>[%c(LMGTMBase64) encodeData: pwdMd5 isChunked: NO];</code>这个不是开源库<code>GTMBase64</code>自带的方法，应该是自己封装的，伪代码显示还挺复杂的，以后有空在搞</li>
+<li><code>[[NSUserDefaults standardUserDefaults] objectForKey: @&quot;token&quot;]</code>，这个应该是从服务端拉取存入本地，有空在搞</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-6694280780402885"
+    data-ad-slot="9902930001"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
         
 
-        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/09/RunAppAsRootForXcode/" rel="prev" title="Run an App as root on iOS11 and iOS12 with Xcode">
+                  <i class="fa fa-chevron-left"></i> Run an App as root on iOS11 and iOS12 with Xcode
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/03/Oh-my-zsh/" rel="next" title="如何优雅地使用oh-my-zsh">
+                  如何优雅地使用oh-my-zsh <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -529,31 +389,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder"></span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -562,18 +406,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 </body>
 </html>

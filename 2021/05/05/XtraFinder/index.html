@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,22 +15,18 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
-<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="说在前面 注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 开发环境：macOS11.2.3、Xcode12.4、IDA7.0、class-dump、XtraFinder1.6.1 具备技能：X64汇编基础、OC基础知识 目标结果：XtraF">
-<meta name="keywords" content="逆向,macOS">
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;hide&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="说在前面 注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 开发环境：macOS11.2.3、Xcode12.4、IDA7.0、class-dump、XtraFinder1.6.1 具备技能：X64汇编基础、OC基础知识 目标结果：XtraF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="macOS逆向之跳过XtraFinder试用界面">
 <meta property="og:url" content="http://yoursite.com/2021/05/05/XtraFinder/index.html">
 <meta property="og:site_name" content="杂货铺">
 <meta property="og:description" content="说在前面 注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 开发环境：macOS11.2.3、Xcode12.4、IDA7.0、class-dump、XtraFinder1.6.1 具备技能：X64汇编基础、OC基础知识 目标结果：XtraF">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/XtraFinder-01.png">
 <meta property="og:image" content="http://yoursite.com/images/XtraFinder-02.png">
 <meta property="og:image" content="http://yoursite.com/images/XtraFinder-03.png">
@@ -36,78 +34,52 @@
 <meta property="og:image" content="http://yoursite.com/images/XtraFinder-05.png">
 <meta property="og:image" content="http://yoursite.com/images/XtraFinder-06.png">
 <meta property="og:image" content="http://yoursite.com/images/XtraFinder-07.png">
-<meta property="og:updated_time" content="2021-05-05T12:35:18.000Z">
+<meta property="article:published_time" content="2021-05-05T09:25:08.000Z">
+<meta property="article:modified_time" content="2021-05-05T12:35:18.000Z">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="macOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="macOS逆向之跳过XtraFinder试用界面">
-<meta name="twitter:description" content="说在前面 注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 开发环境：macOS11.2.3、Xcode12.4、IDA7.0、class-dump、XtraFinder1.6.1 具备技能：X64汇编基础、OC基础知识 目标结果：XtraF">
 <meta name="twitter:image" content="http://yoursite.com/images/XtraFinder-01.png">
+
 
 <link rel="canonical" href="http://yoursite.com/2021/05/05/XtraFinder/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>macOS逆向之跳过XtraFinder试用界面 | 杂货铺</title>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;05&#x2F;05&#x2F;XtraFinder&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;05&#x2F;05&#x2F;XtraFinder&#x2F;&quot;,&quot;title&quot;:&quot;macOS逆向之跳过XtraFinder试用界面&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>macOS逆向之跳过XtraFinder试用界面 | 杂货铺</title><script src="/js/config.js"></script><script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   
 
 
 
 
-
-
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">杂货铺</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -119,252 +91,15 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/05/XtraFinder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杂货铺">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          macOS逆向之跳过XtraFinder试用界面
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-05 17:25:08 / 修改时间：20:35:18" itemprop="dateCreated datePublished" datetime="2021-05-05T17:25:08+08:00">2021-05-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macOS逆向/" itemprop="url" rel="index"><span itemprop="name">macOS逆向</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- HeaderFooterAD -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-6694280780402885"
-            data-ad-slot="9902930001"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><ul>
-<li>注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件<code>zhulongfei28@gmail.com</code>，谢谢。</li>
-<li>开发环境：macOS11.2.3、Xcode12.4、IDA7.0、class-dump、XtraFinder1.6.1</li>
-<li>具备技能：X64汇编基础、OC基础知识</li>
-<li>目标结果：XtraFinder是macOS上超级好用的资源管理器软件，对它爱不释手。一直使用的是无限试用(非付费)版本，每次重启都会有下面这个等待30s的弹框，今天决定去除试用弹框。<br><img src="/images/XtraFinder-01.png" alt></li>
-</ul>
-<a id="more"></a>
-
-<h2 id="分析界面"><a href="#分析界面" class="headerlink" title="分析界面"></a>分析界面</h2><ul>
-<li>iOS逆向使用Reveal查看界面，macOS逆向直接使用Xcode就可以，不需要使用三方工具，原生的就是最好的。</li>
-<li>这里我们不能直接查看XtraFinder界面，XtraFinder是注入到Finder里面的，是一个寄生App，依靠Finder存活的，所以需要查看Finder界面。</li>
-<li>新建一个macOS App项目。因为Finder属于macOS App，macOS项目才能调试Finder，如下图：<br><img src="/images/XtraFinder-02.png" alt></li>
-<li>附加成功后，点击查看视图，分析视图结构。发现XtraFinder属于<code>RegisterWindowController</code>，如图<br><img src="/images/XtraFinder-03.png" alt><br><img src="/images/XtraFinder-04.png" alt></li>
-<li>那么接下来就以<code>RegisterWindowController</code>为突破点，让它不显示出来，又能正常的使用XtraFinder功能。</li>
-</ul>
-<h2 id="寻找Mach-O"><a href="#寻找Mach-O" class="headerlink" title="寻找Mach-O"></a>寻找Mach-O</h2><ul>
-<li><p>注意：在使用<code>class-dump</code>导出头文件之前，要执行如下命令，确认没有加壳，要不然导不出头文件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -l XtraFinderPlugins(XtraFinder) | grep cryptid</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按照常识，进入<code>/Applications/XtraFinder.app/Contents/MacOS</code>找到<code>XtraFinder</code>，使用<code>class-dump</code>导出头文件，发现并没有<code>RegisterWindowController.h</code>这个文件，并不是我们需要的Mach-O文件</p>
-</li>
-<li><p>跟上面同样的方法，继续寻找，发现<code>/Applications/XtraFinder.app/Contents/Resources/XtraFinderPlugins.bundle/Contents/MacOS/XtraFinderPlugins</code>包含<code>RegisterWindowController.h</code>文件，<code>XtraFinderPlugins</code>就是我们需要的Mach-O文件。</p>
-</li>
-</ul>
-<h2 id="汇编基础"><a href="#汇编基础" class="headerlink" title="汇编基础"></a>汇编基础</h2><ul>
-<li>rdi、rsi、rdx、rcx、r8、r9等寄存器常用于存放函数参数</li>
-<li>eax、rax常用于函数的返回值</li>
-<li>rax是64位的寄存器，eax是32位的寄存器，ax是eax的低16位，al是ax的低8位</li>
-<li>指令<code>jz</code>是<code>Jump if Zero</code>的别名，表示如果为0就跳转</li>
-<li>指令<code>test</code>用于两个操作数的按位与运算</li>
-</ul>
-<h2 id="寻找弹窗方法"><a href="#寻找弹窗方法" class="headerlink" title="寻找弹窗方法"></a>寻找弹窗方法</h2><ul>
-<li><p>上文说过XtraFinder是注入到Finder的，所以相当于直接动态调式Finder</p>
-</li>
-<li><p>等待连接Finder，<code>-w</code>参数说明要lldb等待应用程序启动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> lldb -n Finder -w</span><br><span class="line">(lldb) process attach --name "Finder" --waitfor</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击<code>访达</code>-&gt;<code>XtraFinder</code>-&gt;<code>Tools</code>-&gt;<code>Restart XtraFinder</code>进行重启，lldb 就会附加到进程上。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Executable module set to "/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder".</span><br><span class="line">Architecture set to: x86_64h-apple-macosx-.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>给<code>RegisterWindowController</code>的所有方法下断点，判断哪里进行它的显示</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">br set -r '\[RegisterWindowController .*\]'</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>命中断点后，使用<code>bt</code>查看掉用堆栈，发现<code>-[XtraFinder showRegisterWindow:]</code>决定了它的显示。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Target 0: (Finder) stopped.</span><br><span class="line">(lldb) bt</span><br><span class="line">* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.8</span><br><span class="line"> * frame #0: 0x00000001213f09b9 XtraFinderPlugins` -[RegisterWindowController setCountdown:]</span><br><span class="line">   frame #1: 0x00000001213f4098 XtraFinderPlugins` -[XtraFinder showRegisterWindow:]  + 114</span><br><span class="line">   frame #2: 0x00007fff21303adb Foundation` __NSFireDelayedPerform  + 415</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>根据堆栈可知<code>showRegisterWindow:</code>调用上一级为Foundation模块中的<code>__NSFireDelayedPerform</code>。这里是不能继续往下寻找哪里调用了<code>showRegisterWindow:</code>，我们转到IDA看看有没有线索。</p>
-</li>
-</ul>
-<h2 id="寻找弹框逻辑"><a href="#寻找弹框逻辑" class="headerlink" title="寻找弹框逻辑"></a>寻找弹框逻辑</h2><ul>
-<li><p>把<code>XtraFinderPlugins</code>拖进去IDA进行分析，分析完成后，搜索<code>showRegisterWindow</code>,得到如图结果：<br><img src="/images/XtraFinder-05.png" alt></p>
-</li>
-<li><p>我们可以很容易发现<code>checkRegistrationAndShowRegisterWindow</code>的方法，猜测这个方法就是检测有没有注册，没有注册就有会有30s的弹框。点击一下这个方法，并<code>Fn+F5</code>一下，得到如下伪代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __cdecl -[XtraFinder checkRegistrationAndShowRegisterWindow](XtraFinder *self, SEL a2)</span><br><span class="line">&#123;</span><br><span class="line">  -[XtraFinder checkRegistration](self, <span class="string">"checkRegistration"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !(<span class="keyword">unsigned</span> __int8)-[XtraFinder registered](self, <span class="string">"registered"</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( -[XtraFinder daysInUse](self, <span class="string">"daysInUse"</span>) )</span><br><span class="line">      objc_msgSend(self, <span class="string">"performSelector:withObject:afterDelay:"</span>, <span class="string">"showRegisterWindowWithCountdown"</span>, <span class="number">0L</span>L, <span class="number">5.0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过上面伪代码发现：调用<code>-[XtraFinder registered]</code>检测是否注册，如果没有注册就调用<code>showRegisterWindowWithCountdown</code>，而<code>showRegisterWindowWithCountdown</code>内部调用了<code>showRegisterWindow:</code>进行30s试用弹窗。 </p>
-</li>
-<li><p>鼠标点击到<code>if ( !(unsigned __int8)-[XtraFinder registered](self, &quot;registered&quot;) )</code>尾部，按<code>Tab</code>键切换到汇编模式，根据上面的汇编知识可知：</p>
-<ul>
-<li>指令<code>test a1, a1</code>运算结果为0的时候进行弹窗，不为0不弹窗。</li>
-<li>调用方法<code>-[XtraFinder registered]</code>的返回值存在了<code>al</code>中。</li>
-<li>设置<code>al=1</code>，那么<code>test a1, a1</code>就不会为0，不会弹窗</li>
-<li>在<code>0000000000005F09</code>下断点，改变a1的值为1，验证上面的猜测，<br><img src="/images/XtraFinder-06.png" alt></li>
-</ul>
-</li>
-<li><p>下地址断点必须找到模块偏移量，使用Mach-O里面的地址加上模块偏移地址才能命中断点。因为XtraFinder是Finder启动后注入到里面的，所以并不知道XtraFinderPlugins模块是何时加进去的。这时需要在<code>checkRegistrationAndShowRegisterWindow</code>头部设置断点，打印模块偏移地址，具体操作如下：</p>
-<ul>
-<li><p>使用<code>exit</code>退出当前LLDB，重新附加成功后，执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) b checkRegistrationAndShowRegisterWindow</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按<code>c</code>继续，命中后，查看偏移量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) image list -o -f | grep XtraFinderPlugins</span><br><span class="line">[  0] 0x0000000123469000 /Applications/XtraFinder.app/Contents/Resources/XtraFinderPlugins.bundle/Contents/MacOS/XtraFinderPlugins</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下地址断点</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) br set -a 0x0000000123469000+0x0000000000005F09</span><br><span class="line">Breakpoint 2: where = XtraFinderPlugins`-[XtraFinder checkRegistrationAndShowRegisterWindow] + 40, address = 0x000000012346ef09</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>按<code>c</code>继续，命中后更改al的值为1，按<code>c</code>继续，这个时候程序正常启动并且没有弹框</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">XtraFinderPlugins`-[XtraFinder checkRegistrationAndShowRegisterWindow]:</span><br><span class="line"><span class="meta">-&gt;</span>  0x12346ef09 &lt;+40&gt;: test   al, al</span><br><span class="line">    0x12346ef0b &lt;+42&gt;: je     0x12346ef12               ; &lt;+49&gt;</span><br><span class="line"></span><br><span class="line">(lldb) register write al 1</span><br><span class="line">(lldb) c</span><br><span class="line">Process 8851 resuming</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>经过一段猛操作，得出结论修改<code>-[XtraFinder registered]</code>返回值为1，就不会有弹窗</p>
-</li>
-</ul>
-<h2 id="修改返回值"><a href="#修改返回值" class="headerlink" title="修改返回值"></a>修改返回值</h2><ul>
-<li>有很多方式可以修改，比如静态注入dylib、直接修改Mach-O汇编代码、注册机等，这里直接修改汇编代码。</li>
-</ul>
-<h3 id="安装keypatch"><a href="#安装keypatch" class="headerlink" title="安装keypatch"></a>安装keypatch</h3><ul>
-<li>IDA没有提供Hopper那样直接修改汇编代码的功能，但是有个keypatch插件可以做到。本人在安装插件过程中还是遇到了一些问题，在这里记录一下</li>
-<li>基于Python编写，底层依赖keystone-engine，需要安装<code>sudo pip install keystone-engine</code></li>
-<li>下载<code>https://github.com/keystone-engine/keypatch</code>完成后，将keypatch.py文件放到IDA的插件目录<code>/Applications/IDA 7.0/ida.app/Contents/MacOS/plugins</code>下，关闭IDA重新载入目标程序，这个时候点击要修改的行，右键就会出来<code>Keypatch</code>-&gt;<code>Patcher</code>选项</li>
-<li>本人不能发现这个选项(IDA7.0,macOS11.2.3)，进行了如下操作<ul>
-<li>通过<code>pip show keystone-engine</code>查看<code>keystone-engine</code>安装路径，发现安装在<code>/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages</code>下面</li>
-<li>进入上面的路径拷贝<code>keystone</code>文件夹到<code>/Applications/IDA 7.0/ida.app/Contents/MacOS/python</code>下，关闭IDA重新载入目标程序</li>
-<li>在需要修改的代码行右击，就会出来<code>Keypatch</code>-&gt;<code>Patcher</code>选项</li>
-</ul>
-</li>
-</ul>
-<h3 id="修改汇编代码"><a href="#修改汇编代码" class="headerlink" title="修改汇编代码"></a>修改汇编代码</h3><ul>
-<li><p>找到<code>-[XtraFinder registered]</code>返回值所在的行，切换到汇编模式。依次选择<code>Keypatch</code>-&gt;<code>Patcher</code>命令，在弹出的对话框中直接修改汇编代码为<code>mov eax, 0x1</code>，点击<code>Patcher</code>按钮进行确认。确认后，后面的几次Patch弹框提示全部取消，不要任何修改。<br><img src="/images/XtraFinder-07.png" alt></p>
-</li>
-<li><p>单击<code>Edit</code>-&gt;<code>Patch program</code>-&gt;<code>Apply patchs to input file</code>，导出修改好的Mach-O文件。</p>
-</li>
-<li><p>使用修改过的<code>XtraFinderPlugins</code>替换<code>/Applications/XtraFinder.app/Contents/Resources/XtraFinderPlugins.bundle/Contents/MacOS/XtraFinderPlugins</code>，记得提前备份一下。</p>
-</li>
-<li><p>点击<code>Restart XtraFinder</code>后，发现XtraFinder不能启动了。这是因为程序经过修改后，原来的签名信息验证失败了，程序会错误退出，有两种方式解决</p>
-<ul>
-<li>进行重新签名</li>
-<li>直接移除签名</li>
-</ul>
-</li>
-<li><p>简单起见，这里采用移除签名的方式，如下：</p>
-<pre><code class="shell">codesign --remove-signature XtraFinderPlugins
-
-codesign -d -vv XtraFinderPlugins
-XtraFinderPlugins: code object is not signed at all</code></pre>
-</li>
-<li><p>重新点击XtraFinder.app打开后，发现使用弹窗没有了，一切正常。</p>
-</li>
-</ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/逆向/" rel="tag"># 逆向</a>
-              <a href="/tags/macOS/" rel="tag"># macOS</a>
-          </div>
-
-        
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -378,64 +113,19 @@ XtraFinderPlugins: code object is not signed at all</code></pre>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
+</div>
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/04/22/LocalNetworkForiOS14/" rel="prev" title="iOS14本地网络适配">
-      <i class="fa fa-chevron-left"></i> iOS14本地网络适配
-    </a></div>
-      <div class="post-nav-item"></div>
-    </div>
-      </footer>
-    
-
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -444,18 +134,19 @@ XtraFinderPlugins: code object is not signed at all</code></pre>
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#说在前面"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析界面"><span class="nav-number">2.</span> <span class="nav-text">分析界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找Mach-O"><span class="nav-number">3.</span> <span class="nav-text">寻找Mach-O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#汇编基础"><span class="nav-number">4.</span> <span class="nav-text">汇编基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找弹窗方法"><span class="nav-number">5.</span> <span class="nav-text">寻找弹窗方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找弹框逻辑"><span class="nav-number">6.</span> <span class="nav-text">寻找弹框逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改返回值"><span class="nav-number">7.</span> <span class="nav-text">修改返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装keypatch"><span class="nav-number">7.1.</span> <span class="nav-text">安装keypatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改汇编代码"><span class="nav-number">7.2.</span> <span class="nav-text">修改汇编代码</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E7%95%8C%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">分析界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BEMach-O"><span class="nav-number">3.</span> <span class="nav-text">寻找Mach-O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80"><span class="nav-number">4.</span> <span class="nav-text">汇编基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%BC%B9%E7%AA%97%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">寻找弹窗方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%BC%B9%E6%A1%86%E9%80%BB%E8%BE%91"><span class="nav-number">6.</span> <span class="nav-text">寻找弹框逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">7.</span> <span class="nav-text">修改返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85keypatch"><span class="nav-number">7.1.</span> <span class="nav-text">安装keypatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81"><span class="nav-number">7.2.</span> <span class="nav-text">修改汇编代码</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name"></p>
   <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -473,7 +164,7 @@ XtraFinderPlugins: code object is not signed at all</code></pre>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -481,23 +172,227 @@ XtraFinderPlugins: code object is not signed at all</code></pre>
 
 
 
+        </div>
       </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/05/XtraFinder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          macOS逆向之跳过XtraFinder试用界面
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-05-05 17:25:08 / 修改时间：20:35:18" itemprop="dateCreated datePublished" datetime="2021-05-05T17:25:08+08:00">2021-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/macOS%E9%80%86%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">macOS逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><ul>
+<li>注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件<code>zhulongfei28@gmail.com</code>，谢谢。</li>
+<li>开发环境：macOS11.2.3、Xcode12.4、IDA7.0、class-dump、XtraFinder1.6.1</li>
+<li>具备技能：X64汇编基础、OC基础知识</li>
+<li>目标结果：XtraFinder是macOS上超级好用的资源管理器软件，对它爱不释手。一直使用的是无限试用(非付费)版本，每次重启都会有下面这个等待30s的弹框，今天决定去除试用弹框。<br><img src="/images/XtraFinder-01.png"></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="分析界面"><a href="#分析界面" class="headerlink" title="分析界面"></a>分析界面</h2><ul>
+<li>iOS逆向使用Reveal查看界面，macOS逆向直接使用Xcode就可以，不需要使用三方工具，原生的就是最好的。</li>
+<li>这里我们不能直接查看XtraFinder界面，XtraFinder是注入到Finder里面的，是一个寄生App，依靠Finder存活的，所以需要查看Finder界面。</li>
+<li>新建一个macOS App项目。因为Finder属于macOS App，macOS项目才能调试Finder，如下图：<br><img src="/images/XtraFinder-02.png"></li>
+<li>附加成功后，点击查看视图，分析视图结构。发现XtraFinder属于<code>RegisterWindowController</code>，如图<br><img src="/images/XtraFinder-03.png"><br><img src="/images/XtraFinder-04.png"></li>
+<li>那么接下来就以<code>RegisterWindowController</code>为突破点，让它不显示出来，又能正常的使用XtraFinder功能。</li>
+</ul>
+<h2 id="寻找Mach-O"><a href="#寻找Mach-O" class="headerlink" title="寻找Mach-O"></a>寻找Mach-O</h2><ul>
+<li>注意：在使用<code>class-dump</code>导出头文件之前，要执行如下命令，确认没有加壳，要不然导不出头文件。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -l XtraFinderPlugins(XtraFinder) | grep cryptid</span><br></pre></td></tr></table></figure></li>
+<li>按照常识，进入<code>/Applications/XtraFinder.app/Contents/MacOS</code>找到<code>XtraFinder</code>，使用<code>class-dump</code>导出头文件，发现并没有<code>RegisterWindowController.h</code>这个文件，并不是我们需要的Mach-O文件</li>
+<li>跟上面同样的方法，继续寻找，发现<code>/Applications/XtraFinder.app/Contents/Resources/XtraFinderPlugins.bundle/Contents/MacOS/XtraFinderPlugins</code>包含<code>RegisterWindowController.h</code>文件，<code>XtraFinderPlugins</code>就是我们需要的Mach-O文件。</li>
+</ul>
+<h2 id="汇编基础"><a href="#汇编基础" class="headerlink" title="汇编基础"></a>汇编基础</h2><ul>
+<li>rdi、rsi、rdx、rcx、r8、r9等寄存器常用于存放函数参数</li>
+<li>eax、rax常用于函数的返回值</li>
+<li>rax是64位的寄存器，eax是32位的寄存器，ax是eax的低16位，al是ax的低8位</li>
+<li>指令<code>jz</code>是<code>Jump if Zero</code>的别名，表示如果为0就跳转</li>
+<li>指令<code>test</code>用于两个操作数的按位与运算</li>
+</ul>
+<h2 id="寻找弹窗方法"><a href="#寻找弹窗方法" class="headerlink" title="寻找弹窗方法"></a>寻找弹窗方法</h2><ul>
+<li>上文说过XtraFinder是注入到Finder的，所以相当于直接动态调式Finder</li>
+<li>等待连接Finder，<code>-w</code>参数说明要lldb等待应用程序启动<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lldb -n Finder -w</span></span><br><span class="line">(lldb) process attach --name &quot;Finder&quot; --waitfor</span><br></pre></td></tr></table></figure></li>
+<li>点击<code>访达</code>-&gt;<code>XtraFinder</code>-&gt;<code>Tools</code>-&gt;<code>Restart XtraFinder</code>进行重启，lldb 就会附加到进程上。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Executable module set to &quot;/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder&quot;.</span><br><span class="line">Architecture set to: x86_64h-apple-macosx-.</span><br></pre></td></tr></table></figure></li>
+<li>给<code>RegisterWindowController</code>的所有方法下断点，判断哪里进行它的显示<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">br set -r &#x27;\[RegisterWindowController .*\]&#x27;</span><br></pre></td></tr></table></figure></li>
+<li>命中断点后，使用<code>bt</code>查看掉用堆栈，发现<code>-[XtraFinder showRegisterWindow:]</code>决定了它的显示。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Target 0: (Finder) stopped.</span><br><span class="line">(lldb) bt</span><br><span class="line">* thread #1, queue = &#x27;com.apple.main-thread&#x27;, stop reason = breakpoint 1.8</span><br><span class="line"> * frame #0: 0x00000001213f09b9 XtraFinderPlugins` -[RegisterWindowController setCountdown:]</span><br><span class="line">   frame #1: 0x00000001213f4098 XtraFinderPlugins` -[XtraFinder showRegisterWindow:]  + 114</span><br><span class="line">   frame #2: 0x00007fff21303adb Foundation` __NSFireDelayedPerform  + 415</span><br></pre></td></tr></table></figure></li>
+<li>根据堆栈可知<code>showRegisterWindow:</code>调用上一级为Foundation模块中的<code>__NSFireDelayedPerform</code>。这里是不能继续往下寻找哪里调用了<code>showRegisterWindow:</code>，我们转到IDA看看有没有线索。</li>
+</ul>
+<h2 id="寻找弹框逻辑"><a href="#寻找弹框逻辑" class="headerlink" title="寻找弹框逻辑"></a>寻找弹框逻辑</h2><ul>
+<li>把<code>XtraFinderPlugins</code>拖进去IDA进行分析，分析完成后，搜索<code>showRegisterWindow</code>,得到如图结果：<br><img src="/images/XtraFinder-05.png"></li>
+<li>我们可以很容易发现<code>checkRegistrationAndShowRegisterWindow</code>的方法，猜测这个方法就是检测有没有注册，没有注册就有会有30s的弹框。点击一下这个方法，并<code>Fn+F5</code>一下，得到如下伪代码：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __cdecl -[XtraFinder checkRegistrationAndShowRegisterWindow](XtraFinder *self, SEL a2)</span><br><span class="line">&#123;</span><br><span class="line">  -[XtraFinder checkRegistration](self, <span class="string">&quot;checkRegistration&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !(<span class="keyword">unsigned</span> __int8)-[XtraFinder registered](self, <span class="string">&quot;registered&quot;</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( -[XtraFinder daysInUse](self, <span class="string">&quot;daysInUse&quot;</span>) )</span><br><span class="line">      objc_msgSend(self, <span class="string">&quot;performSelector:withObject:afterDelay:&quot;</span>, <span class="string">&quot;showRegisterWindowWithCountdown&quot;</span>, <span class="number">0LL</span>, <span class="number">5.0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>通过上面伪代码发现：调用<code>-[XtraFinder registered]</code>检测是否注册，如果没有注册就调用<code>showRegisterWindowWithCountdown</code>，而<code>showRegisterWindowWithCountdown</code>内部调用了<code>showRegisterWindow:</code>进行30s试用弹窗。 </li>
+<li>鼠标点击到<code>if ( !(unsigned __int8)-[XtraFinder registered](self, &quot;registered&quot;) )</code>尾部，按<code>Tab</code>键切换到汇编模式，根据上面的汇编知识可知：<ul>
+<li>指令<code>test a1, a1</code>运算结果为0的时候进行弹窗，不为0不弹窗。</li>
+<li>调用方法<code>-[XtraFinder registered]</code>的返回值存在了<code>al</code>中。</li>
+<li>设置<code>al=1</code>，那么<code>test a1, a1</code>就不会为0，不会弹窗</li>
+<li>在<code>0000000000005F09</code>下断点，改变a1的值为1，验证上面的猜测，<br><img src="/images/XtraFinder-06.png"></li>
+</ul>
+</li>
+<li>下地址断点必须找到模块偏移量，使用Mach-O里面的地址加上模块偏移地址才能命中断点。因为XtraFinder是Finder启动后注入到里面的，所以并不知道XtraFinderPlugins模块是何时加进去的。这时需要在<code>checkRegistrationAndShowRegisterWindow</code>头部设置断点，打印模块偏移地址，具体操作如下：<ul>
+<li>使用<code>exit</code>退出当前LLDB，重新附加成功后，执行<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) b checkRegistrationAndShowRegisterWindow</span><br></pre></td></tr></table></figure></li>
+<li>按<code>c</code>继续，命中后，查看偏移量<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) image list -o -f | grep XtraFinderPlugins</span><br><span class="line">[  0] 0x0000000123469000 /Applications/XtraFinder.app/Contents/Resources/XtraFinderPlugins.bundle/Contents/MacOS/XtraFinderPlugins</span><br></pre></td></tr></table></figure></li>
+<li>下地址断点<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) br set -a 0x0000000123469000+0x0000000000005F09</span><br><span class="line">Breakpoint 2: where = XtraFinderPlugins`-[XtraFinder checkRegistrationAndShowRegisterWindow] + 40, address = 0x000000012346ef09</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>按<code>c</code>继续，命中后更改al的值为1，按<code>c</code>继续，这个时候程序正常启动并且没有弹框<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">XtraFinderPlugins`-[XtraFinder checkRegistrationAndShowRegisterWindow]:</span><br><span class="line"><span class="meta">-&gt;</span><span class="bash">  0x12346ef09 &lt;+40&gt;: <span class="built_in">test</span>   al, al</span></span><br><span class="line">    0x12346ef0b &lt;+42&gt;: je     0x12346ef12               ; &lt;+49&gt;</span><br><span class="line"></span><br><span class="line">(lldb) register write al 1</span><br><span class="line">(lldb) c</span><br><span class="line">Process 8851 resuming   </span><br></pre></td></tr></table></figure></li>
+<li>经过一段猛操作，得出结论修改<code>-[XtraFinder registered]</code>返回值为1，就不会有弹窗</li>
+</ul>
+<h2 id="修改返回值"><a href="#修改返回值" class="headerlink" title="修改返回值"></a>修改返回值</h2><ul>
+<li>有很多方式可以修改，比如静态注入dylib、直接修改Mach-O汇编代码、注册机等，这里直接修改汇编代码。</li>
+</ul>
+<h3 id="安装keypatch"><a href="#安装keypatch" class="headerlink" title="安装keypatch"></a>安装keypatch</h3><ul>
+<li>IDA没有提供Hopper那样直接修改汇编代码的功能，但是有个keypatch插件可以做到。本人在安装插件过程中还是遇到了一些问题，在这里记录一下</li>
+<li>基于Python编写，底层依赖keystone-engine，需要安装<code>sudo pip install keystone-engine</code></li>
+<li>下载<code>https://github.com/keystone-engine/keypatch</code>完成后，将keypatch.py文件放到IDA的插件目录<code>/Applications/IDA 7.0/ida.app/Contents/MacOS/plugins</code>下，关闭IDA重新载入目标程序，这个时候点击要修改的行，右键就会出来<code>Keypatch</code>-&gt;<code>Patcher</code>选项</li>
+<li>本人不能发现这个选项(IDA7.0,macOS11.2.3)，进行了如下操作<ul>
+<li>通过<code>pip show keystone-engine</code>查看<code>keystone-engine</code>安装路径，发现安装在<code>/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages</code>下面</li>
+<li>进入上面的路径拷贝<code>keystone</code>文件夹到<code>/Applications/IDA 7.0/ida.app/Contents/MacOS/python</code>下，关闭IDA重新载入目标程序</li>
+<li>在需要修改的代码行右击，就会出来<code>Keypatch</code>-&gt;<code>Patcher</code>选项</li>
+</ul>
+</li>
+</ul>
+<h3 id="修改汇编代码"><a href="#修改汇编代码" class="headerlink" title="修改汇编代码"></a>修改汇编代码</h3><ul>
+<li><p>找到<code>-[XtraFinder registered]</code>返回值所在的行，切换到汇编模式。依次选择<code>Keypatch</code>-&gt;<code>Patcher</code>命令，在弹出的对话框中直接修改汇编代码为<code>mov eax, 0x1</code>，点击<code>Patcher</code>按钮进行确认。确认后，后面的几次Patch弹框提示全部取消，不要任何修改。<br><img src="/images/XtraFinder-07.png"></p>
+</li>
+<li><p>单击<code>Edit</code>-&gt;<code>Patch program</code>-&gt;<code>Apply patchs to input file</code>，导出修改好的Mach-O文件。</p>
+</li>
+<li><p>使用修改过的<code>XtraFinderPlugins</code>替换<code>/Applications/XtraFinder.app/Contents/Resources/XtraFinderPlugins.bundle/Contents/MacOS/XtraFinderPlugins</code>，记得提前备份一下。</p>
+</li>
+<li><p>点击<code>Restart XtraFinder</code>后，发现XtraFinder不能启动了。这是因为程序经过修改后，原来的签名信息验证失败了，程序会错误退出，有两种方式解决</p>
+<ul>
+<li>进行重新签名</li>
+<li>直接移除签名</li>
+</ul>
+</li>
+<li><p>简单起见，这里采用移除签名的方式，如下：</p>
+<pre><code class="shell">codesign --remove-signature XtraFinderPlugins
+
+codesign -d -vv XtraFinderPlugins
+XtraFinderPlugins: code object is not signed at all
+</code></pre>
+</li>
+<li><p>重新点击XtraFinder.app打开后，发现使用弹窗没有了，一切正常。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-6694280780402885"
+    data-ad-slot="9902930001"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/macOS/" rel="tag"># macOS</a>
+          </div>
+
         
 
-        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/22/LocalNetworkForiOS14/" rel="prev" title="iOS14本地网络适配">
+                  <i class="fa fa-chevron-left"></i> iOS14本地网络适配
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -505,31 +400,15 @@ XtraFinderPlugins: code object is not signed at all</code></pre>
   </span>
   <span class="author" itemprop="copyrightHolder"></span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -538,18 +417,11 @@ XtraFinderPlugins: code object is not signed at all</code></pre>
 
 
 
-
-
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 </body>
 </html>

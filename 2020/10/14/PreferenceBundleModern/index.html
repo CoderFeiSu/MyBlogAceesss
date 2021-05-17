@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,96 +15,66 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
-<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <meta name="description" content="前言 目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用 环境：macOS10.14.6、Xcode11.3 适配：iOS11.0-iOS最新">
-<meta name="keywords" content="逆向,iOS">
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;hide&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="前言 目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用 环境：macOS10.14.6、Xcode11.3 适配：iOS11.0-iOS最新">
 <meta property="og:type" content="article">
 <meta property="og:title" content="创建依附于设置的APP(preference_bundle_modern)">
 <meta property="og:url" content="http://yoursite.com/2020/10/14/PreferenceBundleModern/index.html">
 <meta property="og:site_name" content="杂货铺">
 <meta property="og:description" content="前言 目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用 环境：macOS10.14.6、Xcode11.3 适配：iOS11.0-iOS最新">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/PreferenceBundleModern-01.png">
 <meta property="og:image" content="http://yoursite.com/images/PreferenceBundleModern-02.png">
-<meta property="og:updated_time" content="2020-10-14T13:09:30.000Z">
+<meta property="article:published_time" content="2020-10-14T12:08:30.000Z">
+<meta property="article:modified_time" content="2020-10-14T13:09:30.000Z">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="创建依附于设置的APP(preference_bundle_modern)">
-<meta name="twitter:description" content="前言 目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用 环境：macOS10.14.6、Xcode11.3 适配：iOS11.0-iOS最新">
 <meta name="twitter:image" content="http://yoursite.com/images/PreferenceBundleModern-01.png">
+
 
 <link rel="canonical" href="http://yoursite.com/2020/10/14/PreferenceBundleModern/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>创建依附于设置的APP(preference_bundle_modern) | 杂货铺</title>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;10&#x2F;14&#x2F;PreferenceBundleModern&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;10&#x2F;14&#x2F;PreferenceBundleModern&#x2F;&quot;,&quot;title&quot;:&quot;创建依附于设置的APP(preference_bundle_modern)&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>创建依附于设置的APP(preference_bundle_modern) | 杂货铺</title><script src="/js/config.js"></script><script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   
 
 
 
 
-
-
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">杂货铺</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -114,312 +86,15 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/14/PreferenceBundleModern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杂货铺">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          创建依附于设置的APP(preference_bundle_modern)
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-14 20:08:30 / 修改时间：21:09:30" itemprop="dateCreated datePublished" datetime="2020-10-14T20:08:30+08:00">2020-10-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- HeaderFooterAD -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-6694280780402885"
-            data-ad-slot="9902930001"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用</li>
-<li>环境：macOS10.14.6、Xcode11.3</li>
-<li>适配：iOS11.0-iOS最新</li>
-</ul>
-<a id="more"></a>
-
-<h2 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h2><ul>
-<li><p><code>nic.pl</code>新建App</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  NIC <span class="number">2.0</span> - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  ...</span><br><span class="line">  [<span class="number">7.</span>] iphone/preference_bundle_modern</span><br><span class="line">  ...</span><br><span class="line">Choose a Template (required): <span class="number">7</span></span><br><span class="line">Project Name (required): Test</span><br><span class="line">Package Name [com.yourcompany.test]: com.test.www</span><br><span class="line">Author/Maintainer Name [drag]: xxoo</span><br><span class="line">[iphone/preference_bundle_modern] Class name prefix (three or more characters unique to <span class="keyword">this</span> project) [XXX]:</span><br><span class="line">Instantiating iphone/preference_bundle_modern <span class="keyword">in</span> test/...</span><br><span class="line">Done.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建后，目录结构如下图</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># drag @ dragdeMacBook-Pro in ~/Desktop/OCTest/test [18:01:00]</span></span><br><span class="line">$ tree</span><br><span class="line">.</span><br><span class="line">├── Makefile</span><br><span class="line">├── Resources</span><br><span class="line">│   ├── Info.plist</span><br><span class="line">│   └── Root.plist</span><br><span class="line">├── XXXRootListController.h</span><br><span class="line">├── XXXRootListController.m</span><br><span class="line">└── entry.plist</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> directory, <span class="number">6</span> files</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>更改Makefile配置</p>
-<ul>
-<li>目前支持的架构有armv7 armv7s arm64 arm64e等<ul>
-<li>添加<code>ARCHS = armv7 armv7s arm64</code> 表示支持 armv7 armv7s arm64 三种处理器架构</li>
-<li>对于最新的A12处理器(iPhoneX以后)的设备，需要添加arm64e，否则生成的dylib文件不能正常加载</li>
-<li>本文只适配64位架构设备，设置如下：<code>ARCHS = arm64 arm64e</code></li>
-</ul>
-</li>
-<li>指定目标规范: <code>TARGET = iPhone:BaseSDK:DeploymentTarget</code><ul>
-<li><code>BaseSDK</code>代表编译用的SDK版本</li>
-<li><code>Deployment Target</code>是最低兼容的系统版本，</li>
-<li>本文初始设置<code>TARGET = iPhone:latest:11.0</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ul>
-<li><p><code>make</code>编译出现找不到私有库Preferences.framework的错误，Preferences.framework包含在PrivateFrameworks里面，本文采取的是下载整个sdk</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ make</span><br><span class="line">&gt; Making all <span class="keyword">for</span> bundle Test…</span><br><span class="line">==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">==&gt; Compiling XXXRootListController.m (arm64)…</span><br><span class="line">==&gt; Linking bundle Test (arm64)…</span><br><span class="line">ld: warning: directory not found <span class="keyword">for</span> option <span class="string">'-F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/PrivateFrameworks'</span></span><br><span class="line">ld: framework not found Preferences</span><br><span class="line">clang: error: linker command failed with exit code <span class="number">1</span> (use -v to see invocation)</span><br><span class="line">make[<span class="number">3</span>]: *** [/Users/drag/Desktop/OCTest/test/.theos/obj/debug/arm64/Test.bundle/Test] Error <span class="number">1</span></span><br><span class="line">make[<span class="number">2</span>]: *** [/Users/drag/Desktop/OCTest/test/.theos/obj/debug/arm64/Test.bundle/Test] Error <span class="number">2</span></span><br><span class="line">make[<span class="number">1</span>]: *** [internal-bundle-all_] Error <span class="number">2</span></span><br><span class="line">make: *** [Test.all.bundle.variables] Error <span class="number">2</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>从<code>https://github.com/xybp888/iOS-SDKs</code>下载<code>iPhoneOS13.0.sdk</code>放入theos/sdks。</p>
-<ul>
-<li>因为本人Xcode版本是11.3，所以下载iPhoneOS13.0.sdk，可以根据自己的Xcode版本选择合适的sdk</li>
-<li>如果从github下载过慢，可以通过gitee中转一下。</li>
-</ul>
-</li>
-<li><p>Makefile里面更改<code>TARGET = iPhone:13.0:11.0</code></p>
-<ul>
-<li>下载的sdk版本为13.0，BaseSDK是填入13.0</li>
-<li>适配版本11.0，DeploymentTarget填入11.0</li>
-</ul>
-</li>
-<li><p><code>make</code>编译通过</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> make</span><br><span class="line"><span class="meta">&gt;</span> Making all for bundle Test…</span><br><span class="line">==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">==&gt; Compiling XXXRootListController.m (arm64)…</span><br><span class="line">==&gt; Linking bundle Test (arm64)…</span><br><span class="line">==&gt; Generating debug symbols for Test…</span><br><span class="line">==&gt; Compiling XXXRootListController.m (arm64e)…</span><br><span class="line">==&gt; Linking bundle Test (arm64e)…</span><br><span class="line">==&gt; Generating debug symbols for Test…</span><br><span class="line">==&gt; Merging bundle Test…</span><br><span class="line">==&gt; Signing Test…</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><ul>
-<li><p><code>make package</code>打包报错，提示缺少control文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> make package</span><br><span class="line"><span class="meta">&gt;</span> Making all for bundle Test…</span><br><span class="line">==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">make[2]: Nothing to be done for `internal-bundle-compile'.</span><br><span class="line"><span class="meta">&gt;</span> Making stage for bundle Test…</span><br><span class="line">==&gt; Error: /Applications/Xcode.app/Contents/Developer/usr/bin/make package requires you to have a layout/ directory in the project root, containing the basic package   structure, or a control file in the project root describing the package.</span><br><span class="line">make: *** [internal-package] Error 1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建control文件，填入如下内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Package: com.test.www</span><br><span class="line">Architecture: iphoneos-arm</span><br><span class="line">Version: 0.0.1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>再次<code>make package</code>，成功，生成deb包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> make package</span><br><span class="line"><span class="meta">&gt;</span> Making all for bundle Test…</span><br><span class="line">==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">make[2]: Nothing to be done for `internal-bundle-compile'.</span><br><span class="line"><span class="meta">&gt;</span> Making stage for bundle Test…</span><br><span class="line">dm.pl: building package `com.test.www:iphoneos-arm' in `./packages/com.test.www_-2+debug_iphoneos-arm.deb</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li>执行<code>make install</code>进行安装，安装成功后可以去设置里面查看有没有Test，<ul>
-<li>如果没有发现，是因为没有安装PreferenceLoader，需要在Cydia中安装PreferenceLoader</li>
-<li>如果发现了，那是因为其它插件对PreferenceLoader有依赖，安装插件的时候就顺带安装了</li>
-</ul>
-</li>
-<li>PreferenceLoader<ul>
-<li>是一个开源的基础依赖包，越狱插件的系统设置菜单是由它提供的，最好在<code>iphone/preference_bundle_modern</code>开发前进行安装</li>
-<li>进入系统设置时，PreferenceLoader会从/Library/PreferenceLoader/Preferences/目录下解析符合规则的plist文件，并生成相应的控件动态添加到系统设置中</li>
-</ul>
-</li>
-</ul>
-<h2 id="实战一：构造SSL-Kill-Switch-2样式的App"><a href="#实战一：构造SSL-Kill-Switch-2样式的App" class="headerlink" title="实战一：构造SSL Kill Switch 2样式的App"></a>实战一：构造SSL Kill Switch 2样式的App</h2><h3 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h3><p><img src="/images/PreferenceBundleModern-01.png" alt></p>
-<h3 id="构造过程"><a href="#构造过程" class="headerlink" title="构造过程"></a>构造过程</h3><ul>
-<li><p>打开上面创建的项目，找到entry.plist文件。entry.plist描述了设置菜单项看到的内容，更改后的内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;entry&lt;/key&gt;</span><br><span class="line">	&lt;dict&gt;</span><br><span class="line">		&lt;key&gt;bundle&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;PSLinkCell&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;detail&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;XXXRootListController&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;icon&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;test.png&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;isController&lt;/key&gt;</span><br><span class="line">		&lt;true/&gt;</span><br><span class="line">		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">	&lt;/dict&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>cell：cell类型，这里是PSLinkCell类型，表示是一个可以点击的控件，更多控件类型<a href="https://iphonedevwiki.net/index.php/Preferences_specifier_plist" target="_blank" rel="noopener">参考</a></li>
-<li>detail：XXXRootListController，表示点击后跳转到此控制器</li>
-<li>icon：该cell前面显示的图标，图标test.png需要存储在Resources文件夹下面。</li>
-<li>label：该cell前面显示的文字</li>
-</ul>
-</li>
-<li><p>当执行<code>make install</code>安装后，theos会做两件事情</p>
-<ul>
-<li>在/Library/PreferenceLoader/Preferences/文件夹下新建和项目同名的plist文件，比如Test.plist</li>
-<li>把entry.plist内容拷贝一份存储到Test.plist，进入设置时会读取该plist文件，生成相应的cell</li>
-</ul>
-</li>
-<li><p>Resources文件夹：存放项目需要的资源文件，比如图片，比如构建控制器需要的plist文件</p>
-<ul>
-<li>Root.plist描述XXXRootListController的视图结构，更改里面相应的值，可以更改控制里面看到的内容</li>
-<li>目前项目只有一个控制器，如果我们需要定义另外的控制器CustomListController，那么就需要新建一个custom.plist文件描述此控制器的内容。</li>
-<li>test.png，设置菜单项看到的图片资源</li>
-</ul>
-</li>
-<li><p>打开XXXRootListController控制器后发现其内容是由Root.plist构建。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSArray</span> *)specifiers &#123;</span><br><span class="line"> <span class="keyword">if</span> (!_specifiers) &#123;</span><br><span class="line"> 	_specifiers = [<span class="keyword">self</span> loadSpecifiersFromPlistName:<span class="string">@"Root"</span> target:<span class="keyword">self</span>];</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> _specifiers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>更改<code>Resources/Root.plist</code>内容如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;items&lt;/key&gt;</span><br><span class="line">  &lt;array&gt;</span><br><span class="line">	  &lt;dict&gt;</span><br><span class="line">  	&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  	&lt;string&gt;PSGroupCell&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;禁用后可以绕过https验证。&lt;/string&gt;</span><br><span class="line">  	&lt;key&gt;footerText&lt;/key&gt;</span><br><span class="line">  	&lt;string&gt;温馨提示：违权必究&lt;/string&gt;</span><br><span class="line">  	&lt;/dict&gt;</span><br><span class="line">  	&lt;dict&gt;</span><br><span class="line">  		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;PSSwitchCell&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;defaults&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;com.test.www&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;key&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;isDisCerVarify&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;禁用证书验证&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;default&lt;/key&gt;</span><br><span class="line">  		&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">  	&lt;/dict&gt;</span><br><span class="line">	  &lt;dict&gt;</span><br><span class="line">  		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;PSEditTextCell&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;defaults&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;com.test.www&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;key&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;excludedIDs&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;排除BundleIDs：&lt;/string&gt;</span><br><span class="line">  	&lt;/dict&gt;</span><br><span class="line">  &lt;/array&gt;</span><br><span class="line">	&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>defaults 用户操作控件得到的值存储到/var/mobile/Library/Preferences/com.test.<a href="http://www.plist文件中" target="_blank" rel="noopener">www.plist文件中</a></li>
-<li>key 在defaults中用于关联该cell的键值</li>
-<li>default 表示存储在<code>com.test.www.plist</code>中的默认值</li>
-</ul>
-</li>
-<li><p>整个构建过程到这里就结束了，执行<code>make &amp;&amp; make package &amp;&amp; make install</code>后，重新打开设置App就会看到如上图所示的内容</p>
-</li>
-</ul>
-<h3 id="与tweak交互"><a href="#与tweak交互" class="headerlink" title="与tweak交互"></a>与tweak交互</h3><ul>
-<li><p>上面只是做了UI方面的操作，没有实际的功能是没有任何用的。要想发挥作用，必须与tweak进行交互。</p>
-</li>
-<li><p>新建tweak，BundleID填写<code>com.apple.UIKit</code>表示可以拦截任何App,也就是所有App启动都会走Tweak.x中的<code>%ctor {}</code>初始化函数</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> nic.pl</span><br><span class="line">NIC 2.0 - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  ...</span><br><span class="line">  [9.] iphone/tool_swift</span><br><span class="line">  [10.] iphone/tweak</span><br><span class="line">  [11.] iphone/xpc_service</span><br><span class="line">  ...</span><br><span class="line">Choose a Template (required): 10</span><br><span class="line">Project Name (required): Tweak</span><br><span class="line">Package Name [com.yourcompany.tweak]: com.tweak.www</span><br><span class="line">Author/Maintainer Name [drag]:</span><br><span class="line">[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: com.apple.UIKit</span><br><span class="line">[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]:</span><br><span class="line">Instantiating iphone/tweak in tweak/...</span><br><span class="line">Done.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Makefile文件增加以下内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TARGET = iPhone:13.0:11.0</span><br><span class="line">ARCHS = arm64 arm64e</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Tweak.x里面hook相应的方法来实现禁用证书的功能，核心代码里面调用shouldHookFromPreference()来判断某个App是否需要hook</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">static BOOL shouldHookFromPreference() &#123;</span><br><span class="line">    BOOL shouldHook = NO;</span><br><span class="line">    NSMutableDictionary *plist = [[NSMutableDictionary alloc] initWithContentsOfFile:@&quot;/var/mobile/Library/Preferences/com.test.www.plist&quot;];</span><br><span class="line">    if (!plist) &#123;</span><br><span class="line">        NSLog(@&quot;Preference file not found.&quot;);</span><br><span class="line">		return shouldHook;</span><br><span class="line">    &#125; </span><br><span class="line">	shouldHook = [[plist objectForKey:@&quot;isDisCerVarify&quot;] boolValue]; // Root.plist里面填写的key</span><br><span class="line">	// 查看过滤的bundleid</span><br><span class="line">	NSString *excludedBundleIdsString = [plist objectForKey:@&quot;excludedIDs&quot;]; // Root.plist里面填写的key</span><br><span class="line">	excludedBundleIdsString = [excludedBundleIdsString stringByReplacingOccurrencesOfString:@&quot; &quot; withString:@&quot;&quot;];</span><br><span class="line">	NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];</span><br><span class="line">	bundleId = [bundleId stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];</span><br><span class="line">	NSArray *excludedBundleIds = [excludedBundleIdsString componentsSeparatedByString:@&quot;,&quot;];</span><br><span class="line">	if ([excludedBundleIds containsObject:bundleId]) &#123;</span><br><span class="line">		NSLog(@&quot;Not hooking excluded bundle: %@&quot;, bundleId);</span><br><span class="line">		shouldHook = NO;</span><br><span class="line">	&#125;</span><br><span class="line">    return shouldHook;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Test项目和Tweak项目目前是分离的，都会生成相应的deb文件。难道实让用户安装两个deb包，这个用户体验好像不太好吧。有没有更简单的方式，答案是有的。</p>
-<ul>
-<li>Tweak项目根目录新建layout文件夹</li>
-<li>进入Test项目<code>.theos/_/</code>，找到<code>Library</code>文件夹，拷贝到layout文件夹下面。</li>
-<li>Cydia里面卸载上面安装的Test App。进入Tweak项目，执行<code>make &amp;&amp; make package &amp;&amp; make install</code>进行安装，安装完成就可以在设置里面看到Test App的选项</li>
-</ul>
-</li>
-<li><p>现在只需要进入Tweak项目，把packages文件夹下的deb安装包发送给其他人就可以了，方便又快捷</p>
-</li>
-</ul>
-<h2 id="实战二：构造Reveal样式的App"><a href="#实战二：构造Reveal样式的App" class="headerlink" title="实战二：构造Reveal样式的App"></a>实战二：构造Reveal样式的App</h2><h3 id="最终效果图-1"><a href="#最终效果图-1" class="headerlink" title="最终效果图"></a>最终效果图</h3><p><img src="/images/PreferenceBundleModern-02.png" alt></p>
-<h3 id="构造与交互"><a href="#构造与交互" class="headerlink" title="构造与交互"></a>构造与交互</h3><ul>
-<li><p>大部分和实战一是相同的，这里只写出不同的地方。</p>
-</li>
-<li><p>如上图所示，获取了应用列表，这个功能是AppList插件提供的，所以在开发前要在Cydia里面搜索安装AppList。</p>
-</li>
-<li><p>更改<code>Resources/Root.plist</code>内容如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;items&lt;/key&gt;</span><br><span class="line">  	&lt;array&gt;</span><br><span class="line">	    &lt;dict&gt;</span><br><span class="line">    		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">    		&lt;string&gt;PSGroupCell&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;选择需要启用的App。&lt;/string&gt;</span><br><span class="line">    		&lt;key&gt;footerText&lt;/key&gt;</span><br><span class="line">    		&lt;string&gt;温馨提示：违权必究&lt;/string&gt;</span><br><span class="line">    	&lt;/dict&gt;</span><br><span class="line">  		&lt;dict&gt;</span><br><span class="line">  			&lt;key&gt;bundle&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;AppList&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;isController&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;1&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;PSLinkCell&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;App列表&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALNavigationTitle&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;选择需要注入的应用&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSettingsPath&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;/var/mobile/Library/Preferences/com.test.www.plist&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSettingsKeyPrefix&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;TestAppEnabled-&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSettingsDefaultValue&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSectionDescriptors&lt;/key&gt;</span><br><span class="line">  			&lt;array&gt;</span><br><span class="line">  				&lt;dict&gt;</span><br><span class="line">  					&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;用户App列表&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;predicate&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;isSystemApplication = FALSE&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;icon-size&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;29&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;suppress-hidden-apps&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;1&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;cell-class-name&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;ALSwitchCell&lt;/string&gt;</span><br><span class="line">  				&lt;/dict&gt;</span><br><span class="line">  				&lt;dict&gt;</span><br><span class="line">  					&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;系统App列表&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;predicate&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;isSystemApplication = TRUE&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;icon-size&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;29&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;suppress-hidden-apps&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;1&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;cell-class-name&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;ALSwitchCell&lt;/string&gt;</span><br><span class="line">  				&lt;/dict&gt;</span><br><span class="line">  			&lt;/array&gt;</span><br><span class="line">  		&lt;/dict&gt;</span><br><span class="line">  	&lt;/array&gt;</span><br><span class="line">  	&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">  	&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ALNavigationTitle 导航栏标题</li>
-<li>ALSettingsPath 存储文件的路径，文件用来存储自己设置的值</li>
-<li>ALSettingsKeyPrefix key的前缀信息</li>
-<li>ALSectionDescriptors 各个部分信息的描述，本例中分成两个部分：用户App列表和系统App列表</li>
-</ul>
-</li>
-<li><p>当点击App列表里面的开关时，会动态更改<code>com.test.www.plist</code>文件里面对应的键值。进行交互时，读取相应的键值，做出自己的逻辑判断即可。</p>
-</li>
-<li><p>与Tweak进行交互</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%ctor &#123;</span><br><span class="line">    NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];</span><br><span class="line">    NSMutableDictionary *plistDict = [[NSMutableDictionary alloc] initWithContentsOfFile:@&quot;/var/mobile/Library/Preferences/com.test.www.plist&quot;]; </span><br><span class="line">    // 是否在用户APP列表点击开启了</span><br><span class="line">    if ([[plistDict objectForKey:[@&quot;TestAppEnabled-&quot; stringByAppendingString:identifier]] boolValue]) &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="某个cell的点击操作"><a href="#某个cell的点击操作" class="headerlink" title="某个cell的点击操作"></a>某个cell的点击操作</h3><ul>
-<li><p>plist里面：cell为PSButtonCell表示可以点击，action表示执行的动作</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dict&gt;</span><br><span class="line">&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">&lt;string&gt;PSButtonCell&lt;/string&gt;</span><br><span class="line">&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">&lt;string&gt;我也要点击&lt;/string&gt;</span><br><span class="line">&lt;key&gt;icon&lt;/key&gt;</span><br><span class="line">&lt;string&gt;cydia.png&lt;/string&gt;</span><br><span class="line">&lt;key&gt;action&lt;/key&gt;</span><br><span class="line">&lt;string&gt;btnClicked&lt;/string&gt;			</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>控制器里面直接写上相应的方法</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)btnClicked &#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"我被打印了"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="自定义cell"><a href="#自定义cell" class="headerlink" title="自定义cell"></a>自定义cell</h3><ul>
-<li><p>.h头文件里面导入PSSpecifier.h，继承PSTableCell</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Preferences/PSSpecifier.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CustomCell</span>: <span class="title">PSTableCell</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>.m实现文件里面</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"CustomCell.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CustomCell</span></span></span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="keyword">id</span>)identifier specifier:(PSSpecifier *)specifier &#123; <span class="comment">//init method</span></span><br><span class="line">	<span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:<span class="built_in">UITableViewCellStyleSubtitle</span> reuseIdentifier:identifier specifier:specifier]; <span class="comment">//call the super init method</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">      <span class="comment">// specifier就是模型数据</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>控制器里面通过操作PSSpecifier来更新Cell界面的值。</p>
-</li>
-</ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/逆向/" rel="tag"># 逆向</a>
-              <a href="/tags/iOS/" rel="tag"># iOS</a>
-          </div>
-
-        
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -433,67 +108,19 @@
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
+</div>
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/09/03/EnergyDetection/" rel="prev" title="iOS性能优化之耗电检测">
-      <i class="fa fa-chevron-left"></i> iOS性能优化之耗电检测
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/11/10/CustomLLDBScript/" rel="next" title="自定义打印方法参数的LLDB命令">
-      自定义打印方法参数的LLDB命令 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -502,18 +129,19 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">2.</span> <span class="nav-text">新建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包"><span class="nav-number">4.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">5.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战一：构造SSL-Kill-Switch-2样式的App"><span class="nav-number">6.</span> <span class="nav-text">实战一：构造SSL Kill Switch 2样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图"><span class="nav-number">6.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造过程"><span class="nav-number">6.2.</span> <span class="nav-text">构造过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与tweak交互"><span class="nav-number">6.3.</span> <span class="nav-text">与tweak交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战二：构造Reveal样式的App"><span class="nav-number">7.</span> <span class="nav-text">实战二：构造Reveal样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图-1"><span class="nav-number">7.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造与交互"><span class="nav-number">7.2.</span> <span class="nav-text">构造与交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">8.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#某个cell的点击操作"><span class="nav-number">8.1.</span> <span class="nav-text">某个cell的点击操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义cell"><span class="nav-number">8.2.</span> <span class="nav-text">自定义cell</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">新建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E4%B8%80%EF%BC%9A%E6%9E%84%E9%80%A0SSL-Kill-Switch-2%E6%A0%B7%E5%BC%8F%E7%9A%84App"><span class="nav-number">5.</span> <span class="nav-text">实战一：构造SSL Kill Switch 2样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number">5.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">构造过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8Etweak%E4%BA%A4%E4%BA%92"><span class="nav-number">5.3.</span> <span class="nav-text">与tweak交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E4%BA%8C%EF%BC%9A%E6%9E%84%E9%80%A0Reveal%E6%A0%B7%E5%BC%8F%E7%9A%84App"><span class="nav-number">6.</span> <span class="nav-text">实战二：构造Reveal样式的App</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE-1"><span class="nav-number">6.1.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E4%B8%8E%E4%BA%A4%E4%BA%92"><span class="nav-number">6.2.</span> <span class="nav-text">构造与交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">7.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%90%E4%B8%AAcell%E7%9A%84%E7%82%B9%E5%87%BB%E6%93%8D%E4%BD%9C"><span class="nav-number">7.1.</span> <span class="nav-text">某个cell的点击操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89cell"><span class="nav-number">7.2.</span> <span class="nav-text">自定义cell</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name"></p>
   <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -531,7 +159,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -539,23 +167,260 @@
 
 
 
+        </div>
       </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/14/PreferenceBundleModern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          创建依附于设置的APP(preference_bundle_modern)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-10-14 20:08:30 / 修改时间：21:09:30" itemprop="dateCreated datePublished" datetime="2020-10-14T20:08:30+08:00">2020-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E9%80%86%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">iOS逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>目的：iOS逆向开发中经常使用的Reveal、SSL Kill Switch 2等工具都是依附于设置而存在的，本文就是做一个这样的应用</li>
+<li>环境：macOS10.14.6、Xcode11.3</li>
+<li>适配：iOS11.0-iOS最新</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h2><ul>
+<li><code>nic.pl</code>新建App<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  NIC <span class="number">2.0</span> - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  ...</span><br><span class="line">  [<span class="number">7.</span>] iphone/preference_bundle_modern</span><br><span class="line">  ...</span><br><span class="line">Choose a Template (required): <span class="number">7</span></span><br><span class="line">Project Name (required): Test</span><br><span class="line">Package Name [com.yourcompany.test]: com.test.www</span><br><span class="line">Author/Maintainer Name [drag]: xxoo</span><br><span class="line">[iphone/preference_bundle_modern] Class name prefix (three or more characters unique to <span class="keyword">this</span> project) [XXX]:</span><br><span class="line">Instantiating iphone/preference_bundle_modern <span class="keyword">in</span> test/...</span><br><span class="line">Done.</span><br></pre></td></tr></table></figure></li>
+<li>创建后，目录结构如下图<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># drag @ dragdeMacBook-Pro in ~/Desktop/OCTest/test [18:01:00]</span></span><br><span class="line">$ tree</span><br><span class="line">.</span><br><span class="line">├── Makefile</span><br><span class="line">├── Resources</span><br><span class="line">│   ├── Info.plist</span><br><span class="line">│   └── Root.plist</span><br><span class="line">├── XXXRootListController.h</span><br><span class="line">├── XXXRootListController.m</span><br><span class="line">└── entry.plist</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> directory, <span class="number">6</span> files</span><br></pre></td></tr></table></figure></li>
+<li>更改Makefile配置<ul>
+<li>目前支持的架构有armv7 armv7s arm64 arm64e等<ul>
+<li>添加<code>ARCHS = armv7 armv7s arm64</code> 表示支持 armv7 armv7s arm64 三种处理器架构</li>
+<li>对于最新的A12处理器(iPhoneX以后)的设备，需要添加arm64e，否则生成的dylib文件不能正常加载</li>
+<li>本文只适配64位架构设备，设置如下：<code>ARCHS = arm64 arm64e</code></li>
+</ul>
+</li>
+<li>指定目标规范: <code>TARGET = iPhone:BaseSDK:DeploymentTarget</code><ul>
+<li><code>BaseSDK</code>代表编译用的SDK版本</li>
+<li><code>Deployment Target</code>是最低兼容的系统版本，</li>
+<li>本文初始设置<code>TARGET = iPhone:latest:11.0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ul>
+<li><code>make</code>编译出现找不到私有库Preferences.framework的错误，Preferences.framework包含在PrivateFrameworks里面，本文采取的是下载整个sdk<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ make</span><br><span class="line">&gt; Making all <span class="keyword">for</span> bundle Test…</span><br><span class="line">==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">==&gt; Compiling XXXRootListController.m (arm64)…</span><br><span class="line">==&gt; Linking bundle Test (arm64)…</span><br><span class="line">ld: warning: directory not found <span class="keyword">for</span> option <span class="string">&#x27;-F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/PrivateFrameworks&#x27;</span></span><br><span class="line">ld: framework not found Preferences</span><br><span class="line">clang: error: linker command failed with exit code <span class="number">1</span> (use -v to see invocation)</span><br><span class="line">make[<span class="number">3</span>]: *** [/Users/drag/Desktop/OCTest/test/.theos/obj/debug/arm64/Test.bundle/Test] Error <span class="number">1</span></span><br><span class="line">make[<span class="number">2</span>]: *** [/Users/drag/Desktop/OCTest/test/.theos/obj/debug/arm64/Test.bundle/Test] Error <span class="number">2</span></span><br><span class="line">make[<span class="number">1</span>]: *** [internal-bundle-all_] Error <span class="number">2</span></span><br><span class="line">make: *** [Test.all.bundle.variables] Error <span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+<li>从<code>https://github.com/xybp888/iOS-SDKs</code>下载<code>iPhoneOS13.0.sdk</code>放入theos/sdks。<ul>
+<li>因为本人Xcode版本是11.3，所以下载iPhoneOS13.0.sdk，可以根据自己的Xcode版本选择合适的sdk</li>
+<li>如果从github下载过慢，可以通过gitee中转一下。</li>
+</ul>
+</li>
+<li>Makefile里面更改<code>TARGET = iPhone:13.0:11.0</code><ul>
+<li>下载的sdk版本为13.0，BaseSDK是填入13.0</li>
+<li>适配版本11.0，DeploymentTarget填入11.0</li>
+</ul>
+</li>
+<li><code>make</code>编译通过 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">   $</span><span class="bash"> make</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> Making all <span class="keyword">for</span> bundle Test…</span></span><br><span class="line">   ==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">   ==&gt; Compiling XXXRootListController.m (arm64)…</span><br><span class="line">   ==&gt; Linking bundle Test (arm64)…</span><br><span class="line">   ==&gt; Generating debug symbols for Test…</span><br><span class="line">   ==&gt; Compiling XXXRootListController.m (arm64e)…</span><br><span class="line">   ==&gt; Linking bundle Test (arm64e)…</span><br><span class="line">   ==&gt; Generating debug symbols for Test…</span><br><span class="line">   ==&gt; Merging bundle Test…</span><br><span class="line">   ==&gt; Signing Test…</span><br><span class="line">   ````</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 打包</span></span></span><br><span class="line">* `make package`打包报错，提示缺少control文件</span><br><span class="line">  ```shell</span><br><span class="line"><span class="meta">  $</span><span class="bash"> make package</span></span><br><span class="line"><span class="meta">  &gt;</span><span class="bash"> Making all <span class="keyword">for</span> bundle Test…</span></span><br><span class="line">  ==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">  make[2]: Nothing to be done for `internal-bundle-compile&#x27;.</span><br><span class="line"><span class="meta">  &gt;</span><span class="bash"> Making stage <span class="keyword">for</span> bundle Test…</span></span><br><span class="line">  ==&gt; Error: /Applications/Xcode.app/Contents/Developer/usr/bin/make package requires you to have a layout/ directory in the project root, containing the basic package   structure, or a control file in the project root describing the package.</span><br><span class="line">  make: *** [internal-package] Error 1</span><br></pre></td></tr></table></figure></li>
+<li>新建control文件，填入如下内容<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Package: com.test.www</span><br><span class="line">Architecture: iphoneos-arm</span><br><span class="line">Version: 0.0.1</span><br></pre></td></tr></table></figure></li>
+<li>再次<code>make package</code>，成功，生成deb包<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> make package</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Making all <span class="keyword">for</span> bundle Test…</span></span><br><span class="line">==&gt; Copying resource directories into the bundle wrapper…</span><br><span class="line">make[2]: Nothing to be done for `internal-bundle-compile&#x27;.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Making stage <span class="keyword">for</span> bundle Test…</span></span><br><span class="line">dm.pl: building package `com.test.www:iphoneos-arm&#x27; in `./packages/com.test.www_-2+debug_iphoneos-arm.deb</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>执行<code>make install</code>进行安装，安装成功后可以去设置里面查看有没有Test，<ul>
+<li>如果没有发现，是因为没有安装PreferenceLoader，需要在Cydia中安装PreferenceLoader</li>
+<li>如果发现了，那是因为其它插件对PreferenceLoader有依赖，安装插件的时候就顺带安装了</li>
+</ul>
+</li>
+<li>PreferenceLoader<ul>
+<li>是一个开源的基础依赖包，越狱插件的系统设置菜单是由它提供的，最好在<code>iphone/preference_bundle_modern</code>开发前进行安装</li>
+<li>进入系统设置时，PreferenceLoader会从/Library/PreferenceLoader/Preferences/目录下解析符合规则的plist文件，并生成相应的控件动态添加到系统设置中</li>
+</ul>
+</li>
+</ul>
+<h2 id="实战一：构造SSL-Kill-Switch-2样式的App"><a href="#实战一：构造SSL-Kill-Switch-2样式的App" class="headerlink" title="实战一：构造SSL Kill Switch 2样式的App"></a>实战一：构造SSL Kill Switch 2样式的App</h2><h3 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h3><p><img src="/images/PreferenceBundleModern-01.png"></p>
+<h3 id="构造过程"><a href="#构造过程" class="headerlink" title="构造过程"></a>构造过程</h3><ul>
+<li>打开上面创建的项目，找到entry.plist文件。entry.plist描述了设置菜单项看到的内容，更改后的内容如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;entry&lt;/key&gt;</span><br><span class="line">	&lt;dict&gt;</span><br><span class="line">		&lt;key&gt;bundle&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;PSLinkCell&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;detail&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;XXXRootListController&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;icon&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;test.png&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;isController&lt;/key&gt;</span><br><span class="line">		&lt;true/&gt;</span><br><span class="line">		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">	&lt;/dict&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>cell：cell类型，这里是PSLinkCell类型，表示是一个可以点击的控件，更多控件类型<a target="_blank" rel="noopener" href="https://iphonedevwiki.net/index.php/Preferences_specifier_plist">参考</a></li>
+<li>detail：XXXRootListController，表示点击后跳转到此控制器</li>
+<li>icon：该cell前面显示的图标，图标test.png需要存储在Resources文件夹下面。</li>
+<li>label：该cell前面显示的文字</li>
+</ul>
+</li>
+<li>当执行<code>make install</code>安装后，theos会做两件事情<ul>
+<li>在/Library/PreferenceLoader/Preferences/文件夹下新建和项目同名的plist文件，比如Test.plist</li>
+<li>把entry.plist内容拷贝一份存储到Test.plist，进入设置时会读取该plist文件，生成相应的cell</li>
+</ul>
+</li>
+<li>Resources文件夹：存放项目需要的资源文件，比如图片，比如构建控制器需要的plist文件<ul>
+<li>Root.plist描述XXXRootListController的视图结构，更改里面相应的值，可以更改控制里面看到的内容</li>
+<li>目前项目只有一个控制器，如果我们需要定义另外的控制器CustomListController，那么就需要新建一个custom.plist文件描述此控制器的内容。</li>
+<li>test.png，设置菜单项看到的图片资源</li>
+</ul>
+</li>
+<li>打开XXXRootListController控制器后发现其内容是由Root.plist构建。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSArray</span> *)specifiers &#123;</span><br><span class="line"> <span class="keyword">if</span> (!_specifiers) &#123;</span><br><span class="line"> 	_specifiers = [<span class="keyword">self</span> loadSpecifiersFromPlistName:<span class="string">@&quot;Root&quot;</span> target:<span class="keyword">self</span>];</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> _specifiers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>更改<code>Resources/Root.plist</code>内容如下：<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">&quot;1.0&quot;</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;items&lt;/key&gt;</span><br><span class="line">  &lt;array&gt;</span><br><span class="line">	  &lt;dict&gt;</span><br><span class="line">  	&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  	&lt;string&gt;PSGroupCell&lt;/string&gt;</span><br><span class="line">		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;禁用后可以绕过https验证。&lt;/string&gt;</span><br><span class="line">  	&lt;key&gt;footerText&lt;/key&gt;</span><br><span class="line">  	&lt;string&gt;温馨提示：违权必究&lt;/string&gt;</span><br><span class="line">  	&lt;/dict&gt;</span><br><span class="line">  	&lt;dict&gt;</span><br><span class="line">  		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;PSSwitchCell&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;defaults&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;com.test.www&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;key&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;isDisCerVarify&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;禁用证书验证&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;<span class="keyword">default</span>&lt;/key&gt;</span><br><span class="line">  		&lt;<span class="literal">false</span>/&gt;</span><br><span class="line">  	&lt;/dict&gt;</span><br><span class="line">	  &lt;dict&gt;</span><br><span class="line">  		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;PSEditTextCell&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;defaults&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;com.test.www&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;key&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;excludedIDs&lt;/string&gt;</span><br><span class="line">  		&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  		&lt;string&gt;排除BundleIDs：&lt;/string&gt;</span><br><span class="line">  	&lt;/dict&gt;</span><br><span class="line">  &lt;/array&gt;</span><br><span class="line">	&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>defaults 用户操作控件得到的值存储到/var/mobile/Library/Preferences/com.test.<a target="_blank" rel="noopener" href="http://www.plist文件中/">www.plist文件中</a></li>
+<li>key 在defaults中用于关联该cell的键值</li>
+<li>default 表示存储在<code>com.test.www.plist</code>中的默认值</li>
+</ul>
+</li>
+<li>整个构建过程到这里就结束了，执行<code>make &amp;&amp; make package &amp;&amp; make install</code>后，重新打开设置App就会看到如上图所示的内容</li>
+</ul>
+<h3 id="与tweak交互"><a href="#与tweak交互" class="headerlink" title="与tweak交互"></a>与tweak交互</h3><ul>
+<li>上面只是做了UI方面的操作，没有实际的功能是没有任何用的。要想发挥作用，必须与tweak进行交互。</li>
+<li>新建tweak，BundleID填写<code>com.apple.UIKit</code>表示可以拦截任何App,也就是所有App启动都会走Tweak.x中的<code>%ctor &#123;&#125;</code>初始化函数<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> nic.pl</span></span><br><span class="line">NIC 2.0 - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  ...</span><br><span class="line">  [9.] iphone/tool_swift</span><br><span class="line">  [10.] iphone/tweak</span><br><span class="line">  [11.] iphone/xpc_service</span><br><span class="line">  ...</span><br><span class="line">Choose a Template (required): 10</span><br><span class="line">Project Name (required): Tweak</span><br><span class="line">Package Name [com.yourcompany.tweak]: com.tweak.www</span><br><span class="line">Author/Maintainer Name [drag]:</span><br><span class="line">[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: com.apple.UIKit</span><br><span class="line">[iphone/tweak] List of applications to terminate upon installation (space-separated, &#x27;-&#x27; for none) [SpringBoard]:</span><br><span class="line">Instantiating iphone/tweak in tweak/...</span><br><span class="line">Done.</span><br></pre></td></tr></table></figure></li>
+<li>Makefile文件增加以下内容<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TARGET = iPhone:13.0:11.0</span><br><span class="line">ARCHS = arm64 arm64e</span><br></pre></td></tr></table></figure></li>
+<li>Tweak.x里面hook相应的方法来实现禁用证书的功能，核心代码里面调用shouldHookFromPreference()来判断某个App是否需要hook<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">static BOOL shouldHookFromPreference() &#123;</span><br><span class="line">    BOOL shouldHook = NO;</span><br><span class="line">    NSMutableDictionary *plist = [[NSMutableDictionary alloc] initWithContentsOfFile:@&quot;/var/mobile/Library/Preferences/com.test.www.plist&quot;];</span><br><span class="line">    if (!plist) &#123;</span><br><span class="line">        NSLog(@&quot;Preference file not found.&quot;);</span><br><span class="line">		return shouldHook;</span><br><span class="line">    &#125; </span><br><span class="line">	shouldHook = [[plist objectForKey:@&quot;isDisCerVarify&quot;] boolValue]; // Root.plist里面填写的key</span><br><span class="line">	// 查看过滤的bundleid</span><br><span class="line">	NSString *excludedBundleIdsString = [plist objectForKey:@&quot;excludedIDs&quot;]; // Root.plist里面填写的key</span><br><span class="line">	excludedBundleIdsString = [excludedBundleIdsString stringByReplacingOccurrencesOfString:@&quot; &quot; withString:@&quot;&quot;];</span><br><span class="line">	NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];</span><br><span class="line">	bundleId = [bundleId stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];</span><br><span class="line">	NSArray *excludedBundleIds = [excludedBundleIdsString componentsSeparatedByString:@&quot;,&quot;];</span><br><span class="line">	if ([excludedBundleIds containsObject:bundleId]) &#123;</span><br><span class="line">		NSLog(@&quot;Not hooking excluded bundle: %@&quot;, bundleId);</span><br><span class="line">		shouldHook = NO;</span><br><span class="line">	&#125;</span><br><span class="line">    return shouldHook;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Test项目和Tweak项目目前是分离的，都会生成相应的deb文件。难道实让用户安装两个deb包，这个用户体验好像不太好吧。有没有更简单的方式，答案是有的。<ul>
+<li>Tweak项目根目录新建layout文件夹</li>
+<li>进入Test项目<code>.theos/_/</code>，找到<code>Library</code>文件夹，拷贝到layout文件夹下面。</li>
+<li>Cydia里面卸载上面安装的Test App。进入Tweak项目，执行<code>make &amp;&amp; make package &amp;&amp; make install</code>进行安装，安装完成就可以在设置里面看到Test App的选项</li>
+</ul>
+</li>
+<li>现在只需要进入Tweak项目，把packages文件夹下的deb安装包发送给其他人就可以了，方便又快捷</li>
+</ul>
+<h2 id="实战二：构造Reveal样式的App"><a href="#实战二：构造Reveal样式的App" class="headerlink" title="实战二：构造Reveal样式的App"></a>实战二：构造Reveal样式的App</h2><h3 id="最终效果图-1"><a href="#最终效果图-1" class="headerlink" title="最终效果图"></a>最终效果图</h3><p><img src="/images/PreferenceBundleModern-02.png"></p>
+<h3 id="构造与交互"><a href="#构造与交互" class="headerlink" title="构造与交互"></a>构造与交互</h3><ul>
+<li>大部分和实战一是相同的，这里只写出不同的地方。</li>
+<li>如上图所示，获取了应用列表，这个功能是AppList插件提供的，所以在开发前要在Cydia里面搜索安装AppList。</li>
+<li>更改<code>Resources/Root.plist</code>内容如下：<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">&quot;1.0&quot;</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;items&lt;/key&gt;</span><br><span class="line">  	&lt;array&gt;</span><br><span class="line">	    &lt;dict&gt;</span><br><span class="line">    		&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">    		&lt;string&gt;PSGroupCell&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;选择需要启用的App。&lt;/string&gt;</span><br><span class="line">    		&lt;key&gt;footerText&lt;/key&gt;</span><br><span class="line">    		&lt;string&gt;温馨提示：违权必究&lt;/string&gt;</span><br><span class="line">    	&lt;/dict&gt;</span><br><span class="line">  		&lt;dict&gt;</span><br><span class="line">  			&lt;key&gt;bundle&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;AppList&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;isController&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;<span class="number">1</span>&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;PSLinkCell&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;App列表&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALNavigationTitle&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;选择需要注入的应用&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSettingsPath&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;/var/mobile/Library/Preferences/com.test.www.plist&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSettingsKeyPrefix&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;TestAppEnabled-&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSettingsDefaultValue&lt;/key&gt;</span><br><span class="line">  			&lt;string&gt;&lt;/string&gt;</span><br><span class="line">  			&lt;key&gt;ALSectionDescriptors&lt;/key&gt;</span><br><span class="line">  			&lt;array&gt;</span><br><span class="line">  				&lt;dict&gt;</span><br><span class="line">  					&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;用户App列表&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;predicate&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;isSystemApplication = <span class="literal">FALSE</span>&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;icon-size&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;<span class="number">29</span>&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;suppress-hidden-apps&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;<span class="number">1</span>&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;cell-<span class="keyword">class</span>-name&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;ALSwitchCell&lt;/string&gt;</span><br><span class="line">  				&lt;/dict&gt;</span><br><span class="line">  				&lt;dict&gt;</span><br><span class="line">  					&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;系统App列表&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;predicate&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;isSystemApplication = <span class="literal">TRUE</span>&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;icon-size&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;<span class="number">29</span>&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;suppress-hidden-apps&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;<span class="number">1</span>&lt;/string&gt;</span><br><span class="line">  					&lt;key&gt;cell-<span class="keyword">class</span>-name&lt;/key&gt;</span><br><span class="line">  					&lt;string&gt;ALSwitchCell&lt;/string&gt;</span><br><span class="line">  				&lt;/dict&gt;</span><br><span class="line">  			&lt;/array&gt;</span><br><span class="line">  		&lt;/dict&gt;</span><br><span class="line">  	&lt;/array&gt;</span><br><span class="line">  	&lt;key&gt;title&lt;/key&gt;</span><br><span class="line">  	&lt;string&gt;Test&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ALNavigationTitle 导航栏标题</li>
+<li>ALSettingsPath 存储文件的路径，文件用来存储自己设置的值</li>
+<li>ALSettingsKeyPrefix key的前缀信息</li>
+<li>ALSectionDescriptors 各个部分信息的描述，本例中分成两个部分：用户App列表和系统App列表</li>
+</ul>
+</li>
+<li>当点击App列表里面的开关时，会动态更改<code>com.test.www.plist</code>文件里面对应的键值。进行交互时，读取相应的键值，做出自己的逻辑判断即可。</li>
+<li>与Tweak进行交互<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%ctor &#123;</span><br><span class="line">    NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];</span><br><span class="line">    NSMutableDictionary *plistDict = [[NSMutableDictionary alloc] initWithContentsOfFile:@&quot;/var/mobile/Library/Preferences/com.test.www.plist&quot;]; </span><br><span class="line">    // 是否在用户APP列表点击开启了</span><br><span class="line">    if ([[plistDict objectForKey:[@&quot;TestAppEnabled-&quot; stringByAppendingString:identifier]] boolValue]) &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="某个cell的点击操作"><a href="#某个cell的点击操作" class="headerlink" title="某个cell的点击操作"></a>某个cell的点击操作</h3><ul>
+<li>plist里面：cell为PSButtonCell表示可以点击，action表示执行的动作<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dict&gt;</span><br><span class="line">&lt;key&gt;cell&lt;/key&gt;</span><br><span class="line">&lt;string&gt;PSButtonCell&lt;/string&gt;</span><br><span class="line">&lt;key&gt;label&lt;/key&gt;</span><br><span class="line">&lt;string&gt;我也要点击&lt;/string&gt;</span><br><span class="line">&lt;key&gt;icon&lt;/key&gt;</span><br><span class="line">&lt;string&gt;cydia.png&lt;/string&gt;</span><br><span class="line">&lt;key&gt;action&lt;/key&gt;</span><br><span class="line">&lt;string&gt;btnClicked&lt;/string&gt;			</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure></li>
+<li>控制器里面直接写上相应的方法<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)btnClicked &#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@&quot;我被打印了&quot;</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="自定义cell"><a href="#自定义cell" class="headerlink" title="自定义cell"></a>自定义cell</h3><ul>
+<li>.h头文件里面导入PSSpecifier.h，继承PSTableCell<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Preferences/PSSpecifier.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CustomCell</span>: <span class="title">PSTableCell</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></li>
+<li>.m实现文件里面<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&quot;CustomCell.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CustomCell</span></span></span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="keyword">id</span>)identifier specifier:(PSSpecifier *)specifier &#123; <span class="comment">//init method</span></span><br><span class="line">	<span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:<span class="built_in">UITableViewCellStyleSubtitle</span> reuseIdentifier:identifier specifier:specifier]; <span class="comment">//call the super init method</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">      <span class="comment">// specifier就是模型数据</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></li>
+<li>控制器里面通过操作PSSpecifier来更新Cell界面的值。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-6694280780402885"
+    data-ad-slot="9902930001"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
         
 
-        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/03/EnergyDetection/" rel="prev" title="iOS性能优化之耗电检测">
+                  <i class="fa fa-chevron-left"></i> iOS性能优化之耗电检测
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/10/CustomLLDBScript/" rel="next" title="自定义打印方法参数的LLDB命令">
+                  自定义打印方法参数的LLDB命令 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -563,31 +428,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder"></span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -596,18 +445,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 </body>
 </html>
