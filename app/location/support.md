@@ -1,19 +1,4 @@
-# 补充中...1111111111111
-
-<code>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <!-- HeaderFooterAD -->
-  <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-6694280780402885"
-        data-ad-slot="9902930001"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-  <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</code>
-
+# 补充中我们都是好孩子优雅
 
 ## 版本历史
 ### 2.0.0：2021年6月4日
@@ -39,6 +24,19 @@
   * 可以对收藏地址进行备注，比方备注为家、学校、公司等，方便知道地址的用途。
   * 可以对收藏地址进行删除，如果你觉得太多了。
 
+<pre>
+<code>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- HeaderFooterAD -->
+  <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-6694280780402885"
+        data-ad-slot="9902930001"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({}); </script>
+</code>
+</pre>
 
 ## 生效地址
 * 后保存的地址为覆盖先保存的地址
