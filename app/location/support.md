@@ -24,7 +24,6 @@
   * 可以对收藏地址进行备注，比方备注为家、学校、公司等，方便知道地址的用途。
   * 可以对收藏地址进行删除，如果你觉得太多了。
 
-<pre>
 <code>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <!-- HeaderFooterAD -->
@@ -36,7 +35,6 @@
         data-full-width-responsive="true"></ins>
   <script>(adsbygoogle = window.adsbygoogle || []).push({}); </script>
 </code>
-</pre>
 
 ## 生效地址
 * 后保存的地址为覆盖先保存的地址
