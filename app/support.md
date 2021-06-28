@@ -1,3 +1,15 @@
+<code>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- HeaderFooterAD -->
+  <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-6694280780402885"
+        data-ad-slot="9902930001"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({}); </script>
+</code>
+
 # NXPlayer是一款支持多种格式的视频播放软件，不仅可以本地播放，还可以网络播放。
 
 ## 基本功能
