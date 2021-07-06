@@ -1,3 +1,4 @@
+<head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-200864747-1"></script>
 <script>
@@ -7,6 +8,7 @@
 
   gtag('config', 'UA-200864747-1');
 </script>
+</head>
 
 # 系统级修改步数插件
 
