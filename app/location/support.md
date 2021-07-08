@@ -36,6 +36,10 @@
 * 不要用此插件做违法犯罪的事情。
 
 ## 版本历史
+### 2.3.0：2021年07月08日
+* 支持世界范围内定位
+* 解决bug，提高性能。
+
 ### 2.2.0：2021年07月02日
 * 解决定位不准或定位有偏差的问题。
 
@@ -52,3 +56,16 @@
 ### 1.1.1：2020年8月17日
 * 输入地址和选择地址页面都可以进行定位
 * 白名单设置针对个别App进行定位
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-6694280780402885"
+      data-ad-slot="9902930001"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+<script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

@@ -24,6 +24,9 @@
 * 不要一下添加很多步数，要分时段添加。经过测试，正常人步行速度在100-150步。如果添加过多，后果自负。
 
 ## 版本历史
+### 1.3.0：2021年7月6日
+* 修复bug，优化性能。
+
 ### 1.2.1：2021年6月20日
 * 支持iOS11以上系统。
 * 修复某些崩溃bug。
@@ -40,3 +43,16 @@
 ### 0.0.3：2020年9月18日
 * 接入支付宝功能，可以购买VIP，每天无限次添加步数。
 * 普通用户，每天可以免费使用一次。
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-6694280780402885"
+    data-ad-slot="9902930001"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>   
