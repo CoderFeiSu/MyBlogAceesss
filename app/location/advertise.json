@@ -1,9 +1,9 @@
 {
-    "type": "SEO",
+    "type": "Sense",
     "SEO": [],
     "Sense": [],
     "trials": [],
-    "modules": ["1","6","3"],
+    "modules": ["1","2","3"],
     "times": "MTE=",
     "days": "18"
 }
