@@ -60,16 +60,3 @@
 ### 1.1.1：2020年8月17日
 * 输入地址和选择地址页面都可以进行定位
 * 白名单设置针对个别App进行定位
-
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- HeaderFooterAD -->
-<ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-6694280780402885"
-      data-ad-slot="9902930001"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
-<script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
