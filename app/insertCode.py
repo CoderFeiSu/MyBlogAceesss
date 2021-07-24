@@ -1,14 +1,17 @@
 import os
 
 
+
 def insert_code(file_path, analytics_lines, adsense_lines):
     print("---------------{}写入开始--------------".format(file_path))
     target_file = open(file_path, 'r')
     target_lines = target_file.readlines()
     target_file.close()
-    analytics_index = target_lines.index('    </head>\n')
-    if not analytics_index:
+    target_str = ''.join(target_lines)
+    if 'https://www.googletagmanager.com' in target_str or 'https://pagead2.googlesyndication.com' in target_str:
+        print("---------------{}之前写入过，写入结束--------------".format(file_path))
         return;
+    analytics_index = target_lines.index('    </head>\n')
     target_lines.insert(analytics_index, ''.join(analytics_lines))
     target_file = open(file_path, 'w')
     target_file.writelines(''.join(target_lines))
