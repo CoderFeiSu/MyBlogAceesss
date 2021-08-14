@@ -15,7 +15,7 @@
 ## 怎样付费
 * 点击右上角付费按钮，按提示进行付费
 * 你可以选择付费<font color="red">66.66</font>元，你将可以永久无限制使用该插件；选择<font color="red">44.44</font>元，你将可以在一年内无限制使用改插件
-* 支付宝付费时，在支付宝备注填写：<font color="red">Location</font>
+* 支付宝付费时，请在支付宝备注里填写：<font color="red">Location</font>
 
 ## 付费成功
 * 请把机器码和付费成功的截图发送到邮箱zhulongfei28@gmail.com，等待客服处理，客服处理成功后，会回复邮件进行确认。
