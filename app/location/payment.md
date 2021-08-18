@@ -15,9 +15,9 @@
 ## 怎样付费
 * 点击右上角付费按钮，按提示进行付费
 * 你可以选择付费<font color="red">66.66</font>元，你将可以永久无限制使用该插件；选择<font color="red">44.44</font>元，你将可以在一年内无限制使用改插件
-* 首次购买时，请在支付宝备注里填写：<font color="red">Location付费</font>
-* 多次转移时，请在支付宝备注里填写：<font color="red">Location转移</font>
-* 需要升级时，请在支付宝备注里填写：<font color="red">Location升级</font>
+* 首次购买时，请在支付宝备注：<font color="red">Location付费</font>
+* 多次转移时，请在支付宝备注：<font color="red">Location转移</font>
+* 需要升级时，请在支付宝备注：<font color="red">Location升级</font>
 
 ## 付费成功
 * 请把<font color="red">机器码</font>和<font color="red">付费成功的截图</font>发送到邮箱：<font color="red">zhulongfei28@gmail.com</font>，邮件标题请写`Location付费`。
