@@ -1,7 +1,7 @@
 # 插件付费操作
 
 ## 为什么付费
-* 普通用户可以正常使用<font id="appName" color="red"></font>的所有功能，付费用户也可以使用所有功能，区别是什么呢？
+* 普通用户可以正常使用<font id="appName" color="red">appName</font>的所有功能，付费用户也可以使用所有功能，区别是什么呢？
 * 普通用户每天可以使用若干次，付费用户每天无限次使用
 * 普通用户需要按提示进行操作，每次操作时间为30s-90s，这无疑是个体力活；付费用户不要按提示操作，点击就生效，省时省力。
 
@@ -15,7 +15,7 @@
 
 ## 怎样付费
 * 点击右上角付费按钮，按提示进行付费
-* 你可以选择付费<font id="permanent" color="red"></font>元，你将可以永久无限制使用该插件；选择<font color="red">44.44</font>元，你将可以在一年内无限制使用改插件
+* 你可以选择付费<font id="permanent" color="red">permanent</font>元，你将可以永久无限制使用该插件；选择<font color="red">44.44</font>元，你将可以在一年内无限制使用改插件
 * 首次购买，输入金额时添加备注：<font color="red">Location付费</font>
 * 多次转移，输入金额时添加备注：<font color="red">Location转移</font>
 * 需要升级，输入金额时添加备注：<font color="red">Location升级</font>
