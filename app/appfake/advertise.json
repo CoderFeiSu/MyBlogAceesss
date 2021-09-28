@@ -6,6 +6,6 @@
     "modules": ["1","1","2"],
     "times": "Mw==",
     "days": "18",
-    "payment": false,
+    "showPay": false,
     "codes": []
 }
