@@ -3,5 +3,5 @@
     "message": "请升级到 2.2.0 以上版本",
     "value": "Mi82JyA=",
     "url": "cydia://package/me.health.app",
-    "showPay": true
+    "showPay": false
 }
