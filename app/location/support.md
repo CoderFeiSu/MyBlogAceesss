@@ -6,6 +6,10 @@
   * 支持地址检索定位
   * 支持地图选点定位
 * 如有技术问题，请发邮件到`zhulongfei28@gmail.com`，谢谢。
+* 更多插件，请访问：
+  * [定个位-专业的位置修改软件](http://cydia.saurik.com/package/me.lochook.app)
+  * [改个步数-专业的步数修改软件](http://cydia.saurik.com/package/me.health.app)
+  * [改个应用-专业的应用修改软件](http://cydia.saurik.com/package/me.afhook.app)
 
 ## 安装说明
 * BigBoss源是Cydia内置源，直接在搜索框输入`定个位`就可以进行搜索。如果搜索不到，首先把BigBoss源删除，然后重新添加。
