@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.diffit.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+
+<script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta name="description" content="说在前面 注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 推荐先阅读macOS逆向之跳过XtraFinder试用界面，这篇文章各种工具的使用介绍的更详细。 开发环境：macOS11.2.3、Xcode11.7、IDA7.0、class-du">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS逆向之超级右键无限期试用">
+<meta property="og:url" content="https://www.diffit.cn/2021/10/12/iRightMouse/index.html">
+<meta property="og:site_name" content="杂货铺">
+<meta property="og:description" content="说在前面 注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件zhulongfei28@gmail.com，谢谢。 推荐先阅读macOS逆向之跳过XtraFinder试用界面，这篇文章各种工具的使用介绍的更详细。 开发环境：macOS11.2.3、Xcode11.7、IDA7.0、class-du">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.diffit.cn/images/iRightMouse-01.png">
+<meta property="og:image" content="https://www.diffit.cn/images/iRightMouse-02.png">
+<meta property="og:image" content="https://www.diffit.cn/images/iRightMouse-03.png">
+<meta property="og:image" content="https://www.diffit.cn/images/iRightMouse-04.png">
+<meta property="og:image" content="https://www.diffit.cn/images/iRightMouse-05.png">
+<meta property="og:image" content="https://www.diffit.cn/images/iRightMouse-06.png">
+<meta property="article:published_time" content="2021-10-12T09:25:08.000Z">
+<meta property="article:modified_time" content="2021-10-12T12:35:18.000Z">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="macOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.diffit.cn/images/iRightMouse-01.png">
+
+
+<link rel="canonical" href="https://www.diffit.cn/2021/10/12/iRightMouse/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.diffit.cn&#x2F;2021&#x2F;10&#x2F;12&#x2F;iRightMouse&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;10&#x2F;12&#x2F;iRightMouse&#x2F;&quot;,&quot;title&quot;:&quot;macOS逆向之超级右键无限期试用&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>macOS逆向之超级右键无限期试用 | 杂货铺</title><script src="/js/config.js"></script><script data-ad-client="ca-pub-6694280780402885" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <script class="next-config" data-name="google_analytics" type="application/json">{&quot;tracking_id&quot;:&quot;UA-200864747-1&quot;,&quot;only_pageview&quot;:true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">杂货铺</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">说在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E7%95%8C%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">分析界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%BC%B9%E6%A1%86"><span class="nav-number">3.</span> <span class="nav-text">分析弹框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">汇编代码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">修改汇编代码</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">杂货铺,各种IT知识的聚合</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.diffit.cn/2021/10/12/iRightMouse/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="杂货铺,各种IT知识的聚合">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杂货铺">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          macOS逆向之超级右键无限期试用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-10-12 17:25:08 / 修改时间：20:35:18" itemprop="dateCreated datePublished" datetime="2021-10-12T17:25:08+08:00">2021-10-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/macOS%E9%80%86%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">macOS逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><ul>
+<li>注意事项：此文仅限于技术交流，请不要做违法的事情。对于那些居心叵测的人根据此文造成违法的事情与本人无关。此文章不得转载！！！如果APP方需要删除，请发邮件<code>zhulongfei28@gmail.com</code>，谢谢。</li>
+<li>推荐先阅读<a href="https://www.diffit.cn/2021/05/05/XtraFinder">macOS逆向之跳过XtraFinder试用界面</a>，这篇文章各种工具的使用介绍的更详细。</li>
+<li>开发环境：macOS11.2.3、Xcode11.7、IDA7.0、class-dump、超级右键2.1.9(写这篇文章时的最新版)</li>
+<li>具备技能：X64汇编基础、OC基础知识、iOS逆向基础知识</li>
+<li>为什么使用：<ul>
+<li>macOS系统本身并不支持右键新建文件，本人每次通过<code>iTerm2</code>，使用<code>touch</code>命令新建文件，这样就很麻烦，效率很低。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 目标目录</span><br><span class="line">touch test.txt</span><br><span class="line">touch test.md</span><br></pre></td></tr></table></figure></li>
+<li>如果要用<code>VSCode</code>打开一个文件夹，需要首先打开<code>VSCode</code>，然后再从里面选取对应的文件夹。一两次操作还行，次数多了，真的是浪费时间。</li>
+<li>超级右键是macOS上最强大的右键菜单管理工具，拥有丰富的功能，可以提升使用体验。针对上面两个问题，超级右键一键解决，看下图是不是很爽。<br><img src="/images/iRightMouse-01.png">  </li>
+</ul>
+</li>
+<li>目标结果：使用了一段时间，正爽的时候，突然给你来个弹框，提示你试用到期了，让你付费使用。作为一个技术，难道还能被技术难住了，于是走向了逆向之路。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="分析界面"><a href="#分析界面" class="headerlink" title="分析界面"></a>分析界面</h2><ul>
+<li>新建一个macOS App项目，用来调试超级右键界面。如下图所示，发现购买弹框是一个<code>NSWindow</code>类对象，名字叫<code>BuyWindows</code><br><img src="/images/iRightMouse-02.png"> </li>
+<li>从<code>/Applications/iRightMouse.app/Contents/MacOS</code>拷贝出二进制文件<code>iRightMouse</code>,拖到IDA里面进行分析。看来已经适配了<code>M1</code>机型，本人还是老式处理器，所以直接选择<code>x86_64</code>架构进行分析。<br><img src="/images/iRightMouse-03.png"> </li>
+<li>分析完毕后，打开<code>Strings window</code>窗口，搜索<code>buy</code>时，已经出现了如下结果<br><img src="/images/iRightMouse-04.png"> </li>
+<li>双击<code>buyProWindow</code>进去后，使用<code>x</code>查看引用关系，发现购买窗口其实是<code>AppDelegate</code>的一个成员变量<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__objc2_ivar &lt;offset _OBJC_IVAR_$_AppDelegate_buyProWindow, \ ; NSWindow *buyProWindow;</span><br></pre></td></tr></table></figure></li>
+<li>在IDA里面搜索<code>buyProWindow</code>并没有搜索到，用<code>class-dump</code>导出<code>iRightMouse</code>头文件，找到<code>AppDelegate.h</code>发现有这个成员变量，没有深究原因。分析到这里后，可以确定弹框操作就是在<code>AppDelegate</code>里面执行的。整个弹框过程应该是这样的：当新建某个文件或要把某个目录在<code>VSCode</code>中打开时，会首先判断试用到期了没有，如果到期了，就<code>[self-&gt;buyProWindow showMethod]</code>显示弹框。</li>
+</ul>
+<h2 id="分析弹框"><a href="#分析弹框" class="headerlink" title="分析弹框"></a>分析弹框</h2><ul>
+<li>为了不让购买弹框显示出来，我们需要判断哪里进行了弹框操作。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (!isOutOfDate) &#123; // 如果试用没有到期</span><br><span class="line">  // 正常使用，不弹框</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    // 弹框</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>显示弹框就是显示一个window，在iOS中是需要调用<code>makeKeyAndVisible</code>方法的，而本人并没有做过macOS开发，不知道在macOS显示window，需要探究一下。<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.window makeKeyAndVisible]</span><br></pre></td></tr></table></figure></li>
+<li>macOS中不是用<code>UIWindow</code>，而是用<code>NSWindow</code>。使用刚才新建的项目，进入<code>NSWindow.h</code>文件，发现三个与显示window有关的方法。<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">makeKeyAndOrderFront:</span><br><span class="line">makeKeyWindow</span><br><span class="line">makeMainWindow</span><br></pre></td></tr></table></figure></li>
+<li>使用LLDB连接上iRightMouse，对<code>NSWindow</code>上面的三个方法进行断点，猜想会调用某个方法显示弹窗。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lldb</span></span><br><span class="line">(lldb) attach -n iRightMouse</span><br><span class="line">...</span><br><span class="line">(lldb) br set -n makeKeyWindow</span><br><span class="line">Breakpoint 2: 5 locations.</span><br><span class="line">(lldb) br set -n makeMainWindow</span><br><span class="line">Breakpoint 4: 3 locations.</span><br><span class="line">(lldb) br set -n makeKeyAndOrderFront:</span><br><span class="line">Breakpoint 5: 6 locations.</span><br></pre></td></tr></table></figure></li>
+<li>随意进入一个目录，然后在目录里面<code>右键</code>-&gt;<code>进入 VSCode</code>或<code>新建文件</code>，这个时候会命中断点。按<code>c</code>后，购买弹窗就会显示出来，说明<code>makeKeyAndOrderFront:</code>就是显示弹框的方法。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Process 11199 stopped</span><br><span class="line">* thread #1, queue = &#x27;com.apple.main-thread&#x27;, stop reason = breakpoint 1.1</span><br><span class="line">    frame #0: 0x00007fff22f7c275 AppKit` -[NSWindow makeKeyAndOrderFront:]</span><br><span class="line">AppKit`-[NSWindow makeKeyAndOrderFront:]:</span><br><span class="line"><span class="meta">-&gt;</span><span class="bash">  0x7fff22f7c275 &lt;+0&gt;:  push   rbp</span></span><br><span class="line">    0x7fff22f7c276 &lt;+1&gt;:  mov    rbp, rsp</span><br><span class="line">    0x7fff22f7c279 &lt;+4&gt;:  push   r14</span><br><span class="line">    0x7fff22f7c27b &lt;+6&gt;:  push   rbx</span><br><span class="line">    0x7fff22f7c27c &lt;+7&gt;:  mov    rbx, rdi</span><br><span class="line">    0x7fff22f7c27f &lt;+10&gt;: mov    rsi, qword ptr [rip + 0x65cddfca] ; &quot;_resolveAutomaticEnterFullScreenFlags&quot;</span><br><span class="line">    0x7fff22f7c286 &lt;+17&gt;: mov    r14, qword ptr [rip + 0x5d7b1d53] ; (void *)0x00007fff203c5d00: objc_msgSend</span><br><span class="line">    0x7fff22f7c28d &lt;+24&gt;: call   r14</span><br><span class="line">Target 0: (iRightMouse) stopped.</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure></li>
+<li>重复上面的步骤，当命中断点后，执行<code>bt</code>打印调用堆栈。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(lldb) bt</span><br><span class="line">* thread #1, queue = &#x27;com.apple.main-thread&#x27;, stop reason = breakpoint 1.1</span><br><span class="line">  * frame #0: 0x00007fff22f7c275 AppKit` -[NSWindow makeKeyAndOrderFront:]</span><br><span class="line">    frame #1: 0x00000001026ff9c0 iRightMouse` ___lldb_unnamed_symbol423$$iRightMouse  + 135</span><br><span class="line"> ...</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure></li>
+<li>很明显在<code>0x00000001026ff9c0</code>调用了显示弹框的方法，这个地址是在内存中的地址，我们需要的是在Mach-O中的地址，使用如下命令打印出我们需要的地址<code>0x000000010001f9c0</code>。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(lldb) image lookup -a 0x00000001026ff9c0</span><br><span class="line">    Address: iRightMouse[0x000000010001f9c0] (iRightMouse.__TEXT.__text + 124128)</span><br><span class="line">    Summary: iRightMouse`___lldb_unnamed_symbol423$$iRightMouse + 135</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure></li>
+<li>进入IDA，输入<code>G</code>，在弹框内输入<code>0x000000010001f9c0</code>，点击确定后，会到以下代码出，这不正是我们需要的。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LABEL_11:</span><br><span class="line">  v14 = v8;</span><br><span class="line">  v15 = 0LL;</span><br><span class="line">  goto LABEL_12;</span><br><span class="line">&#125;</span><br><span class="line">objc_msgSend((void *)self-&gt;buyProWindow, &quot;makeKeyAndOrderFront:&quot;, self);</span><br><span class="line">objc_msgSend(NSApp, &quot;activateIgnoringOtherApps:&quot;, 1LL);</span><br><span class="line">v9 = 0;</span><br><span class="line">LABEL_14:</span><br><span class="line">  objc_release(v8);</span><br><span class="line">  return v9;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>上面显示的是伪代码界面，需要按空格键切换到流程图界面，方便定位哪里进行了<code>判断是否过期</code>的操作。沿着上一步<code>弹窗代码</code>一直往上找，直到遇到某个判断跳转方法的分支就停下来，最终会来到如下图所示的代码处。如果执行左边红线的代码，就会到上一步显示弹框的代码处；如果执行右边绿线的代码，就会直接执行相应的操作。<br><img src="/images/iRightMouse-05.png"> </li>
+<li>可以很明显发现弹窗操作是在<code>-[AppDelegate application:openFile:]</code>方法中进行的，这不正印证了上面所说的弹窗操作是在<code>AppDelegate</code>里面执行的</li>
+</ul>
+<h2 id="汇编代码分析"><a href="#汇编代码分析" class="headerlink" title="汇编代码分析"></a>汇编代码分析</h2><ul>
+<li>上图汇编指令解析<ul>
+<li>指令<code>cmp</code>的意思是对两个数执行减法。当运算结果为0时，把<code>ZF</code>(零标志位)置1，否则置0。</li>
+<li>指令<code>jz</code>的意思是根据<code>cmp</code>运算结果的值，判断执行的逻辑。如果结果为0就执行<code>short loc_10001F9E0</code>，否则执行弹框操作。</li>
+<li>指令<code>lea</code>是地址赋值的意思，就是把<code>byte_100038940</code>这个地址值赋值给<code>rax</code>.</li>
+</ul>
+</li>
+<li>经过上面几步的分析，我们已经知道了目前是走左边红色线条的逻辑(也就是说会进行购买弹框操作)，可以得出结论：<ul>
+<li>此时的<code>cmp byte ptr [rax], 0</code>运算结果不为0</li>
+<li>此时的<code>byte ptr [rax]</code>不为0，也就是说<code>[rax]</code>不为0。</li>
+</ul>
+</li>
+<li>我们可以使用LLDB在地址<code>000000010001F9A9</code>打断点验证一下上面的猜想<ul>
+<li>因为并没有恢复Mach-O的符号，所以只能使用地址断点，<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lldb</span></span><br><span class="line">(lldb) attach -n iRightMouse</span><br><span class="line">Executable module set to &quot;/Applications/iRightMouse.app/Contents/MacOS/iRightMouse&quot;.</span><br><span class="line">...省略很多...</span><br><span class="line">Architecture set to: x86_64h-apple-macosx-.</span><br><span class="line">(lldb) image list -o -f | grep iRightMouse</span><br><span class="line">[  0] 0x0000000004560000 /Applications/iRightMouse.app/Contents/MacOS/iRightMouse</span><br><span class="line">(lldb) br set -a 0x0000000004560000+0x000000010001F9A9</span><br><span class="line">Breakpoint 1: where = iRightMouse`___lldb_unnamed_symbol423$$iRightMouse + 112, address = 0x000000010457f9a9</span><br><span class="line">(lldb) c</span><br></pre></td></tr></table></figure></li>
+<li>当执行相应的操作后，会命中断点，然后打印<code>[rax]</code>的值，发现此时的值为1，这不正验证了上一步我们的猜想<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Process 50188 stopped</span><br><span class="line">* thread #1, queue = &#x27;com.apple.main-thread&#x27;, stop reason = breakpoint 1.1</span><br><span class="line">    frame #0: 0x000000010457f9a9 iRightMouse` ___lldb_unnamed_symbol423$$iRightMouse  + 112</span><br><span class="line">iRightMouse`___lldb_unnamed_symbol423$$iRightMouse:</span><br><span class="line"><span class="meta">-&gt;</span><span class="bash">  0x10457f9a9 &lt;+112&gt;: cmp    byte ptr [rax], 0x0</span></span><br><span class="line">    0x10457f9ac &lt;+115&gt;: je     0x10457f9e0               ; &lt;+167&gt;</span><br><span class="line">    0x10457f9ae &lt;+117&gt;: mov    rdi, qword ptr [r12 + 0x8]</span><br><span class="line">    0x10457f9b3 &lt;+122&gt;: mov    rsi, qword ptr [rip + 0x1b15e] ; &quot;makeKeyAndOrderFront:&quot;</span><br><span class="line">    0x10457f9ba &lt;+129&gt;: mov    rdx, r12</span><br><span class="line">    0x10457f9bd &lt;+132&gt;: call   r13</span><br><span class="line">    0x10457f9c0 &lt;+135&gt;: mov    rax, qword ptr [rip + 0x10651] ; (void *)0x00007fff88569260: NSApp</span><br><span class="line">    0x10457f9c7 &lt;+142&gt;: mov    rdi, qword ptr [rax]</span><br><span class="line">Target 0: (iRightMouse) stopped.</span><br><span class="line">(lldb) memory read $rax</span><br><span class="line">0x10459b940: 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">0x10459b950: 65 df 58 04 01 00 00 00 88 4c 59 04 01 00 00 00  e�X......LY.....</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>怎样让代码走右边绿色线条的逻辑(也就是说不会出现购买弹框，直接进行相应的操作)呢？上面已经分析了很多，到这里已经很简单了，让<code>cmp byte ptr [rax], 0</code>运算结果为0就可以了。从上面可以知道此时<code>byte ptr [rax]</code>的值为1，所以把<code>cmp byte ptr [rax], 0</code>中0更改为1，就能都达到让整个运算结尾为0的效果。</li>
+</ul>
+<h2 id="修改汇编代码"><a href="#修改汇编代码" class="headerlink" title="修改汇编代码"></a>修改汇编代码</h2><ul>
+<li>定位到<code>000000010001F9A9 cmp byte ptr [rax], 0</code>这行，右键选择<code>Keypatch</code>-&gt;<code>Patcher</code>命令，在弹出的对话框中直接修改汇编代码为<code>cmp byte ptr [rax], 1</code>，点击<code>Patcher</code>按钮进行确认。确认后，后面的几次Patch弹框提示全部取消，不要任何修改。<br><img src="/images/iRightMouse-06.png"> </li>
+<li>单击<code>Edit</code>-&gt;<code>Patch program</code>-&gt;<code>Apply patchs to input file</code>，导出修改好的Mach-O文件。</li>
+<li>使用修改过的<code>iRightMouse</code>替换<code>/Applications/iRightMouse.app/Contents/MacOS/iRightMouse</code>，记得提前备份一下。用修改过的Mach-o文件替换原来的Mach-O文件破坏了原有的签名，会导致应用打不开或崩溃，需要移除签名才能正常打开：<pre><code class="shell">sudo codesign --remove-signature iRightMouse
+codesign -d -vv iRightMouse
+iRightMouse: code object is not signed at all
+</code></pre>
+</li>
+<li>退出应用并重新打开，发现使用弹窗没有了，所有功能都正常使用。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><!-- Google ADSense  放在<BODY> 标记中 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6694280780402885"
+     crossorigin="anonymous"></script>
+<!-- HeaderFooterAD -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6694280780402885"
+     data-ad-slot="9902930001"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/macOS/" rel="tag"># macOS</a>
+          </div>
+
+        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/20/OptimizeAppLaunch/" rel="prev" title="iOS Swift App启动优化">
+                  <i class="fa fa-chevron-left"></i> iOS Swift App启动优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
