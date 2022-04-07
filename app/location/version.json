@@ -3,5 +3,5 @@
     "message": "请升级到 3.2.0 以上版本 \n技术问题：zhulongfei28@gmail.com",
     "value": "My82JyA=",
     "url": "cydia://package/me.lochook.app",
-    "showPay": false
+    "showPay": true
 }
