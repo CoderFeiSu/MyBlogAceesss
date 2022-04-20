@@ -1,7 +1,6 @@
 {
     "isShowAd": false,
     "version": "2.3.1",
-    "modules": ["1","1","2"],
     "times": "3",
     "days": "18"
 }
