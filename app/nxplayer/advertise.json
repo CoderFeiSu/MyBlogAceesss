@@ -3,5 +3,5 @@
     "version": "2.3.1",
     "times": [3,5],
     "days": [1,4],
-    "interval": [60,120]
+    "interval": [10,120]
 }
