@@ -20,6 +20,6 @@
 ![](./support_files/5.png)
 
 ## 联系我们
-* 邮箱：zhulongfei28@gmail.com
+* 联系邮箱：zhulongfei28@gmail.com
 
 
