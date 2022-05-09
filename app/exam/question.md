@@ -32,7 +32,7 @@
   * SNMP  简单网络管理协议（Simple Network Management Protocol）
 
 * 第9题
-  * SAN：存储区域网（Storage Area Networking）
+  * SAN：存储区域网（Storage Area Networking）,通过光纤交换机连接
 
 * 第10题
   * UPS：不间断电源（Uninterrupted Power Supply）
@@ -64,4 +64,22 @@
   * IMAP全称是Internet Mail Access Protocol，即交互式邮件存取协议，它是跟POP3类似邮件访问标准协议之⼀。
 
 * 第45题
-  * DAS:
+  * DAS:  即直接连接存储（Direct Attached Storage）
+  * NAS:  即网络接入存储（Network Attached Storage）,通过TCP/IP协议访问数据，采用业界标准文件共享协议，FTP、CIFS实现共享。
+
+* 第46题
+  * https://baike.baidu.com/item/COM%2B/6036302?fr=aladdin 百度百科的介绍
+
+* 第49题
+  * 中间件顾名思义就是充当中间人角色，充当代理角色，
+
+* 第53题
+  * DNS域名解析，类似于  姓名和身份证号码 对应关系
+
+* 第65题同48题
+  * 原型法：再不能够全面了解用户需求的情况下使用的方法
+
+* 第68题同53题
+
+* 第77题
+  * 交换机工作在OSI七层的第二层(数据链路层)，IP属于第三层(网络层)
