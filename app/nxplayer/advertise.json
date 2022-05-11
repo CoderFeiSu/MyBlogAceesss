@@ -1,6 +1,6 @@
 {
     "isShowAd": false,
-    "version": "2.4.0",
+    "version": "2.4.1",
     "times": [2,4],
     "days": [2,2],
     "interval": [350,400]
