@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 id="userAgent">userAgent:</h1>
+<h1 id="screenSize"></h1>
+<h1 id="orientation"></h1>
+<h1 id="devicePixelRatio"></h1>
+</body>
+<script>
+    document.getElementById('userAgent').innerText = 'userAgent: ' +  navigator.userAgent
+    document.getElementById('screenSize').innerText = '屏幕宽高: ' + window.screen.height + "  " + window.screen.width
+    document.getElementById('orientation').innerText = '设备方向: ' + navigator.language
+    document.getElementById('devicePixelRatio').innerText = 'devicePixelRatio: ' + window.devicePixelRatio
+</script>
+
+</html>
