@@ -83,3 +83,14 @@
 
 * 第77题
   * 交换机工作在OSI七层的第二层(数据链路层)，IP属于第三层(网络层)
+
+* 第109题
+  * 详细介绍：https://baijiahao.baidu.com/s?id=1715326572593354648&wfr=spider&for=pc
+  * OLTP（on-line transaction processing）为联机事务处理。
+  * OLAP（On-Line Analytical Processing）为联机分析处理。
+
+* 第111题
+  * 详细介绍：http://www.grt-china.com/xinwenzixun/551.html
+  * 高速和快速以太网：100MB/S
+  * 
+
