@@ -91,6 +91,29 @@
 
 * 第111题
   * 详细介绍：http://www.grt-china.com/xinwenzixun/551.html
-  * 高速和快速以太网：100MB/S
-  * 
+  * 快速以太网：10MB/S
+  * 高速以太网：100MB/S
+
+* 第124题
+  * 详细说明：https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/4329290
+  * 点对点协议（Point-to-Point Protocol），宽带拨号
+  * HDLC：高级数据链路协议（High-Level Data Link Protocol）
+  * 异步传输模式（Asynchronous Transfer Mode）；
+  * FDDI:光纤分布式数据接口（Fiber Distributed Data Interface，缩写FDDI）
+
+
+* 第133题
+  * 详细介绍：https://www.jianshu.com/p/293729045ec7
+  * WPAN（Wireless Personal Area Network Communication Technologies），一般指无线个人局域网通讯技术。例如手机蓝牙相互传资料，红外线，10米之内
+  * WLAN Wireless Local Area Network的简称，无线局域网，办公室内使用的网络
+  * WMAN 无线城域网(Wireless Metropolitan Area Network，WMAN)主要用于解决城域网的接入问题，覆盖范围为几千米到几十千米
+  * WWAN Wireless Wide Area Network的简称，无线广域网，WWAN连接地理范围较大，常常是一个国家或是一个洲
+  * 4G: FDD-LTE(国外使用的多)  TD-LTE(国内使用的多)  
+  * 3G:  CDMA技术
+
+* 第137题和第149题
+  * 射频识别（RFID）是 Radio Frequency Identification 的缩写,是自动识别技术的一种，通过无线射频方式进行非接触双向数据通信，
+
+* 第198题
+  * MQ: message queue
 
