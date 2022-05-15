@@ -58,10 +58,15 @@
 * 第15题
   * UML：统一建模语言（Unified Modeling Language）
 
+* 第20题
+  * 调查
+
 * 第33题
   * SMTP(简单邮件传输协议)，主要用来发送邮件
   * POP3(邮局通讯协定第三版)（Post Office Protocol 3）,主要用来接收邮件
   * IMAP全称是Internet Mail Access Protocol，即交互式邮件存取协议，它是跟POP3类似邮件访问标准协议之⼀。
+
+* 第40题
 
 * 第45题
   * DAS:  即直接连接存储（Direct Attached Storage）
@@ -116,4 +121,7 @@
 
 * 第198题
   * MQ: message queue
+
+* 第239题
+  * ISDN（Integrated Service Digital Network）中文名称是综合业务数字网，就是采用的数字交换和数字传输的电信网的简称，中国电信将其俗称为"一线通"。 　
 
