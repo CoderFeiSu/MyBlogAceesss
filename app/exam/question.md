@@ -125,3 +125,10 @@
 * 第239题
   * ISDN（Integrated Service Digital Network）中文名称是综合业务数字网，就是采用的数字交换和数字传输的电信网的简称，中国电信将其俗称为"一线通"。 　
 
+
+* ERP
+* 5G关联88题
+* 用例图，数据图
+* SOA
+* ISDN
+* FDDI物理层还是数据链路层
