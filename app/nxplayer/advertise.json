@@ -1,5 +1,5 @@
 {
-    "isShowAd": true,
+    "isShowAd": false,
     "version": "2.6.0",
     "times": [2,4],
     "days": [2,2],
