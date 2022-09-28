@@ -1,7 +1,7 @@
 {
     "title": "版本更新",
-    "message": "请升级到 1.0.2 以上版本",
-    "value": "MS80JyI=",
+    "message": "请升级到 1.1.0 以上版本",
+    "value": "MS81JyA=",
     "url": "cydia://package/me.afhook.app",
     "showPay": false,
     "codes": ["bee96e703fe38d77","2dae94581a5d32b6","649fd30670d7c4c6"]
