@@ -35,8 +35,8 @@
 ### iOS 15以上系统崩溃问题
 * 原因：本插件依赖于`RocketBootstrap`，BigBoss源里面的`RocketBootstrap`最新版本为`1.0.10~beta1`，目前只支持iOS 14及其以下的系统。
 * 解决：安装`RocketBootstrap`高版本`1.1.0~libhooker2`，以便支持iOS 15及其以上系统
-  * 在`sileo`里面添加源`https://repo.palera.in/`或`https://repo.theodyssey.dev/`，两者任选其一，推荐`https://repo.palera.in/`。源添加完成后，升级(安装)到高版本`1.1.0~libhooker2`
-  * 高版本`RocketBootstrap`安装完成后，需要进行注销，才会生效，若不注销，照样会出现崩溃问题，可以在本插件主界面右上角点击`注销`按钮。
+  * 在`Sileo`里面添加源`https://repo.palera.in/`，如果已存在，请忽略。源添加完成后，升级(安装)到高版本`1.1.0~libhooker2`
+  * 高版本`RocketBootstrap`安装完成后，需要进行注销才会生效，若不注销，照样会出现崩溃问题。可以在本插件主界面右上角点击`注销`按钮，就行注销操作。
 * 提示：高版本安装完成后，<font color="red">一定要注销</font>，<font color="red">一定要注销</font>，<font color="red">一定要注销</font>，重要的事情说三遍 
 
 ## 版本历史
