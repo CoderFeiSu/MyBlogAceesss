@@ -1,8 +1,8 @@
 {
     "title": "版本更新",
-    "message": "请升级到 3.2.0 以上版本 \n技术问题：zhulongfei28@gmail.com",
-    "value": "My82JyA=",
-    "url": "cydia://package/me.lochook.app",
+    "message": "请升级到 4.1.0 以上版本 \n技术问题：zhulongfei28@gmail.com",
+    "value": "NC81JyA=",
+    "url": "package/me.lochook.app",
     "showPay": true,
     "codes": ["aeef3b96160023c7","318ee94a3368b779","514f3097048b26d6","3bd7172ec19db253","32d3e60104b13414",
               "355f843300410685","3bf3b2b7faaa765b","d032f0ae288a5e30","17b37712fe019b36","1ed12cbee1e1e20d",
