@@ -12,6 +12,7 @@ def insert_code(file_path, analytics_lines, adsense_lines):
         print("---------------{}之前写入过，写入结束--------------".format(file_path))
         return;
     analytics_index = target_lines.index('    </head>\n')
+#    analytics_index = target_lines.index('</script></head><body for="html-export">\n')
     target_lines.insert(analytics_index, ''.join(analytics_lines))
     target_file = open(file_path, 'w')
     target_file.writelines(''.join(target_lines))
