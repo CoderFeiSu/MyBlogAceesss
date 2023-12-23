@@ -8,8 +8,12 @@
         function save_file() {                                      
             // var blob = new Blob(["欢迎访问 hangge.com"], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
             // https://diffit.cn/test02.wps
-            var blob = new Blob(["欢迎访问 hangge.com"], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
-            saveAs(blob, "test02.doc");
+            // application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+            // var blob = new Blob(["欢迎访问 hangge.com"], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            // saveAs(blob, "test02");
+
+            var blob = new Blob(["欢迎访问 hangge.com"], { type: 'application/pdf' });
+            saveAs(blob, 'test.pdf'); 
 
         }
     </script>
