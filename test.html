@@ -5,9 +5,11 @@
     <title></title>
     <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" charset="utf-8"></script>
     <script language="javascript">
-        function save_file() {
-            var blob = new Blob(["欢迎访问 hangge.com"], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, "文件导出测试.txt");
+        function save_file() {                                      
+            // var blob = new Blob(["欢迎访问 hangge.com"], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            // https://diffit.cn/test02.wps
+            var blob = new Blob(["欢迎访问 hangge.com"], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            saveAs(blob, "test02.doc");
 
         }
     </script>
