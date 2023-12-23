@@ -11,14 +11,17 @@
             // application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
             // var blob = new Blob(["欢迎访问 hangge.com"], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
             // saveAs(blob, "test02");
+            // var blob = new Blob(["欢迎访问 hangge.com"], { type: 'application/pdf' });
+            // saveAs(blob, 'test.pdf'); 
 
-            var blob = new Blob(["欢迎访问 hangge.com"], { type: 'application/pdf' });
-            saveAs(blob, 'test.pdf'); 
-
+            var filename = "myfile.csv";
+            var s = "my csv text content";
+            var blob = new Blob([s], {type: "text/csv;charset=utf-8"});
+            var filesaver = saveAs(blob,filename);
         }
     </script>
   </head>
   <body>
-    <input type="button" class="btn btn-success" onclick="save_file();" value="保存文本99"/>
+    <input type="button" class="btn btn-success" onclick="save_file();" value="保存文本"/>
   </body>
 </html>
