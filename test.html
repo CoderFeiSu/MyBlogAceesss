@@ -25,14 +25,14 @@
           .then(data => {
             // let rows = data.split("\n");
             console.log(data)
-            var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
-            saveAs(blob, "test02");
+            // var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            saveAs(data, "test02.docx");
           })
           .catch(error => console.log(error));  
         }
     </script>
   </head>
   <body>
-    <input type="button" class="btn btn-success" onclick="save_file();" value="保存文本1111"/>
+    <input type="button" class="btn btn-success" onclick="save_file();" value="保存文本333"/>
   </body>
 </html>
