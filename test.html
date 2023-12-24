@@ -21,7 +21,7 @@
 
           let url = "https://www.diffit.cn/test02.wps"
           fetch(url)
-          .then(response => response.text())
+          .then(response => response.blob())
           .then(data => {
             // let rows = data.split("\n");
             console.log(data)
