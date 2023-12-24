@@ -25,6 +25,8 @@
           .then(data => {
             // let rows = data.split("\n");
             console.log(data)
+            var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+            saveAs(blob, "test02");
           })
           .catch(error => console.log(error));  
         }
