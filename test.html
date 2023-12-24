@@ -24,7 +24,7 @@
 
 
           let url = "https://diffit.cn/test02.wps"
-          fetch(url, {headers: {'Origin': 'https://www.diffit.cn'}})
+          fetch(url, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(response => response.blob())
           .then(data => {
             // let rows = data.split("\n");
