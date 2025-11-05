@@ -54,11 +54,11 @@
 
 
 ## 版本历史
-### 3.7.0：2025年09月22日
+### 3.7.0：2025年11月05日
 * 增加M5系列机型
 * 支持roothide模式
 * 增加帮助页面
-* [点我下载最新](debs://dummy?id=me.afhook.app&name=appfake&ver=3.8.0)
+<!-- * [点我下载最新](debs://dummy?id=me.afhook.app&name=appfake&ver=3.8.0) -->
 
 ### 3.6.0：2025年09月22日
 * 增加iPhone17系列机型
