@@ -10,9 +10,9 @@
   * 在iOS 14及其以下系统，Cydia内置BigBoss源，若BigBoss源被删除，点击底部标签栏`cydia`->`更多软件源`->找到DEFAULT SOURCES下的`BigBoss`进行添加。
   * 在iOS 15及其以上系统，若Sileo等插件商店没有内置BigBoss源，需要手动添加`https://apt.thebigboss.org`源。
 * 如有技术问题，请发邮件到`zhulongfei28@gmail.com`。更多插件，请访问：
-  * [定个位-专业的位置修改软件](http://cydia.saurik.com/package/me.lochook.app)
-  * [改个步数-专业的步数修改软件](http://cydia.saurik.com/package/me.health.app)
-  * [改个应用-专业的应用修改软件](http://cydia.saurik.com/package/me.afhook.app)
+  * [定个位-专业的位置修改软件](tweak://package/me.lochook.app)
+  * [改个步数-专业的步数修改软件](tweak://package/me.health.app)
+  * [改个应用-专业的应用修改软件](tweak://package/me.afhook.app)
 
 ## 使用说明
 ### 开启功能
@@ -33,6 +33,13 @@
 * 当发现位置有偏差时，需要改变模式，选中对应的模式后，切换到应用，位置将会发生改变。
 
 ## 版本历史
+### 5.3.1：2025年11月06日
+* 修复bug，提高兼容性
+* [点我下载最新](debs://dummy?id=me.lochook.app&name=location&ver=5.4.0)
+
+### 5.3.0：2025年01月09日
+* 修复bug，提高兼容性
+
 ### 5.2.0：2024年12月16日
 * 修复bug，提高兼容性
 
