@@ -3,16 +3,13 @@
 ## 插件说明
 * 修改系统自带健康App中的步数，完美达到让第三方App读取修改后的数据，数据可以随意修改，简单易操作！本插件仅供交流学习，切勿非法使用！
 * 需要第三方App开启相应的权限。如果没有开启权限，不管是否使用插件，三方App都不能读取健康中的数据。
-* 如有技术问题，请发邮件到`zhulongfei28@gmail.com`，谢谢。
-* 更多插件，请访问：
-  * [定个位-专业的位置修改软件](http://cydia.saurik.com/package/me.lochook.app)
-  * [改个步数-专业的步数修改软件](http://cydia.saurik.com/package/me.health.app)
-  * [改个应用-专业的应用修改软件](http://cydia.saurik.com/package/me.afhook.app)
-
-## 安装说明
-* BigBoss源是Cydia内置源，直接在搜索框输入`改个步数`就可以进行搜索。如果搜索不到，首先把BigBoss源删除，然后重新添加。
-* 如果BigBoss源被删除，需要如下操作：点击`Cydia` App->点击底部标签栏`cydia`->点击`更多软件源`->找到DEFAULT SOURCES下的`BigBoss`进行添加。
-* 有可能在其它源上也看到这个插件，不过每次会首先在BigBoss上更新。
+* 插件托管在BigBoss源，添加源后，直接在插件商店(Cydia或Sileo)搜索框输入`改个步数`就可以进行安装
+  * 在iOS 14及其以下系统，Cydia内置BigBoss源，若BigBoss源被删除，点击底部标签栏`cydia`->`更多软件源`->找到DEFAULT SOURCES下的`BigBoss`进行添加。
+  * 在iOS 15及其以上系统，若Sileo等插件商店没有内置BigBoss源，需要手动添加`https://apt.thebigboss.org`源。
+* 如有技术问题，请发邮件到`zhulongfei28@gmail.com`。更多插件，请访问：
+  * [定个位-专业的位置修改软件](tweak://package/me.lochook.app)
+  * [改个步数-专业的步数修改软件](tweak://package/me.health.app)
+  * [改个应用-专业的应用修改软件](tweak://package/me.afhook.app)
 
 ## 使用说明
 * 打开系统自带的`健康`App，就是下面这个图标，双击打开
@@ -23,18 +20,14 @@
 ![](./support_files/HowToUseHealthAddSteps-03.png)
 * 其它系统版本，请参考以上两个版本进行操作。
 
-<!-- ## 付费说明
-* 不管是否付费都可以使用本插件，区别是
-  * 普通用户需要按提示进行操作，每次操作时间为30s-90s，每天使用次数有限。
-  * 付费用户不用按提示进行操作，点击即生效，每天无限次使用。
-* 更多说明请查看`付费操作`页面 -->
-<!-- * 付费成功后需要<font color="red">发送邮件</font>，付费成功后需要<font color="red">发送邮件</font>，付费成功后需要<font color="red">发送邮件</font>，重要的事情说三遍，更多说明请查看`付费操作`页面 -->
-
 ## 注意事项
 * 从安全角度考虑，请不要使用抓包软件(Charles、Fiddler等)或VPN软件(Shadowsocks、Stream等)。如果使用了，是不能正常添加步数的，切记。
 * 不要一下添加很多步数，要分时段添加。经过测试，正常人步行速度在100-150步。如果添加过多，后果自负。
 
 ## 版本历史
+### 3.2.0：2026年01月02日
+* 优化性能，提高兼容性
+
 ### 3.1.0：2024年08月10日
 * 优化性能，提高兼容性
 
