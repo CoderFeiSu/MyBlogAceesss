@@ -28,7 +28,7 @@
 ### 3.2.0：2026年01月02日
 * 优化性能，提高兼容性
 * 增加帮助页面
-* [点我下载最新](debs://dummy?id=me.health.app&name=health&ver=3.2.0)
+<!-- * [点我下载最新](debs://dummy?id=me.health.app&name=health&ver=3.2.0) -->
 
 ### 3.1.0：2024年08月10日
 * 优化性能，提高兼容性
