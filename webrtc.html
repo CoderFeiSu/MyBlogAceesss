@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WKWebView WebRTC Call</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+      background: #f5f7fb;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .videos {
+      display: grid;
+      gap: 10px;
+    }
+
+    video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #101624;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .panel {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid #d8deea;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .peer-id {
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #cfd7e6;
+      border-radius: 8px;
+      background: #f8fafd;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    input {
+      width: 100%;
+      height: 44px;
+      padding: 0 12px;
+      border: 1px solid #c8d0df;
+      border-radius: 8px;
+      font-size: 16px;
+      background: #ffffff;
+      color: #172033;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #1769e0;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    button.secondary {
+      background: #e7ecf5;
+      color: #172033;
+    }
+
+    button.danger {
+      background: #c93a3a;
+    }
+
+    button:disabled {
+      opacity: 0.48;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .status {
+      min-height: 72px;
+      max-height: 144px;
+      overflow: auto;
+      padding: 10px 12px;
+      border: 1px solid #d8deea;
+      border-radius: 8px;
+      background: #ffffff;
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root,
+      body {
+        background: #10131a;
+        color: #f0f4fb;
+      }
+
+      .panel,
+      .status {
+        border-color: #303849;
+        background: #171c26;
+      }
+
+      .peer-id,
+      input {
+        border-color: #3a4355;
+        background: #111722;
+        color: #f0f4fb;
+      }
+
+      button.secondary {
+        background: #303849;
+        color: #f0f4fb;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>WebRTC 通话测试</h1>
+
+    <section class="videos">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <video id="localVideo" autoplay muted playsinline></video>
+    </section>
+
+    <section class="panel">
+      <button id="startButton" type="button">开启摄像头和麦克风</button>
+
+      <div class="row">
+        <div id="myPeerId" class="peer-id">正在连接 PeerJS...</div>
+        <button id="copyButton" class="secondary" type="button" disabled>复制</button>
+      </div>
+
+      <input id="targetPeerId" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入对方 Peer ID">
+
+      <div class="actions">
+        <button id="callButton" type="button" disabled>呼叫</button>
+        <button id="hangupButton" class="danger" type="button" disabled>挂断</button>
+      </div>
+
+      <button id="answerButton" class="secondary" type="button" disabled>接听来电</button>
+    </section>
+
+    <div id="status" class="status">准备中...</div>
+  </main>
+
+  <script>
+    const PEERJS_CDNS = [
+      "https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js",
+      "https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"
+    ];
+
+    const state = {
+      peer: null,
+      localStream: null,
+      currentCall: null,
+      pendingCall: null,
+      myPeerId: ""
+    };
+
+    const els = {
+      localVideo: document.getElementById("localVideo"),
+      remoteVideo: document.getElementById("remoteVideo"),
+      startButton: document.getElementById("startButton"),
+      copyButton: document.getElementById("copyButton"),
+      callButton: document.getElementById("callButton"),
+      hangupButton: document.getElementById("hangupButton"),
+      answerButton: document.getElementById("answerButton"),
+      myPeerId: document.getElementById("myPeerId"),
+      targetPeerId: document.getElementById("targetPeerId"),
+      status: document.getElementById("status")
+    };
+
+    function log(message) {
+      const time = new Date().toLocaleTimeString();
+      els.status.textContent = `[${time}] ${message}\n` + els.status.textContent;
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.webrtcLog) {
+        window.webkit.messageHandlers.webrtcLog.postMessage(message);
+      }
+    }
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function loadPeerJS() {
+      let lastError;
+      for (const src of PEERJS_CDNS) {
+        try {
+          await loadScript(src);
+          log(`PeerJS 已加载: ${src}`);
+          return;
+        } catch (error) {
+          lastError = error;
+        }
+      }
+      throw lastError || new Error("PeerJS 加载失败");
+    }
+
+    async function startMedia() {
+      if (state.localStream) {
+        return state.localStream;
+      }
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("当前 WebView 不支持 getUserMedia");
+      }
+
+      state.localStream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: {
+          facingMode: "user",
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        }
+      });
+
+      els.localVideo.srcObject = state.localStream;
+      els.startButton.textContent = "摄像头和麦克风已开启";
+      els.startButton.disabled = true;
+      log("本地摄像头和麦克风已开启");
+      return state.localStream;
+    }
+
+    function bindCall(call) {
+      if (state.currentCall && state.currentCall !== call) {
+        state.currentCall.close();
+      }
+
+      state.currentCall = call;
+      els.hangupButton.disabled = false;
+      log(`正在连接: ${call.peer}`);
+
+      call.on("stream", remoteStream => {
+        els.remoteVideo.srcObject = remoteStream;
+        log("已收到对方音视频流");
+      });
+
+      call.on("close", () => {
+        if (state.currentCall === call) {
+          state.currentCall = null;
+          els.remoteVideo.srcObject = null;
+          els.hangupButton.disabled = true;
+          log("通话已结束");
+        }
+      });
+
+      call.on("error", error => {
+        log(`通话错误: ${error.message || error}`);
+      });
+    }
+
+    async function answerPendingCall() {
+      if (!state.pendingCall) {
+        return;
+      }
+
+      const call = state.pendingCall;
+      state.pendingCall = null;
+      els.answerButton.disabled = true;
+
+      const stream = await startMedia();
+      call.answer(stream);
+      bindCall(call);
+      log(`已接听: ${call.peer}`);
+    }
+
+    function initPeer() {
+      state.peer = new Peer({
+        debug: 2,
+        config: {
+          iceServers: [
+            { urls: "stun:stun.l.google.com:19302" }
+          ]
+        }
+      });
+
+      state.peer.on("open", id => {
+        state.myPeerId = id;
+        els.myPeerId.textContent = id;
+        els.copyButton.disabled = false;
+        els.callButton.disabled = false;
+        log(`我的 Peer ID: ${id}`);
+      });
+
+      state.peer.on("call", call => {
+        log(`收到来电: ${call.peer}`);
+        state.pendingCall = call;
+        els.answerButton.disabled = false;
+
+        if (state.localStream) {
+          answerPendingCall().catch(error => log(`接听失败: ${error.message || error}`));
+        } else {
+          log("请先点“开启摄像头和麦克风”，再点“接听来电”");
+        }
+      });
+
+      state.peer.on("disconnected", () => {
+        log("PeerJS 信令已断开，正在重连");
+        state.peer.reconnect();
+      });
+
+      state.peer.on("error", error => {
+        log(`PeerJS 错误: ${error.message || error}`);
+      });
+    }
+
+    async function callPeer() {
+      const targetId = els.targetPeerId.value.trim();
+      if (!targetId) {
+        log("请输入对方 Peer ID");
+        return;
+      }
+      if (targetId === state.myPeerId) {
+        log("不能呼叫自己的 Peer ID");
+        return;
+      }
+
+      const stream = await startMedia();
+      const call = state.peer.call(targetId, stream);
+      bindCall(call);
+    }
+
+    function hangup() {
+      if (state.currentCall) {
+        state.currentCall.close();
+      }
+      state.currentCall = null;
+      state.pendingCall = null;
+      els.remoteVideo.srcObject = null;
+      els.answerButton.disabled = true;
+      els.hangupButton.disabled = true;
+      log("已挂断");
+    }
+
+    async function copyPeerId() {
+      if (!state.myPeerId) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(state.myPeerId);
+        log("Peer ID 已复制");
+      } catch (error) {
+        els.targetPeerId.value = state.myPeerId;
+        els.targetPeerId.select();
+        log("复制失败，已把 Peer ID 放入输入框，可手动复制");
+      }
+    }
+
+    els.startButton.addEventListener("click", () => {
+      startMedia().catch(error => log(`开启摄像头失败: ${error.message || error}`));
+    });
+
+    els.callButton.addEventListener("click", () => {
+      callPeer().catch(error => log(`呼叫失败: ${error.message || error}`));
+    });
+
+    els.answerButton.addEventListener("click", () => {
+      answerPendingCall().catch(error => log(`接听失败: ${error.message || error}`));
+    });
+
+    els.hangupButton.addEventListener("click", hangup);
+    els.copyButton.addEventListener("click", copyPeerId);
+
+    window.addEventListener("beforeunload", () => {
+      if (state.currentCall) {
+        state.currentCall.close();
+      }
+      if (state.peer) {
+        state.peer.destroy();
+      }
+      if (state.localStream) {
+        state.localStream.getTracks().forEach(track => track.stop());
+      }
+    });
+
+    loadPeerJS()
+      .then(initPeer)
+      .catch(error => log(`PeerJS 加载失败: ${error.message || error}`));
+  </script>
+</body>
+</html>
