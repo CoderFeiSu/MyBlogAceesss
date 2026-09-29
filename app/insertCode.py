@@ -13,7 +13,7 @@ def insert_code(file_path, analytics_lines, adsense_lines):
         return;
     # analytics_index = target_lines.index('    </head>\n')
 #    print(target_lines)
-    analytics_index = target_lines.index('</script></head><body for="html-export">\n')
+    analytics_index = target_lines.index('    <body for="html-export">\n')
     target_lines.insert(analytics_index, ''.join(analytics_lines))
     target_file = open(file_path, 'w')
     target_file.writelines(''.join(target_lines))
